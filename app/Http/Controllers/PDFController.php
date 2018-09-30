@@ -24,7 +24,7 @@ class PDFController extends Controller
             'characters' => 'required|string|min:1',
             'strokeHelp' => 'sometimes|boolean',
             'columns'    => 'required|int|min:6|max:20',
-//            'lines'      => 'required|int|min:6|max:20',
+            'lines'      => 'required|int|min:1|max:20',
             'models'     => 'required|int|min:0|max:20',
         ]);
 

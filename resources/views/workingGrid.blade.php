@@ -72,15 +72,15 @@
 						@endif
 					</div>
 
-					{{--<div class="form-group input-group">--}}
-					{{--<div class="input-group-prepend">--}}
-					{{--<label class="input-group-text" for="lines">lines per page</label>--}}
-					{{--</div>--}}
-					{{--<input class="form-control {{ $errors->has('lines') ? 'is-invalid' : '' }}" type="number" min="1" max="20" id="lines" name="lines" value="{{ old('lines', 10) }}">--}}
-					{{--@if($errors->has('lines'))--}}
-					{{--<div class="invalid-feedback">{{ $errors->first('lines') }}</div>--}}
-					{{--@endif--}}
-					{{--</div>--}}
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="lines">lines per page</label>
+						</div>
+						<input class="form-control {{ $errors->has('lines') ? 'is-invalid' : '' }}" type="number" min="1" max="20" id="lines" name="lines" value="{{ old('lines', 10) }}">
+						@if($errors->has('lines'))
+							<div class="invalid-feedback">{{ $errors->first('lines') }}</div>
+						@endif
+					</div>
 
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
