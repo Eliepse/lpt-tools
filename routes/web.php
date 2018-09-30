@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use Illuminate\Support\Facades\Route;
+
+Route::view('/', 'welcome');
+
+Route::view('/workingGrid', 'workingGrid')->name('workingGrid');
+
+Route::get('/workingGrid/pdf', 'PDFController@workingGridPDF')->name('workingGrid.pdf');

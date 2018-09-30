@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66ca7343889332c2b8ecca11c251430c",
+    "content-hash": "607c06b2ee7b879b51624baa3b373c88",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -265,6 +265,48 @@
                 "validator"
             ],
             "time": "2018-09-25T20:47:26+00:00"
+        },
+        {
+            "name": "eliepse/working-grid-pdf",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eliepse/working-grid-pdf.git",
+                "reference": "65acaee01edcd787cbc71e3d48d4ed97a1fa44dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/65acaee01edcd787cbc71e3d48d4ed97a1fa44dc",
+                "reference": "65acaee01edcd787cbc71e3d48d4ed97a1fa44dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "tecnickcom/tcpdf": "^6.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eliepse\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eliepse",
+                    "email": "contact@eliepse.fr"
+                }
+            ],
+            "description": "Library to easily create working grids and export them as PDF",
+            "keywords": [
+                "Chinese",
+                "pdf",
+                "working grid"
+            ],
+            "time": "2018-09-30T16:40:34+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2199,6 +2241,68 @@
                 "dump"
             ],
             "time": "2018-09-18T12:45:12+00:00"
+        },
+        {
+            "name": "tecnickcom/tcpdf",
+            "version": "6.2.25",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/TCPDF.git",
+                "reference": "a5135e2cf02f8c935b71e9e7d676f0f1d31b1b9d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/a5135e2cf02f8c935b71e9e7d676f0f1d31b1b9d",
+                "reference": "a5135e2cf02f8c935b71e9e7d676f0f1d31b1b9d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "config",
+                    "include",
+                    "tcpdf.php",
+                    "tcpdf_parser.php",
+                    "tcpdf_import.php",
+                    "tcpdf_barcodes_1d.php",
+                    "tcpdf_barcodes_2d.php",
+                    "include/tcpdf_colors.php",
+                    "include/tcpdf_filters.php",
+                    "include/tcpdf_font_data.php",
+                    "include/tcpdf_fonts.php",
+                    "include/tcpdf_images.php",
+                    "include/tcpdf_static.php",
+                    "include/barcodes/datamatrix.php",
+                    "include/barcodes/pdf417.php",
+                    "include/barcodes/qrcode.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",
+            "homepage": "http://www.tcpdf.org/",
+            "keywords": [
+                "PDFD32000-2008",
+                "TCPDF",
+                "barcodes",
+                "datamatrix",
+                "pdf",
+                "pdf417",
+                "qrcode"
+            ],
+            "time": "2018-09-23T07:52:24+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
