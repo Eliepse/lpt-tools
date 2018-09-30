@@ -46,9 +46,16 @@ class PDFController extends Controller
 
         $grid->setModels($request->get('models', 3));
 
-        foreach ($graph->whereIn('character', $characters, true) as $character) {
+//        $graph->whereIn('character', $characters, true)
 
-            $grid->addCharacter(new Character($character->character, $character->strokes));
+        foreach ($characters as $character) {
+
+            if ($graphic = $graph->firstWhere('character', '===', $character)) {
+
+                $grid->addCharacter(new Character($graphic->character, $graphic->strokes));
+
+            }
+
 
         }
 
