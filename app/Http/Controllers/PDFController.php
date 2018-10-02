@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Graphic;
-use Eliepse\Character;
-use Eliepse\PDFWorkingGrid;
+use App\WorkginGrids\LPTGrid;
+use Eliepse\WorkingGrid\Character;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class PDFController extends Controller
     {
 
         $this->validate($request, [
-            'title'      => 'required|string|nullable|max:50',
+            'className'  => 'required|string|max:50',
             'characters' => 'required|string|min:1',
             'strokeHelp' => 'sometimes|boolean',
             'columns'    => 'required|int|min:6|max:20',
@@ -37,14 +37,14 @@ class PDFController extends Controller
             ->whereIn('character', $characters)
             ->get();
 
-        $grid = new PDFWorkingGrid(
-            $request->get('title'),
+        $grid = new LPTGrid(
+            "LPT 三语宝贝" . $request->get('className', " "),
             $request->get('strokeHelp', false),
             $request->get('columns', 9),
             $request->get('lines', null)
         );
 
-        $grid->setModels($request->get('models', 3));
+        $grid->models = $request->get('models', 3);
 
 //        $graph->whereIn('character', $characters, true)
 
@@ -59,7 +59,7 @@ class PDFController extends Controller
 
         }
 
-        $grid->output();
+        $grid->print();
 
     }
 

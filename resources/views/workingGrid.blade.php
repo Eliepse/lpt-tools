@@ -8,11 +8,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<link rel="icon" href="../../../../favicon.ico">
 
-	<title>Signin Template for Bootstrap</title>
+	<title>Working grid creator - LPT</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="/css/app.css" rel="stylesheet">
@@ -28,13 +25,13 @@
 
 			<div class="card-body">
 
-				<h1 class="card-title">Working grid</h1>
+				<h1 class="card-title">Working grid creator</h1>
 				<p class="card-text">This tool allow you to easily create a working grid for chinese characters, with or without stroke order indication.</p>
 				<form action="{{ route('workingGrid.pdf') }}" method="GET">
 
 					<div class="form-group">
-						<label for="characters">Title</label>
-						<input type="text" id="characters" name="title" class="form-control" placeholder="Working grid - level A2" required autofocus maxlength="50" value="{{ old('title') }}">
+						<label for="className">Class name</label>
+						<input type="text" id="className" name="className" class="form-control" placeholder="学前班, ..." required autofocus maxlength="50" value="{{ old('className') }}">
 					</div>
 
 					<div class="form-group">
