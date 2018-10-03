@@ -13,10 +13,10 @@ class LPTGrid extends WorkingGrid implements CustomizableHeader
 {
 
     public $headerHeight = 20;
-    protected $pagePaddings = [5, 20, 10, 30];
+    public $pagePaddings = [5, 20, 10, 30];
 
 
-    public function header(Mpdf $pdf, PageInfo $infos)
+    public function header(Mpdf $pdf, PageInfo $infos): void
     {
         // - titre du document : LPT 三语宝贝 学前班第_课  姓名:_ 第_周
         $pdf->SetFontSize(16);
