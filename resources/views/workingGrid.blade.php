@@ -47,7 +47,7 @@
 
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
-							<label class="input-group-text" for="strokeHelp">with stroke order</label>
+							<label class="input-group-text" for="strokeHelp">With stroke order</label>
 						</div>
 						<div class="input-group-append">
 							<div class="input-group-text">
@@ -61,7 +61,7 @@
 
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
-							<label class="input-group-text" for="columns">cells per line</label>
+							<label class="input-group-text" for="columns">Cells per line</label>
 						</div>
 						<input class="form-control {{ $errors->has('columns') ? 'is-invalid' : '' }}" type="number" min="6" max="20" id="columns" name="columns" value="{{ old('columns', 9) }}">
 						@if($errors->has('columns'))
@@ -71,7 +71,7 @@
 
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
-							<label class="input-group-text" for="lines">lines per page</label>
+							<label class="input-group-text" for="lines">Lines per page</label>
 						</div>
 						<input class="form-control {{ $errors->has('lines') ? 'is-invalid' : '' }}" type="number" min="1" max="20" id="lines" name="lines" value="{{ old('lines', 10) }}">
 						@if($errors->has('lines'))
@@ -81,11 +81,21 @@
 
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
-							<label class="input-group-text" for="models">gray characters</label>
+							<label class="input-group-text" for="models">Gray characters</label>
 						</div>
 						<input class="form-control {{ $errors->has('models') ? 'is-invalid' : '' }}" type="number" min="0" max="20" id="models" name="models" value="{{ old('models', 3) }}">
 						@if($errors->has('models'))
 							<div class="invalid-feedback">{{ $errors->first('models') }}</div>
+						@endif
+					</div>
+
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="emptyLines">Empty lines</label>
+						</div>
+						<input class="form-control {{ $errors->has('emptyLines') ? 'is-invalid' : '' }}" type="number" min="0" max="20" id="emptyLines" name="emptyLines" value="{{ old('emptyLines', 0) }}">
+						@if($errors->has('emptyLines'))
+							<div class="invalid-feedback">{{ $errors->first('emptyLines') }}</div>
 						@endif
 					</div>
 

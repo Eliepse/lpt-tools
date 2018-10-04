@@ -26,10 +26,12 @@ class PDFController extends Controller
             'columns'    => 'required|int|min:6|max:20',
             'lines'      => 'required|int|min:1|max:20',
             'models'     => 'required|int|min:0|max:20',
+            'emptyLines' => 'required|int|min:0|max:20',
         ]);
 
 
         $characters = $this->mbStringToArray($request->get('characters'));
+        $emptyLines = intval($request->get('emptyLines', 0));
 
         /** @var Collection $graph */
         /** @noinspection PhpUndefinedMethodInspection */
@@ -46,8 +48,6 @@ class PDFController extends Controller
 
         $grid->models = $request->get('models', 3);
 
-//        $graph->whereIn('character', $characters, true)
-
         foreach ($characters as $character) {
 
             if ($graphic = $graph->firstWhere('character', '===', $character)) {
@@ -56,6 +56,11 @@ class PDFController extends Controller
 
             }
 
+        }
+
+        for ($i = 0; $i < $emptyLines; $i++) {
+
+            $grid->addCharacter(new Character("", []));
 
         }
 
