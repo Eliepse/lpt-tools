@@ -13,7 +13,12 @@ class LPTGrid extends WorkingGrid implements CustomizableHeader
 {
 
     public $headerHeight = 20;
+
     public $pagePaddings = [5, 20, 10, 30];
+
+    public $modelColor = "#9e9e9e";
+
+    public $guideColor = "#8c8c8c";
 
 
     public function header(Mpdf $pdf, PageInfo $infos): void
