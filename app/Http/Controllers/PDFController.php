@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Graphic;
-use App\WorkginGrids\LPTGrid;
+use App\WorkginGrids\GridTemplate;
+use App\WorkginGrids\GridTemplateTutorial;
 use Eliepse\WorkingGrid\Character;
+use Eliepse\WorkingGrid\Elements\Word;
+use Eliepse\WorkingGrid\WorkingGrid;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -29,42 +32,63 @@ class PDFController extends Controller
             'emptyLines' => 'required|int|min:0|max:20',
         ]);
 
+        $requestCharacters = trim($request->get('characters'));
+        $words = [];
 
-        $characters = $this->mbStringToArray($request->get('characters'));
-        $emptyLines = intval($request->get('emptyLines', 0));
+
+        preg_match_all("/\p{Han}/u", $requestCharacters, $charactersRaw);
+        preg_match_all("/\p{Han}+/u", $requestCharacters, $wordsRaw);
+
+        $charactersRaw = $charactersRaw[0];
+        $wordsRaw = count($wordsRaw[0]) > 1 ? $wordsRaw[0] : $charactersRaw;
 
         /** @var Collection $graph */
         /** @noinspection PhpUndefinedMethodInspection */
         $graph = Graphic::select(['character', 'strokes'])
-            ->whereIn('character', $characters)
+            ->whereIn('character', $charactersRaw)
             ->get();
 
-        $grid = new LPTGrid(
-            "LPT 三语宝贝" . $request->get('className', " "),
-            $request->get('strokeHelp', false),
-            $request->get('columns', 9),
-            $request->get('lines', null)
-        );
 
-        $grid->models = $request->get('models', 3);
+        // Create content
+        foreach ($wordsRaw as $wordRaw) {
 
-        foreach ($characters as $character) {
+            $word = new Word([]);
 
-            if ($graphic = $graph->firstWhere('character', '===', $character)) {
+            foreach ($this->mbStringToArray($wordRaw) as $characterRaw) {
 
-                $grid->addCharacter(new Character($graphic->character, $graphic->strokes));
+                if ($characterGraph = $graph->firstWhere('character', '===', $characterRaw)) {
+
+                    $word->addDrawable(new Character($characterGraph->character, $characterGraph->strokes));
+
+                }
+
+            }
+
+            if (count($word)) {
+
+                $words[] = $word;
 
             }
 
         }
 
-        for ($i = 0; $i < $emptyLines; $i++) {
+        // Add empty lines
+        for ($i = 0; $i < intval($request->get('emptyLines', 0)); $i++)
+            $words[] = new Word([new Character("", [])]);
 
-            $grid->addCharacter(new Character("", []));
+        // Instanciate the correct template
+        $template = $request->get('strokeHelp', false)
+            ? new GridTemplateTutorial()
+            : new GridTemplate();
 
-        }
+        // Configure the template
+        $template->title = "LPT 三语宝贝" . $request->get('className', " ");
+        $template->columns_amount = $request->get('columns', 9);
+        $template->row_max = $request->get('lines', null);
+        $template->model_amount = $request->get('models', 3);
 
-        $grid->print();
+        // Render the template
+        WorkingGrid::inlinePrint($template, $words);
 
     }
 

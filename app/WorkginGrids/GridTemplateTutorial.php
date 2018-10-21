@@ -4,21 +4,22 @@
 namespace App\WorkginGrids;
 
 
-use Eliepse\WorkingGrid\CustomizableHeader;
 use Eliepse\WorkingGrid\PageInfo;
-use Eliepse\WorkingGrid\WorkingGrid;
+use Eliepse\WorkingGrid\Template\CustomizableHeader;
+use Eliepse\WorkingGrid\Template\Template;
+use Eliepse\WorkingGrid\Template\WithDrawingTutorial;
 use Mpdf\Mpdf;
 
-class LPTGrid extends WorkingGrid implements CustomizableHeader
+class GridTemplateTutorial extends Template implements CustomizableHeader, WithDrawingTutorial
 {
 
-    public $headerHeight = 20;
+    public $header_height = 25;
 
-    public $pagePaddings = [5, 20, 10, 30];
+    public $paddings = [5, 20, 10, 30];
 
-    public $modelColor = "#9e9e9e";
+    public $model_color = "#9e9e9e";
 
-    public $guideColor = "#8c8c8c";
+    public $guide_color = "#8c8c8c";
 
 
     public function header(Mpdf $pdf, PageInfo $infos): void
