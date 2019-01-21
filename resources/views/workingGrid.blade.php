@@ -42,6 +42,23 @@
 						@endif
 					</div>
 
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="month">Month</label>
+							<input type="text" id="month" name="month" class="form-control mb-3 {{ $errors->has('month') ? 'is-invalid' : '' }}" value="{{ old('month', \Carbon\Carbon::now()->month) }}" required>
+							@if($errors->has('month'))
+								<div class="invalid-feedback">{{ $errors->first('month') }}</div>
+							@endif
+						</div>
+						<div class="form-group col-md-6">
+							<label for="day">Day</label>
+							<input type="text" id="day" name="day" class="form-control mb-3 {{ $errors->has('day') ? 'is-invalid' : '' }}" value="{{ old('day', \Carbon\Carbon::now()->day) }}" required>
+							@if($errors->has('day'))
+								<div class="invalid-feedback">{{ $errors->first('day') }}</div>
+							@endif
+						</div>
+					</div>
+
 					<p class="text-muted mb-0">Options</p>
 					<hr class="mt-0">
 

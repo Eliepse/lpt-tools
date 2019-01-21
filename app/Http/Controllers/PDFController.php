@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Graphic;
 use App\WorkginGrids\GridTemplate;
 use App\WorkginGrids\GridTemplateTutorial;
+use Carbon\Carbon;
 use Eliepse\WorkingGrid\Character;
 use Eliepse\WorkingGrid\Elements\Word;
 use Eliepse\WorkingGrid\WorkingGrid;
@@ -23,12 +24,14 @@ class PDFController extends Controller
     {
 
         $this->validate($request, [
-            'className'  => 'required|string|max:50',
+            'className' => 'required|string|max:50',
             'characters' => 'required|string|min:1',
+            'day' => 'required|integer|between:1,31',
+            'month' => 'required|integer|between:1,12',
             'strokeHelp' => 'sometimes|boolean',
-            'columns'    => 'required|int|min:6|max:20',
-            'lines'      => 'required|int|min:1|max:20',
-            'models'     => 'required|int|min:0|max:20',
+            'columns' => 'required|int|min:6|max:20',
+            'lines' => 'required|int|min:1|max:20',
+            'models' => 'required|int|min:0|max:20',
             'emptyLines' => 'required|int|min:0|max:20',
         ]);
 
@@ -86,6 +89,8 @@ class PDFController extends Controller
         $template->columns_amount = $request->get('columns', 9);
         $template->row_max = $request->get('lines', null);
         $template->model_amount = $request->get('models', 3);
+        $template->day = $request->get('day');
+        $template->month = $request->get('month');
 
         // Render the template
         WorkingGrid::inlinePrint($template, $words);

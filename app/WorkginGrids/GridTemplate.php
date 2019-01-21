@@ -20,21 +20,24 @@ class GridTemplate extends Template implements CustomizableHeader
 
     public $guide_color = "#8c8c8c";
 
+    public $day = " ";
+
+    public $month = " ";
 
     public function header(Mpdf $pdf, PageInfo $infos): void
     {
-        // - titre du document : LPT 三语宝贝 学前班第_课  姓名:_ 第_周
+        // - titre du document : LPT 三语宝贝 学前班  姓名:_
         $pdf->SetFontSize(16);
 
-        $pdf->Cell(210, 0, $this->title . "第 课", false, false, 'C', 0, 0, 0, '', 'T', 'T');
+        $pdf->Cell(210, 0, $this->title, false, false, 'C', 0, 0, 0, '', 'T', 'T');
 
         $pdf->SetFontSize(14);
 
         $pdf->SetXY(30, 16);
         $pdf->Cell(120, 5, "姓名:", false, false, "L");;
 
-        $pdf->SetXY(30, 16);
-        $pdf->Cell(120, 5, "第 周", false, false, "R");
+        $pdf->SetXY(40, 16);
+        $pdf->Cell(120, 5, "{$this->month}月{$this->day}日", false, false, "R");
 
         $pdf->Image(resource_path("images/logo.png"), 170, 5, 20);
 
