@@ -80,7 +80,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="columns">Cells per line</label>
 						</div>
-						<input class="form-control {{ $errors->has('columns') ? 'is-invalid' : '' }}" type="number" min="6" max="20" id="columns" name="columns" value="{{ old('columns', 9) }}">
+						<input class="form-control {{ $errors->has('columns') ? 'is-invalid' : '' }}" type="number" min="6" id="columns" name="columns" value="{{ old('columns', 9) }}">
 						@if($errors->has('columns'))
 							<div class="invalid-feedback">{{ $errors->first('columns') }}</div>
 						@endif
@@ -90,7 +90,7 @@
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="lines">Lines per page</label>
 						</div>
-						<input class="form-control {{ $errors->has('lines') ? 'is-invalid' : '' }}" type="number" min="1" max="20" id="lines" name="lines" value="{{ old('lines', 10) }}">
+						<input class="form-control {{ $errors->has('lines') ? 'is-invalid' : '' }}" type="number" min="1" id="lines" name="lines" value="{{ old('lines', 10) }}">
 						@if($errors->has('lines'))
 							<div class="invalid-feedback">{{ $errors->first('lines') }}</div>
 						@endif

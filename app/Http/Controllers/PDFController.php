@@ -29,8 +29,8 @@ class PDFController extends Controller
             'day' => 'required|integer|between:1,31',
             'month' => 'required|integer|between:1,12',
             'strokeHelp' => 'sometimes|boolean',
-            'columns' => 'required|int|min:6|max:20',
-            'lines' => 'required|int|min:1|max:20',
+            'columns' => 'required|integer|min:6',
+            'lines' => 'required|integer|min:1',
             'models' => 'required|int|min:0|max:20',
             'emptyLines' => 'required|int|min:0|max:20',
         ]);
