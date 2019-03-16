@@ -18,7 +18,7 @@ class GridTemplate extends Template implements CustomizableHeader
 
     public $model_color = "#9e9e9e";
 
-    public $guide_color = "#8c8c8c";
+    public $guide_color = "#bfbfbf";
 
     public $day = " ";
 
