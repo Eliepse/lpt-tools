@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Graphic;
 use App\WorkginGrids\GridTemplate;
 use App\WorkginGrids\GridTemplateTutorial;
-use Carbon\Carbon;
 use Eliepse\WorkingGrid\Character;
 use Eliepse\WorkingGrid\Elements\Word;
 use Eliepse\WorkingGrid\WorkingGrid;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 
-class PDFController extends Controller
+class PDFController
 {
-
+    use ValidatesRequests;
 
     /**
      * @param Request $request
@@ -22,56 +22,69 @@ class PDFController extends Controller
      */
     public function workingGridPDF(Request $request)
     {
-
+        /*
+         * Validation of the request. Note that some fields
+         * are not required and needs to be handle in the
+         * PDF generation/design process.
+         * */
         $this->validate($request, [
             'className' => 'required|string|max:50',
             'characters' => 'required|string|min:1',
-            'day' => 'required|integer|between:1,31',
-            'month' => 'required|integer|between:1,12',
-            'strokeHelp' => 'sometimes|boolean',
             'columns' => 'required|integer|min:6',
             'lines' => 'required|integer|min:1',
             'models' => 'required|int|min:0|max:20',
             'emptyLines' => 'required|int|min:0|max:20',
+            'day' => 'sometimes|integer|between:1,31',
+            'month' => 'sometimes|integer|between:1,12',
+            'strokeHelp' => 'sometimes|boolean',
         ]);
 
-        $requestCharacters = trim($request->get('characters'));
+        $requestChars = trim($request->get('characters'));
         $words = [];
 
+        /*
+         * We extract according a single-caracter word pattern
+         * and according a multi-caracters word pattern. Only chinese
+         * caracters are extracted. Word or character separators can
+         * be any non-chinese character.
+         * */
+        preg_match_all("/\p{Han}/u", $requestChars, $singleCharMatches);
+        preg_match_all("/\p{Han}+/u", $requestChars, $multiCharsMatches);
 
-        preg_match_all("/\p{Han}/u", $requestCharacters, $charactersRaw);
-        preg_match_all("/\p{Han}+/u", $requestCharacters, $wordsRaw);
 
-        $charactersRaw = $charactersRaw[0];
-        $wordsRaw = count($wordsRaw[0]) > 1 ? $wordsRaw[0] : $charactersRaw;
+        /*
+         * Decide if the user requested multi-caracters words
+         * or single-caracters words.
+         * */
+        $wordsMatches = count($multiCharsMatches[0]) > 1 ? $multiCharsMatches[0] : $singleCharMatches[0];
 
-        /** @var Collection $graph */
-        /** @noinspection PhpUndefinedMethodInspection */
-        $graph = Graphic::select(['character', 'strokes'])
-            ->whereIn('character', $charactersRaw)
+        /**
+         * Fetches graphical data (svg  strokes) from database
+         * according to the caracters present in the request
+         * @var Collection $wordsGraphics
+         */
+        $wordsGraphics = Graphic::query()
+            ->select(['character', 'strokes'])
+            ->whereIn('character', $singleCharMatches[0])
             ->get();
 
 
-        // Create content
-        foreach ($wordsRaw as $wordRaw) {
+        // Casting words matches to objects
+        foreach ($wordsMatches as $wordMatch) {
 
             $word = new Word([]);
 
-            foreach ($this->mbStringToArray($wordRaw) as $characterRaw) {
+            /*
+             * Adds every caracter separatly in the word with
+             * its associated strokes data, if they exists.
+             */
+            foreach ($this->mbStringToArray($wordMatch) as $char)
+                if ($charGraph = $wordsGraphics->firstWhere('character', '===', $char))
+                    $word->addDrawable(new Character($charGraph->character, $charGraph->strokes));
 
-                if ($characterGraph = $graph->firstWhere('character', '===', $characterRaw)) {
-
-                    $word->addDrawable(new Character($characterGraph->character, $characterGraph->strokes));
-
-                }
-
-            }
-
-            if (count($word)) {
-
+            // Prevent empty words to be added
+            if ($word->count())
                 $words[] = $word;
-
-            }
 
         }
 
@@ -89,15 +102,19 @@ class PDFController extends Controller
         $template->columns_amount = $request->get('columns', 9);
         $template->row_max = $request->get('lines', null);
         $template->model_amount = $request->get('models', 3);
-        $template->day = $request->get('day');
-        $template->month = $request->get('month');
+        $template->day = $request->get('day', ' ');
+        $template->month = $request->get('month', ' ');
 
-        // Render the template
+        // Render and return the template
         WorkingGrid::inlinePrint($template, $words);
-
     }
 
 
+    /**
+     * Split an multibyte string into an array
+     * @param $string
+     * @return array
+     */
     private function mbStringToArray($string)
     {
         $strlen = mb_strlen($string);
