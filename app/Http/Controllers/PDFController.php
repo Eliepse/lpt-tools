@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Graphic;
 use App\WorkginGrids\GridTemplate;
 use App\WorkginGrids\GridTemplateTutorial;
+use Carbon\Carbon;
 use Eliepse\WorkingGrid\Character;
 use Eliepse\WorkingGrid\Elements\Word;
 use Eliepse\WorkingGrid\WorkingGrid;
@@ -33,11 +34,14 @@ class PDFController
             'columns' => 'required|integer|min:6',
             'lines' => 'required|integer|min:1',
             'models' => 'required|int|min:0|max:20',
-            'emptyLines' => 'required|int|min:0|max:20',
-            'day' => 'sometimes|integer|between:1,31',
+            'emptyLines' => 'required|int|min:0|max:50',
+            'date' => 'sometimes|nullable|date:Y-m-d',
             'month' => 'sometimes|integer|between:1,12',
             'strokeHelp' => 'sometimes|boolean',
         ]);
+
+        if (!empty($date = $request->get('date')))
+            $date = Carbon::createFromFormat('Y-m-d', $date);
 
         $requestChars = trim($request->get('characters'));
         $words = [];
@@ -102,8 +106,8 @@ class PDFController
         $template->columns_amount = $request->get('columns', 9);
         $template->row_max = $request->get('lines', null);
         $template->model_amount = $request->get('models', 3);
-        $template->day = $request->get('day', ' ');
-        $template->month = $request->get('month', ' ');
+        $template->day = $date ? $date->day : ' ';
+        $template->month = $date ? $date->month : ' ';
 
         // Render and return the template
         WorkingGrid::inlinePrint($template, $words);
