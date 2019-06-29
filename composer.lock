@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "75fc4e93d53485a8edac341a67ac0a8c",
+    "content-hash": "1fdc5e209b4fb2b854e5107fe1df7d97",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -279,16 +279,16 @@
         },
         {
             "name": "eliepse/working-grid-pdf",
-            "version": "2.0.2",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Eliepse/working-grid-pdf.git",
-                "reference": "c34d998ebecabd3e0c687dd3dd1be6c9dc8c7269"
+                "reference": "54dc3e8b607a81145604b3964fde1fb395b915d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/c34d998ebecabd3e0c687dd3dd1be6c9dc8c7269",
-                "reference": "c34d998ebecabd3e0c687dd3dd1be6c9dc8c7269",
+                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/54dc3e8b607a81145604b3964fde1fb395b915d8",
+                "reference": "54dc3e8b607a81145604b3964fde1fb395b915d8",
                 "shasum": ""
             },
             "require": {
@@ -320,7 +320,7 @@
                 "pdf",
                 "working grid"
             ],
-            "time": "2019-03-16T12:36:53+00:00"
+            "time": "2019-06-29T11:33:31+00:00"
         },
         {
             "name": "erusev/parsedown",

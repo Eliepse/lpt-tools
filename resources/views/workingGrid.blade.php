@@ -21,7 +21,7 @@
 
     <div class="row mt-5 mb-5">
 
-        <div class="card col-sm-9 col-lg-5 m-auto">
+        <div class="card col-12 col-sm-10 col-lg-6 m-auto">
 
             <div class="card-body">
 
@@ -53,58 +53,66 @@
                     <p class="text-muted mb-0">Options</p>
                     <hr class="mt-0">
 
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="strokeHelp">With stroke order</label>
+                    <div class="form-group">
+                        <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="extra" id="strokes" value="strokes"
+                                       autocomplete="off" @if(old('strokes') === 'strokes') checked @endif required> Strokes
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="extra" id="pinyin" value="pinyin" autocomplete="off"
+                                       @if(old('strokes') === 'pinyin') checked @endif required> Pinyin
+                            </label>
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="extra" id="none" value="none" autocomplete="off"
+                                       @if(old('strokes') === 'none') checked @endif required> None
+                            </label>
                         </div>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <input type="checkbox" class="{{ $errors->has('strokeHelp') ? 'is-invalid' : '' }}" id="strokeHelp" name="strokeHelp" value="{{ old('strokeHelp', true) }}">
+                        @if($errors->has('extra'))
+                            <div class="invalid-feedback d-block">{{ $errors->first('extra') }}</div>
+                        @endif
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group input-group col-12 col-md-6">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="columns">Cells per line</label>
                             </div>
+                            <input class="form-control {{ $errors->has('columns') ? 'is-invalid' : '' }}" type="number" min="6" id="columns" name="columns" value="{{ old('columns', 9) }}">
+                            @if($errors->has('columns'))
+                                <div class="invalid-feedback">{{ $errors->first('columns') }}</div>
+                            @endif
                         </div>
-                        @if($errors->has('strokeHelp'))
-                            <div class="invalid-feedback">{{ $errors->first('strokeHelp') }}</div>
-                        @endif
-                    </div>
 
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="columns">Cells per line</label>
+                        <div class="form-group input-group col-12 col-md-6">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="lines">Lines per page</label>
+                            </div>
+                            <input class="form-control {{ $errors->has('lines') ? 'is-invalid' : '' }}" type="number" min="1" id="lines" name="lines" value="{{ old('lines', 10) }}">
+                            @if($errors->has('lines'))
+                                <div class="invalid-feedback">{{ $errors->first('lines') }}</div>
+                            @endif
                         </div>
-                        <input class="form-control {{ $errors->has('columns') ? 'is-invalid' : '' }}" type="number" min="6" id="columns" name="columns" value="{{ old('columns', 9) }}">
-                        @if($errors->has('columns'))
-                            <div class="invalid-feedback">{{ $errors->first('columns') }}</div>
-                        @endif
-                    </div>
 
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="lines">Lines per page</label>
+                        <div class="form-group input-group col-12 col-md-6">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="models">Gray characters</label>
+                            </div>
+                            <input class="form-control {{ $errors->has('models') ? 'is-invalid' : '' }}" type="number" min="0" max="20" id="models" name="models" value="{{ old('models', 3) }}">
+                            @if($errors->has('models'))
+                                <div class="invalid-feedback">{{ $errors->first('models') }}</div>
+                            @endif
                         </div>
-                        <input class="form-control {{ $errors->has('lines') ? 'is-invalid' : '' }}" type="number" min="1" id="lines" name="lines" value="{{ old('lines', 10) }}">
-                        @if($errors->has('lines'))
-                            <div class="invalid-feedback">{{ $errors->first('lines') }}</div>
-                        @endif
-                    </div>
 
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="models">Gray characters</label>
+                        <div class="form-group input-group col-12 col-md-6">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="emptyLines">Empty lines</label>
+                            </div>
+                            <input class="form-control {{ $errors->has('emptyLines') ? 'is-invalid' : '' }}" type="number" min="0" max="50" id="emptyLines" name="emptyLines" value="{{ old('emptyLines', 0) }}">
+                            @if($errors->has('emptyLines'))
+                                <div class="invalid-feedback">{{ $errors->first('emptyLines') }}</div>
+                            @endif
                         </div>
-                        <input class="form-control {{ $errors->has('models') ? 'is-invalid' : '' }}" type="number" min="0" max="20" id="models" name="models" value="{{ old('models', 3) }}">
-                        @if($errors->has('models'))
-                            <div class="invalid-feedback">{{ $errors->first('models') }}</div>
-                        @endif
-                    </div>
-
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="emptyLines">Empty lines</label>
-                        </div>
-                        <input class="form-control {{ $errors->has('emptyLines') ? 'is-invalid' : '' }}" type="number" min="0" max="50" id="emptyLines" name="emptyLines" value="{{ old('emptyLines', 0) }}">
-                        @if($errors->has('emptyLines'))
-                            <div class="invalid-feedback">{{ $errors->first('emptyLines') }}</div>
-                        @endif
                     </div>
 
                     <button class="btn btn-primary" type="submit">Generate !</button>
@@ -117,5 +125,8 @@
     </div>
 
 </div>
+
+<script src="{{ mix('js/app.js') }}"></script>
+
 </body>
 </html>

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Graphic;
 use App\WorkginGrids\GridTemplate;
-use App\WorkginGrids\GridTemplateTutorial;
+use App\WorkginGrids\GridTemplatePinyin;
+use App\WorkginGrids\GridTemplateStrokes;
 use Carbon\Carbon;
 use Eliepse\WorkingGrid\Character;
 use Eliepse\WorkingGrid\Elements\Word;
@@ -12,10 +13,12 @@ use Eliepse\WorkingGrid\WorkingGrid;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use App\Character as CharacterModel;
 
 class PDFController
 {
     use ValidatesRequests;
+
 
     /**
      * @param Request $request
@@ -37,7 +40,7 @@ class PDFController
             'emptyLines' => 'required|int|min:0|max:50',
             'date' => 'sometimes|nullable|date:Y-m-d',
             'month' => 'sometimes|integer|between:1,12',
-            'strokeHelp' => 'sometimes|boolean',
+            'extra' => 'required|in:strokes,pinyin,none',
         ]);
 
         if (!empty($date = $request->get('date')))
@@ -64,14 +67,20 @@ class PDFController
 
         /**
          * Fetches graphical data (svg  strokes) from database
-         * according to the caracters present in the request
-         * @var Collection $wordsGraphics
+         * @var Collection $charsGraphics
          */
-        $wordsGraphics = Graphic::query()
+        $charsGraphics = Graphic::query()
             ->select(['character', 'strokes'])
             ->whereIn('character', $singleCharMatches[0])
             ->get();
 
+        /**
+         * Fetches pinyin from database
+         */
+        $charsPinyin = CharacterModel::query()
+            ->select(['character', 'pinyin'])
+            ->whereIn('character', $singleCharMatches[0])
+            ->get();
 
         // Casting words matches to objects
         foreach ($wordsMatches as $wordMatch) {
@@ -82,9 +91,16 @@ class PDFController
              * Adds every caracter separatly in the word with
              * its associated strokes data, if they exists.
              */
-            foreach ($this->mbStringToArray($wordMatch) as $char)
-                if ($charGraph = $wordsGraphics->firstWhere('character', '===', $char))
-                    $word->addDrawable(new Character($charGraph->character, $charGraph->strokes));
+            foreach ($this->mbStringToArray($wordMatch) as $char) {
+                if ($charGraph = $charsGraphics->firstWhere('character', '===', $char)) {
+                    $charDictionary = $charsPinyin->firstWhere('character', '===', $char);
+                    $word->addDrawable(new Character(
+                        $charGraph->character,
+                        $charGraph->strokes,
+                        $charDictionary->pinyin[0] ?? null
+                    ));
+                }
+            }
 
             // Prevent empty words to be added
             if ($word->count())
@@ -97,9 +113,16 @@ class PDFController
             $words[] = new Word([new Character("", [])]);
 
         // Instanciate the correct template
-        $template = $request->get('strokeHelp', false)
-            ? new GridTemplateTutorial()
-            : new GridTemplate();
+        switch ($request->get('extra')) {
+            case 'strokes':
+                $template = new GridTemplateStrokes();
+                break;
+            case 'pinyin':
+                $template = new GridTemplatePinyin();
+                break;
+            default:
+                $template = new GridTemplate();
+        }
 
         // Configure the template
         $template->title = "LPT 三语宝贝" . $request->get('className', " ");

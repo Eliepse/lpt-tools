@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\WorkginGrids;
-
 
 use Eliepse\WorkingGrid\PageInfo;
 use Eliepse\WorkingGrid\Template\CustomizableHeader;
@@ -11,18 +9,18 @@ use Mpdf\Mpdf;
 
 class GridTemplate extends Template implements CustomizableHeader
 {
-
-    public $header_height = 20;
+    public $header_height = 25;
 
     public $paddings = [5, 20, 10, 30];
 
-    public $model_color = "#9e9e9e";
+    public $model_color = "#cbcbcb";
 
     public $guide_color = "#bfbfbf";
 
     public $day = " ";
 
     public $month = " ";
+
 
     public function header(Mpdf $pdf, PageInfo $infos): void
     {
@@ -43,5 +41,4 @@ class GridTemplate extends Template implements CustomizableHeader
 
         $pdf->SetXY(0, 0);
     }
-
 }
