@@ -34,8 +34,11 @@ class GridTemplate extends Template implements CustomizableHeader
         $pdf->SetXY(30, 16);
         $pdf->Cell(120, 5, "姓名:", false, false, "L");;
 
+        $month = mb_strlen($this->month) === 2 ? $this->month . " " : $this->month . " ";
+        $day = mb_strlen($this->day) === 2 ? $this->day . " " : $this->day . " ";
+
         $pdf->SetXY(40, 16);
-        $pdf->Cell(120, 5, "{$this->month}月{$this->day}日", false, false, "R");
+        $pdf->Cell(120, 5, "{$month}月 {$day}日", false, false, "R");
 
         $pdf->Image(resource_path("images/logo.png"), 170, 5, 20);
 
