@@ -54,12 +54,13 @@
                     <hr class="mt-0">
 
                     <div class="form-group">
-                        <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
-                            <label class="btn btn-secondary">
+                        <div class="btn-group-toggle d-flex" data-toggle="buttons">
+                            <label class="btn btn-outline-secondary">
                                 <input type="checkbox" name="strokes" id="strokes"
                                        autocomplete="off" @if(old('strokes') === 'strokes') checked @endif> Strokes
                             </label>
-                            <label class="btn btn-secondary">
+                            &emsp;
+                            <label class="btn btn-outline-secondary">
                                 <input type="checkbox" name="pinyin" id="pinyin"
                                        autocomplete="off" @if(old('strokes') === 'pinyin') checked @endif> Pinyin
                             </label>
