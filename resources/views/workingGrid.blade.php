@@ -3,7 +3,7 @@
  * @var \Illuminate\Support\MessageBag $errors
  */
 ?>
-        <!doctype html>
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -56,17 +56,17 @@
                     <div class="form-group">
                         <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
                             <label class="btn btn-secondary">
-                                <input type="radio" name="extra" id="strokes" value="strokes"
-                                       autocomplete="off" @if(old('strokes') === 'strokes') checked @endif required> Strokes
+                                <input type="checkbox" name="strokes" id="strokes"
+                                       autocomplete="off" @if(old('strokes') === 'strokes') checked @endif> Strokes
                             </label>
                             <label class="btn btn-secondary">
-                                <input type="radio" name="extra" id="pinyin" value="pinyin" autocomplete="off"
-                                       @if(old('strokes') === 'pinyin') checked @endif required> Pinyin
+                                <input type="checkbox" name="pinyin" id="pinyin"
+                                       autocomplete="off" @if(old('strokes') === 'pinyin') checked @endif> Pinyin
                             </label>
-                            <label class="btn btn-secondary active">
-                                <input type="radio" name="extra" id="none" value="none" autocomplete="off"
+                            {{--<label class="btn btn-secondary active">
+                                <input type="checkbox" name="extra" id="none" value="none" autocomplete="off"
                                        @if(old('strokes') === 'none') checked @endif required> None
-                            </label>
+                            </label>--}}
                         </div>
                         @if($errors->has('extra'))
                             <div class="invalid-feedback d-block">{{ $errors->first('extra') }}</div>

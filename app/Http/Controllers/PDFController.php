@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Graphic;
+use App\Http\Requests\WorkingGridRequest;
 use App\WorkginGrids\GridTemplate;
 use App\WorkginGrids\GridTemplatePinyin;
 use App\WorkginGrids\GridTemplateStrokes;
+use App\WorkginGrids\GridTemplateStrokesPinyin;
 use Carbon\Carbon;
 use Eliepse\WorkingGrid\Character;
 use Eliepse\WorkingGrid\Elements\Word;
@@ -14,6 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use App\Character as CharacterModel;
+use Throwable;
 
 class PDFController
 {
@@ -22,27 +25,11 @@ class PDFController
 
     /**
      * @param Request $request
-     * @throws \Throwable
+     *
+     * @throws Throwable
      */
-    public function workingGridPDF(Request $request)
+    public function workingGridPDF(WorkingGridRequest $request)
     {
-        /*
-         * Validation of the request. Note that some fields
-         * are not required and needs to be handle in the
-         * PDF generation/design process.
-         * */
-        $this->validate($request, [
-            'className' => 'required|string|max:50',
-            'characters' => 'required|string|min:1',
-            'columns' => 'required|integer|min:6',
-            'lines' => 'required|integer|min:1',
-            'models' => 'required|int|min:0|max:20',
-            'emptyLines' => 'required|int|min:0|max:50',
-            'date' => 'sometimes|nullable|date:Y-m-d',
-            'month' => 'sometimes|integer|between:1,12',
-            'extra' => 'required|in:strokes,pinyin,none',
-        ]);
-
         if (!empty($date = $request->get('date')))
             $date = Carbon::createFromFormat('Y-m-d', $date);
 
@@ -67,6 +54,7 @@ class PDFController
 
         /**
          * Fetches graphical data (svg  strokes) from database
+         *
          * @var Collection $charsGraphics
          */
         $charsGraphics = Graphic::query()
@@ -113,15 +101,22 @@ class PDFController
             $words[] = new Word([new Character("", [])]);
 
         // Instanciate the correct template
-        switch ($request->get('extra')) {
-            case 'strokes':
-                $template = new GridTemplateStrokes();
-                break;
-            case 'pinyin':
-                $template = new GridTemplatePinyin();
-                break;
-            default:
-                $template = new GridTemplate();
+        if ($request->has('strokes') && $request->has('pinyin')) {
+
+            $template = new GridTemplateStrokesPinyin();
+
+        } else if ($request->has('strokes')) {
+
+            $template = new GridTemplateStrokes();
+
+        } else if ($request->has('pinyin')) {
+
+            $template = new GridTemplatePinyin();
+
+        } else {
+
+            $template = new GridTemplate();
+
         }
 
         // Configure the template
@@ -139,7 +134,9 @@ class PDFController
 
     /**
      * Split an multibyte string into an array
+     *
      * @param $string
+     *
      * @return array
      */
     private function mbStringToArray($string)
