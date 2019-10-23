@@ -11,10 +11,12 @@
 |
 */
 
+use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
 Route::view('/workingGrid', 'workingGrid')->name('workingGrid');
+Route::get('/workingGrid/pdf', [PDFController::class, 'workingGridPDF'])->name('workingGrid.pdf');
 
 Route::get('/workingGrid/pdf', 'PDFController@workingGridPDF')->name('workingGrid.pdf');
