@@ -8,10 +8,6 @@
     "license" : "MIT",
     "type" : "project",
     "repositories" : [
-        {
-            "type" : "vcs",
-            "url" : "git@github.com:Eliepse/php-deployer.git"
-        }
     ],
     "require" : {
         "php" : "^7.1.3",
