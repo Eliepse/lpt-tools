@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2013a17d53bc2b8219710a9a66e0260e",
+    "content-hash": "8da1bccff87fa88d5afd13bb9641225f",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -325,6 +325,47 @@
                 "working grid"
             ],
             "time": "2019-10-23T15:02:53+00:00"
+        },
+        {
+            "name": "eliepse/writing-exercise-pdf",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eliepse/writing-exercise-pdf.git",
+                "reference": "e06022afa4444138180cc40699c1cb83d50993a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eliepse/writing-exercise-pdf/zipball/e06022afa4444138180cc40699c1cb83d50993a5",
+                "reference": "e06022afa4444138180cc40699c1cb83d50993a5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "mpdf/mpdf": "^8.0",
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.11.18"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eliepse\\WritingGrid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eliepse",
+                    "email": "contact@eliepse.fr"
+                }
+            ],
+            "description": "Tool to generate exercise with words to write, as a PDF file",
+            "time": "2019-10-23T14:35:47+00:00"
         },
         {
             "name": "erusev/parsedown",
