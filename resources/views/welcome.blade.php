@@ -73,7 +73,8 @@
                 </h1>
 
                 <div class="links">
-                    <a href="{{ route('workingGrid') }}">Working grid</a>
+                    <a href="{{ route('workingGrid') }}">Chinese grid</a>
+                    <a href="{{ route('englishGrid') }}">English grid</a>
                 </div>
             </div>
         </div>
