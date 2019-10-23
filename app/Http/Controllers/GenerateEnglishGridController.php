@@ -16,7 +16,7 @@ class GenerateEnglishGridController
 
 		$layout = new EnglishGridLayout();
 		$layout->title = $request->get('title');
-		
+
 		$list = new WordList();
 
 		foreach ($words as $word) {
