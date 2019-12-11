@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d8de19650359849a0295f49cc678b1e",
+    "content-hash": "612942f856a4f3649a5969d15ed4266c",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -282,16 +282,16 @@
         },
         {
             "name": "eliepse/working-grid-pdf",
-            "version": "2.1.5",
+            "version": "2.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Eliepse/working-grid-pdf.git",
-                "reference": "e7ca5bfc6ff9ce198b3b9796bbfd46d8c123b7c2"
+                "reference": "3e115fddfb6af1527f636be45dba7c7afc0fec44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/e7ca5bfc6ff9ce198b3b9796bbfd46d8c123b7c2",
-                "reference": "e7ca5bfc6ff9ce198b3b9796bbfd46d8c123b7c2",
+                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/3e115fddfb6af1527f636be45dba7c7afc0fec44",
+                "reference": "3e115fddfb6af1527f636be45dba7c7afc0fec44",
                 "shasum": ""
             },
             "require": {
@@ -324,7 +324,7 @@
                 "pdf",
                 "working grid"
             ],
-            "time": "2019-11-19T16:43:04+00:00"
+            "time": "2019-12-11T10:43:09+00:00"
         },
         {
             "name": "eliepse/writing-exercise-pdf",

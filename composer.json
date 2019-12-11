@@ -1,18 +1,14 @@
 {
-    "name" : "laravel/laravel",
-    "description" : "The Laravel Framework.",
-    "keywords" : [
-        "framework",
-        "laravel"
-    ],
+    "name" : "eliepse/lpt-tools",
+    "description" : "Plateform with tools for \"LPT\" language school.",
+    "keywords" : [],
     "license" : "MIT",
     "type" : "project",
-    "repositories" : [
-    ],
+    "repositories" : [],
     "require" : {
         "php" : "^7.3.0",
-        "eliepse/working-grid-pdf" : "^2.1.5",
-        "eliepse/writing-exercise-pdf" : "^1.1.0",
+        "eliepse/working-grid-pdf" : ">=2.1.7",
+        "eliepse/writing-exercise-pdf" : "1.1.*",
         "fideloper/proxy" : "^4.0",
         "laravel/framework" : "5.7.*",
         "laravel/tinker" : "^1.0"
