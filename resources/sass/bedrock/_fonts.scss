@@ -1,0 +1,19 @@
+/*
+Define your @font-face here
+ */
+
+@font-face {
+	font-family: Faune;
+	src: url("../fonts/Faune-Text_Regular.woff2") format("woff2"),
+	url("../fonts/Faune-Text_Regular.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: Faune;
+	src: url("../fonts/Faune-Display_Black.woff2") format("woff2"),
+	url("../fonts/Faune-Display_Black.woff") format("woff");
+	font-weight: 900;
+	font-style: normal;
+}

@@ -1,0 +1,15 @@
+/*
+styles: Main css file
+Do not write styles on this file, prioritize splitting your code and importing in here.
+The order maters!
+ */
+
+// Base styles, variables, ...
+@import "variables";
+@import "bedrock/bedrock";
+
+// Components
+// ...
+
+// Pages
+@import "pages/welcome";
