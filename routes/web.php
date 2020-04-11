@@ -11,14 +11,14 @@
 |
 */
 
+use App\Http\Controllers\GenerateChineseGridController;
 use App\Http\Controllers\GenerateEnglishGridController;
-use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
 Route::view('/workingGrid', 'workingGrid')->name('workingGrid');
-Route::get('/workingGrid/pdf', [PDFController::class, 'workingGridPDF'])->name('workingGrid.pdf');
+Route::get('/workingGrid/pdf', GenerateChineseGridController::class)->name('workingGrid.pdf');
 
 Route::view('/englishGrid', 'englishGrid')->name('englishGrid');
 Route::get('/englishGrid/pdf', GenerateEnglishGridController::class)->name('englishGrid.pdf');
