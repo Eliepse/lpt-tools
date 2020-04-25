@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('/workingGrid', 'workingGrid')->name('workingGrid');
-Route::get('/workingGrid/pdf', GenerateChineseGridController::class)->name('workingGrid.pdf');
+Route::view('/chineseGrid', 'chineseGrid')->name('chineseGrid');
+Route::get('/chineseGrid/pdf', GenerateChineseGridController::class)->name('chineseGrid.pdf');
 
 Route::view('/englishGrid', 'englishGrid')->name('englishGrid');
 Route::get('/englishGrid/pdf', GenerateEnglishGridController::class)->name('englishGrid.pdf');

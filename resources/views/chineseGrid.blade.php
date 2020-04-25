@@ -27,7 +27,7 @@
 
                 <h1 class="card-title">Working grid creator</h1>
                 <p class="card-text">This tool allows you to easily create a working grid for chinese characters, with or without stroke order indication.</p>
-                <form action="{{ route('workingGrid.pdf') }}" method="GET">
+                <form action="{{ route('chineseGrid.pdf') }}" method="GET">
 
                     <div class="form-group">
                         <label for="className">Class name</label>
