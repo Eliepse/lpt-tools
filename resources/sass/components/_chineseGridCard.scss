@@ -1,0 +1,67 @@
+/*
+Type: Component
+Name: Chinese-Grid Card
+Shorthand: .cgCard
+ */
+
+.cgCard {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-width: 2em;
+	height: 2.5em;
+	padding: .3em .5em;
+	font-size: 8rem;
+	font-family: $ffamily-sans-cn;
+	text-align: center;
+	color: $color-gray-2;
+	line-height: 1;
+	background-color: $color-cyan-8;
+	border-radius: .2em;
+	box-shadow: 0 .1em 0 $color-cyan-5;
+	transition: box-shadow $transition-time-fast, transform $transition-time-fast;
+}
+
+.cgCard--interactive {
+	cursor: pointer;
+
+	&:hover,
+	& + *:focus {
+		box-shadow: 0 .125em 0 $color-cyan-5;
+		transform: translateY(-.025em);
+	}
+}
+
+.cgCard--ghost {
+	color: $color-gray-2;
+	background-color: $color-gray-4;
+	box-shadow: 0 .1em 0 $color-gray-5;
+	user-select: none;
+
+	&:hover,
+	& + *:focus {
+		box-shadow: 0 .075em 0 $color-gray-5;
+		transform: translateY(.025em);
+	}
+
+	&:active {
+		transition: all 0s;
+		box-shadow: 0 .025em 0 $color-gray-5;
+		transform: translateY(.075em);
+	}
+}
+
+.cgCard__cn {
+	height: 1em;
+	min-width: 1em;
+	font-size: 1em;
+	font-weight: 400;
+}
+
+.cgCard__pinyin {
+	margin-top: .5em;
+	min-width: 1em;
+	height: 1em;
+	font-size: .4em;
+	font-weight: 200;
+}

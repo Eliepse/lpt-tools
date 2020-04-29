@@ -14,7 +14,8 @@ The order maters!
 @import "basis/helpers";
 
 // Components
-// ...
+@import "components/chineseGridCard";
 
 // Pages
 @import "pages/welcome";
+@import "pages/chineseGrid";

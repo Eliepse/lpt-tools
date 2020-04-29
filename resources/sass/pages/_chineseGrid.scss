@@ -1,0 +1,21 @@
+.page--chineseGrid {
+	height: 100vh;
+	background-color: $color-gray-0;
+}
+
+.chineseGrid {
+	height: 100%;
+	display: flex;
+	//align-items: stretch;
+	//justify-content: stretch;
+}
+
+.cg__inputList {
+	display: flex;
+	align-items: stretch;
+	justify-content: left;
+}
+
+.cg__inputItem {
+	margin: 1em .5em;
+}

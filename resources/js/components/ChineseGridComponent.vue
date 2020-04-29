@@ -1,23 +1,36 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<ul class="cg__inputList">
+			<li class="cg__inputItem" v-for="card in $store.state.chinese_cards" :key="card.id">
+				<chinese-grid-card :card="card" :editable="true" :grabFocus="true"/>
+			</li>
+			<li class="cg__inputItem">
+				<div @click="addCard" class="cgCard cgCard--interactive cgCard--ghost">
+					<div>+</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+	import {mapGetters} from "vuex"
+	import ChineseGridCard from './chineseGrid/CardComponent';
+
+	export default {
+		components: {ChineseGridCard},
+		mounted() {},
+		data() {
+			return {};
+		},
+		methods: {
+			addCard() {
+				this.$store.commit("STORE_CARD", {value: "", pinyin: ""})
+				this.$forceUpdate()
+			}
+		},
+		computed: {
+			...mapGetters([])
+		}
+	}
 </script>
