@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<ul class="cg__inputList">
-			<li class="cg__inputItem" v-for="card in $store.state.chinese_cards" :key="card.id">
+			<li class="cg__inputItem" v-for="card in $store.state.chinese_words" :key="card.id">
 				<chinese-grid-card :card="card" :editable="true" :grabFocus="true"/>
 			</li>
 			<li class="cg__inputItem">
