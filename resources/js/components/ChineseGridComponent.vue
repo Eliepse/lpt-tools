@@ -17,7 +17,9 @@
 
 	export default {
 		components: {ChineseGridCard},
-		mounted() {},
+		async mounted() {
+			await this.$store.dispatch("fetchChineseLists")
+		},
 		data() {
 			return {};
 		},
