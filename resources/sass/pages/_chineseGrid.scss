@@ -12,8 +12,8 @@ Short: .cg
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	align-items: end;
-	justify-content: end;
+	align-items: flex-end;
+	justify-content: flex-end;
 }
 
 .cg__sheet {
