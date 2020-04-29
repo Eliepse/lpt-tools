@@ -9,8 +9,10 @@
 
 <body class="page--chineseGrid">
 
-<main id="app">
-	<chinese-grid></chinese-grid>
+<main id="app" class="cg">
+	<div class="cg__sheet">
+		<chinese-grid></chinese-grid>
+	</div>
 </main>
 
 <script src="{{ mix('js/app.js') }}"></script>

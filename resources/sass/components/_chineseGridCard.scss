@@ -51,6 +51,22 @@ Shorthand: .cgCard
 	}
 }
 
+.cgCard--editing {
+	box-shadow: 0 .2em 0 $color-cyan-5;
+	transform: translateY(-.1em);
+
+	&:hover,
+	& + *:focus {
+		box-shadow: 0 .2em 0 $color-cyan-5;
+		transform: translateY(-.1em);
+	}
+
+	&:active {
+		box-shadow: 0 .2em 0 $color-cyan-5;
+		transform: translateY(-.1em);
+	}
+}
+
 .cgCard__cn {
 	height: 1em;
 	min-width: 1em;

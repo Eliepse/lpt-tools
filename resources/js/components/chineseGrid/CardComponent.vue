@@ -1,11 +1,10 @@
 <template>
-	<div class="cgCard" :class="{ 'cgCard--interactive': editable }">
+	<div class="cgCard" :class="{ 'cgCard--interactive': editable, 'cgCard--editing': editing }">
 		<div class="cgCard__cn"
 		     v-html="printValue"
 		     @focusin="focus.chinese = true"
 		     @focusout="(e) => focusOut('chinese', e)"
 		     @keypress="filterKeys"
-		     @input="(e) => update('chinese', e)"
 		     :contenteditable="editable"
 		></div>
 		<div class="cgCard__pinyin"
@@ -13,7 +12,6 @@
 		     @focusin="focus.pinyin = true"
 		     @focusout="(e) => focusOut('pinyin', e)"
 		     @keypress="filterKeys"
-		     @input="(e) => update('pinyin', e)"
 		     :contenteditable="editable"
 		></div>
 	</div>
@@ -54,17 +52,6 @@
 			this.$el.querySelector(".cgCard__cn").focus()
 		},
 		methods: {
-			update(type, e) {
-				if(!this.editable) return;
-				//const content = e.target.innerHTML.replace(/<.*>/gi, "");
-				//switch (type) {
-				//	case "chinese":
-				//		this.card.value = filterNonChinese(content);
-				//		break;
-				//	case "pinyin":
-				//		this.card.pinyin = (content.match(/[a-zA-Z0-9]/gi) || []).join("");
-				//}
-			},
 			focusOut(type, e) {
 				if(!this.editable) return;
 				const content = e.target.innerHTML.replace(/<.*>/gi, "");
@@ -94,6 +81,9 @@
 			}
 		},
 		computed: {
+			editing() {
+				return this.focus.chinese || this.focus.pinyin;
+			},
 			printValue() {
 				return this.focus.chinese ? this.chinese || "" : this.chinese || "..."
 			},

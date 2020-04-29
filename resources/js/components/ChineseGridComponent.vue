@@ -1,16 +1,14 @@
 <template>
-	<div class="container">
-		<ul class="cg__inputList">
-			<li class="cg__inputItem" v-for="card in $store.state.chinese_words" :key="card.id">
-				<chinese-grid-card :card="card" :editable="true" :grabFocus="true"/>
-			</li>
-			<li class="cg__inputItem">
-				<div @click="addCard" class="cgCard cgCard--interactive cgCard--ghost">
-					<div>+</div>
-				</div>
-			</li>
-		</ul>
-	</div>
+	<ul class="cg__inputList">
+		<li class="cg__inputItem" v-for="card in $store.state.chinese_words" :key="card.id">
+			<chinese-grid-card :card="card" :editable="true" :grabFocus="true"/>
+		</li>
+		<li class="cg__inputItem">
+			<div @click="addCard" class="cgCard cgCard--interactive cgCard--ghost">
+				<div>+</div>
+			</div>
+		</li>
+	</ul>
 </template>
 
 <script>
