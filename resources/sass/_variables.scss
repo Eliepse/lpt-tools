@@ -4,4 +4,14 @@ If you want to change bedrocks configuration,
 use bedrock/_config.scss instead.
  */
 
-$font-family-default: Faune, sans-serif;
+$ffamily-sans: Faune, sans-serif;
+$ffamily-sans-cn: "Microsoft Yahei UI", sans-serif;
+$font-family-default: $ffamily-sans;
+
+$transition-time-fast: 150ms;
+$transition-time-medium: 300ms;
+$transition-time-slow: 500ms;
+
+$media-medium: 1152px;
+$media-small: 768px;
+$media-mobile: 568px;

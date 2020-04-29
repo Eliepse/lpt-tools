@@ -4,9 +4,35 @@ It's not a place where to tweak variables, use _variables.scss for that purpose.
  */
 
 html, body {
-	background: $color-gray-0;
+	background: $background-default;
 	font-size: $font-size;
-	font-family: $font-family-default;
+	font-family: Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	line-height: $line-height;
 	color: $text-dark;
+}
+
+h1,
+h2,
+h3 {
+	line-height: 1.25;
+	letter-spacing: .017em;
+}
+
+p {
+	font-size: 1em;
+	line-height: 1.58;
+	color: $color-text;
+	margin-bottom: 1.83em;
+
+	& + p {
+		margin-top: 1.83em;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+strong {
+	font-weight: $fontWeigth-Bold;
 }
