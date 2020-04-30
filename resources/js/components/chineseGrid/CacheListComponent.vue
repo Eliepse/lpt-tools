@@ -18,7 +18,7 @@
 
 <script>
 	export default {
-		name: "ChineseCacheList",
+		name: "CacheList",
 		data() {
 			return {
 				active: false,

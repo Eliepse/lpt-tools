@@ -1,0 +1,76 @@
+/*
+Type: Component
+Name: Form
+Short: .form
+*/
+
+.form__control {
+	margin: 1.5em 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1.5em 2em;
+	background-color: $color-orange-1;
+	border-radius: 1.6rem;
+}
+
+.control__label {
+	margin-right: 1em;
+	font-size: 1.25em;
+	color: $color-orange-9;
+	display: inline-block;
+}
+
+.form__control--options {
+	input {
+		display: none;
+	}
+
+	label {
+		display: inline-block;
+		padding: .75em 1em;
+		border-radius: 1em;
+		margin: 0 .5em;
+		cursor: pointer;
+		color: $color-gray-6;
+		background-color: $color-white;
+		box-shadow: 0 .65em 0 $color-gray-5;
+		user-select: none;
+		transform: translateY(-.4em);
+		transition: box-shadow $transition-time-fast, transform $transition-time-fast;
+
+		&:hover,
+		&:focus {
+			box-shadow: 0 .5em 0 $color-gray-5;
+			transform: translateY(-.25em);
+		}
+	}
+
+	input:checked + label {
+		color: $color-gray-9;
+		box-shadow: 0 .25em 0 $color-gray-5;
+		transform: translateY(0);
+	}
+}
+
+.form__control {
+	input {
+		width: 100%;
+		max-width: 45rem;
+		font-size: 1.25em;
+		padding: .7em 1em;
+		border-radius: 1.6rem;
+
+		&::placeholder {
+			color: $color-gray-7;
+		}
+	}
+
+	input[type=date] {
+		width: auto;
+	}
+
+	input[type=number] {
+		max-width: 15rem;
+	}
+}
