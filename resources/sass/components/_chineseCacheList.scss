@@ -1,0 +1,75 @@
+/*
+Type: component
+Name: Chinese Cache List
+Short: .cgCache
+*/
+
+.cgCache {
+	position: fixed;
+	bottom: -100%;
+	right: 2em;
+	height: 90vh;
+	max-height: 64rem;
+	width: 40vw;
+	max-width: 56rem;
+	padding: 1.5em 2em;
+	border-radius: 2em 2em 0 0;
+	background-color: $color-blue-6;
+	box-shadow: 0 32px 32px rgba(134, 142, 150, .75);
+	transition: bottom $transition-time-slow;
+}
+
+.cgCache--active {
+	bottom: 0;
+}
+
+.cgCache__btnClose {
+	position: absolute;
+	top: -.5em;
+	right: -.5em;
+}
+
+.cgCache__title {
+	font-size: 1.25em;
+	text-align: center;
+	color: $color-blue-0;
+}
+
+.cgCache__wrapper {
+	margin: 2em 0;
+	button {
+		text-align: right;
+		margin-top: .5em;
+	}
+}
+
+.cgCache__list {
+	padding: .25em;
+	border-radius: 1em;
+	background-color: $color-blue-5;
+}
+
+.cgCache__word {
+	display: inline-block;
+	padding: .75em .75em;
+	margin: .25em;
+	border-radius: .5em;
+	text-align: center;
+	color: $color-gray-9;
+	background-color: $color-gray-0;
+}
+
+.cgCache__chinese,
+.cgCache__pinyin {
+	display: block;
+}
+
+.cgCache__chinese {
+	font-size: 1.5em;
+	min-width: 1.5em;
+}
+
+.cgCache__pinyin {
+	margin-top: .5em;
+	font-size: .75em;
+}

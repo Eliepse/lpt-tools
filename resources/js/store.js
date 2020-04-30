@@ -22,7 +22,7 @@ export default new Vuex.Store({
 			}, -1) + 1;
 			this.state.chinese_words[id] = {
 				id,
-				value: filterChinese(value),
+				value: filterNonChinese(value),
 				pinyin: (pinyin.match(/[a-zA-Z0-9]/gi) || []).join("")
 			}
 		},
@@ -41,7 +41,9 @@ export default new Vuex.Store({
 				.catch((resp) => {
 					console.error("Unable to load chinese cached lists.", resp.message)
 				})
-		}
+		},
 	},
-	getters: {},
+	getters: {
+		getChineseCacheList: state => key => state.chinese_cache[key] || []
+	},
 })

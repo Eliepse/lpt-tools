@@ -5,7 +5,7 @@ Short: .cg
  */
 .page--chineseGrid {
 	height: 100vh;
-	background-color: $color-gray-0;
+	background-color: $color-orange-2;
 }
 
 .cg {
@@ -16,6 +16,13 @@ Short: .cg
 	justify-content: flex-end;
 }
 
+.cg__actions {
+	max-width: 108rem;
+	width: 100%;
+	margin: 1em auto 1.5em auto;
+	text-align: center;
+}
+
 .cg__sheet {
 	max-width: 108rem;
 	width: 100%;
@@ -23,7 +30,8 @@ Short: .cg
 	margin: 0 auto;
 	padding: 8rem;
 	background-color: $color-white;
-	box-shadow: 0 16px 25px rgba(0, 0, 0, 0.25);
+	border-radius: 2em 2em 0 0;
+	box-shadow: 0 32px 32px rgb(204, 155, 96);
 }
 
 .cg__inputList {
