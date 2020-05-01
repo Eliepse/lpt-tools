@@ -25,10 +25,10 @@
 			<div class="cg__actions text--left">
 				<button @click="step = 'editing'">Retour à la liste</button>
 			</div>
-			<div class="cg__layout form">
+			<div class="cg__layout form" ref="form">
 				<div class="form__control">
-					<label class="control__label" for="className">Titre</label>
-					<input id="className" type="text" name="className" placeholder="学前班, ..." maxlength="50" required>
+					<label class="control__label" for="title">Titre</label>
+					<input id="title" type="text" name="title" placeholder="学前班, ..." maxlength="50">
 				</div>
 				<div class="form__control">
 					<label class="control__label" for="classDate">Date</label>
@@ -37,9 +37,9 @@
 				<div class="form__control form__control--options">
 					<span class="control__label">Ordre des traits</span>
 					<div>
-						<input id="strokes-true" type="radio" name="stokes" value="true">
+						<input id="strokes-true" type="radio" name="strokes" value="true">
 						<label for="strokes-true">Avec</label>
-						<input id="strokes-false" type="radio" name="stokes" value="false" checked>
+						<input id="strokes-false" type="radio" name="strokes" value="false" checked>
 						<label for="strokes-false">Sans</label>
 					</div>
 				</div>
@@ -54,19 +54,19 @@
 				</div>
 				<div class="form__control">
 					<label class="control__label" for="columns">Cells/line</label>
-					<input id="columns" type="number" name="date" min="6" value="9" max="25">
+					<input id="columns" type="number" name="columns" min="6" value="9" max="25">
 				</div>
 				<div class="form__control">
 					<label class="control__label" for="models">Mots fantômes</label>
-					<input id="models" type="number" name="date" min="0" value="1" max="10">
+					<input id="models" type="number" name="models" min="0" value="1" max="10">
 				</div>
 				<div class="form__control">
 					<label class="control__label" for="emptyLines">Lignes supplémentaires</label>
-					<input id="emptyLines" type="number" name="date" min="0" value="0" max="50">
+					<input id="emptyLines" type="number" name="emptyLines" min="0" value="0" max="50">
 				</div>
 			</div>
 			<div class="cg__actions text--right">
-				<button>Générer l'exercice</button>
+				<button @click="generateGrid">Générer l'exercice</button>
 			</div>
 		</div>
 	</div>
@@ -91,6 +91,52 @@
 			addCard() {
 				this.$store.commit("STORE_CARD", {value: "", pinyin: ""})
 				this.$forceUpdate()
+			},
+			generateGrid() {
+				Axios.post("/api/grid/chinese", {
+					words: this.$store.state.chinese_words,
+					title: this.$refs.form.querySelector("input[name=title").value,
+					date: this.$refs.form.querySelector("input[name=date]").value,
+					strokes: this.$refs.form.querySelector("input[name=strokes]:checked").value === "true",
+					pinyin: this.$refs.form.querySelector("input[name=pinyin]:checked").value === "true",
+					columns: Number(this.$refs.form.querySelector("input[name=columns]").value),
+					models: Number(this.$refs.form.querySelector("input[name=models]").value),
+					emptyLines: Number(this.$refs.form.querySelector("input[name=emptyLines]").value),
+				})
+					.then((res) => {
+						/*******************************************************************************
+						 *******************************************************************************
+						 * L'idée est de préparer le document en mettant en cache les informations     *
+						 * nécessaires à la génération du document pdf (conserver également les        *
+						 * données vectoriels des caractères ?).                                       *
+						 * Ensuite, la clé de ce cache (plus ou moins sous la forme d'un uuid) est     *
+						 * renvoyé à l'utilisateur sous la forme d'une url. L'interface peut ainsi     *
+						 * afficher un bouton permettant permettant de télécharger le document généré. *
+						 *******************************************************************************
+						 *******************************************************************************/
+						//return;
+						//if (res.status === 200) {
+						//	// Create a new Blob object using the
+						//	//response data of the onload object
+						//	const blob = new Blob([this.response], {type: 'image/pdf'});
+						//	//Create a link element, hide it, direct
+						//	//it towards the blob, and then 'click' it programatically
+						//	const a = document.createElement("a");
+						//	a.style.display = "none";
+						//	document.body.appendChild(a);
+						//	//Create a DOMString representing the blob
+						//	//and point the link element towards it
+						//	let url = window.URL.createObjectURL(blob);
+						//	a.href = url;
+						//	a.download = 'myFile.pdf';
+						//	//programatically click the link to trigger the download
+						//	//a.click();
+						//	//release the reference to the file by revoking the Object URL
+						//	//window.URL.revokeObjectURL(url);
+						//} else {
+						//	//deal with your error state here
+						//}
+					})
 			}
 		},
 		computed: {

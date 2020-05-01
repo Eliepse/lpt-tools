@@ -18,7 +18,7 @@
 </template>
 
 <script>
-	import {filterNonChinese} from "../../utils/chineseRegex"
+	import {filterNonChinese, filterNonPinyin, pinyinCharsRegex} from "../../utils/chineseRegex"
 
 	export default {
 		name: "ChineseGridCard",
@@ -62,7 +62,7 @@
 						break;
 					case "pinyin":
 						this.focus.pinyin = false
-						this.pinyin = (content.match(/[a-zA-Z0-9]/gi) || []).join("");
+						this.pinyin = filterNonPinyin(content || "");
 				}
 				this.$store.commit("UPDATE_CARD", {
 					id: this.card.id,
@@ -75,7 +75,7 @@
 					e.preventDefault();
 					return;
 				}
-				if (!e.key.match(/[a-zA-Z0-9]/)) {
+				if (!e.key.match(pinyinCharsRegex)) {
 					e.preventDefault();
 				}
 			}

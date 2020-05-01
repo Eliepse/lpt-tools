@@ -1,5 +1,5 @@
 import Vuex from 'vuex';
-import {filterChinese, filterNonChinese} from './utils/chineseRegex';
+import {filterNonPinyin, filterNonChinese, pinyinCharsRegex} from './utils/chineseRegex';
 import Vue from 'vue';
 import Axios from 'axios';
 
@@ -16,6 +16,7 @@ export default new Vuex.Store({
 			state.chinese_cache = list;
 		},
 		STORE_CARD(state, {value, pinyin}) {
+			console.debug(value, pinyin, pinyin.match(pinyinCharsRegex))
 			const id = Object.keys(state.chinese_words).reduce(function (carr, id) {
 				id = Number(id);
 				return id < carr ? carr : id;
@@ -23,13 +24,13 @@ export default new Vuex.Store({
 			this.state.chinese_words[id] = {
 				id,
 				value: filterNonChinese(value),
-				pinyin: (pinyin.match(/[a-zA-Z0-9]/gi) || []).join("")
+				pinyin: filterNonPinyin(pinyin || "")
 			}
 		},
 		UPDATE_CARD(state, {id, value, pinyin}) {
 			if (!state.chinese_words[id]) return;
 			state.chinese_words[id].value = filterNonChinese(value)
-			state.chinese_words[id].pinyin = (pinyin.match(/[a-zA-Z0-9]/gi) || []).join("")
+			state.chinese_words[id].pinyin = filterNonPinyin(pinyin || "")
 		}
 	},
 	actions: {
