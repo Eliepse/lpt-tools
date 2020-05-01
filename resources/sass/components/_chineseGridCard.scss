@@ -5,6 +5,7 @@ Shorthand: .cgCard
  */
 
 .cgCard {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -20,15 +21,24 @@ Shorthand: .cgCard
 	border-radius: .2em;
 	box-shadow: 0 .1em 0 $color-cyan-5;
 	transition: box-shadow $transition-time-fast, transform $transition-time-fast;
+
+	.btn--close {
+		display: none;
+	}
 }
 
-.cgCard--interactive {
+.cgCard--interactive,
+.cgCard--editable {
 	cursor: pointer;
 
 	&:hover,
 	& + *:focus {
 		box-shadow: 0 .125em 0 $color-cyan-5;
 		transform: translateY(-.025em);
+	}
+
+	&:hover .btn--close {
+		display: block;
 	}
 }
 
@@ -64,6 +74,10 @@ Shorthand: .cgCard
 	&:active {
 		box-shadow: 0 .2em 0 $color-cyan-5;
 		transform: translateY(-.1em);
+	}
+
+	.btn--close {
+		display: block;
 	}
 }
 

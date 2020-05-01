@@ -16,7 +16,6 @@ export default new Vuex.Store({
 			state.chinese_cache = list;
 		},
 		STORE_CARD(state, {value, pinyin}) {
-			console.debug(value, pinyin, pinyin.match(pinyinCharsRegex))
 			const id = Object.keys(state.chinese_words).reduce(function (carr, id) {
 				id = Number(id);
 				return id < carr ? carr : id;
@@ -31,6 +30,10 @@ export default new Vuex.Store({
 			if (!state.chinese_words[id]) return;
 			state.chinese_words[id].value = filterNonChinese(value)
 			state.chinese_words[id].pinyin = filterNonPinyin(pinyin || "")
+		},
+		REMOVE_CARD(state, id) {
+			if (!state.chinese_words[id]) return;
+			delete state.chinese_words[id];
 		}
 	},
 	actions: {

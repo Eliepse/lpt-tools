@@ -109,16 +109,20 @@
 					pinyin: this.$refs.form.querySelector("input[name=pinyin]:checked").value === "true",
 					columns: Number(this.$refs.form.querySelector("input[name=columns]").value),
 					models: Number(this.$refs.form.querySelector("input[name=models]").value),
-					emptyLines: Number(this.$refs.form.querySelector("input[name=emptyLines]").value),
+					emptyLines: Number(this.$refs.form.querySelector("input[name=emptyLines]").value)
 				})
-					.then((res) => {
-						console.debug(res)
-						this.downloadLink = res.data.url;
+					.then(res => {
+						if (res.status === 200) {
+							this.downloadLink = res.data.url;
+						} else {
+							alert("Erreur, aucun lien n'a été généré")
+						}
 					})
+					.catch(res => alert("Erreur: " + res.message))
 			}
 		},
 		computed: {
-			...mapGetters([])
+			...mapGetters(['getCardsCN'])
 		}
 	}
 </script>

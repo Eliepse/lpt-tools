@@ -1,5 +1,6 @@
 <template>
-	<div class="cgCard" :class="{ 'cgCard--interactive': editable, 'cgCard--editing': editing }">
+	<div class="cgCard" :class="{ 'cgCard--editable': editable, 'cgCard--editing': editing }">
+		<button class="btn btn--close" @click="removeCard"></button>
 		<div class="cgCard__cn"
 		     v-html="printValue"
 		     @focusin="focus.chinese = true"
@@ -53,7 +54,7 @@
 		},
 		methods: {
 			focusOut(type, e) {
-				if(!this.editable) return;
+				if (!this.editable) return;
 				const content = e.target.innerHTML.replace(/<.*>/gi, "");
 				switch (type) {
 					case "chinese":
@@ -69,6 +70,10 @@
 					value: this.chinese,
 					pinyin: this.pinyin,
 				})
+			},
+			removeCard() {
+				this.$store.commit("REMOVE_CARD", this.card.id)
+				this.$parent.$forceUpdate()
 			},
 			filterKeys(e) {
 				if (e.code === 13) {
