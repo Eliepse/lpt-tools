@@ -10,7 +10,7 @@
 			<div class="cg__sheet">
 				<ul class="cg__inputList">
 					<li class="cg__inputItem list-complete-item" v-for="card in $store.state.chinese_words" :key="card.id">
-						<chinese-grid-card :card="card" :editable="true" :grabFocus="true"/>
+						<chinese-grid-card :card="card" :editable="true" :grabFocus="true" @deleted="$forceUpdate()"/>
 					</li>
 					<li class="cg__inputItem">
 						<div @click="addCard" class="cgCard cgCard--interactive cgCard--ghost">

@@ -70,10 +70,11 @@
 					value: this.chinese,
 					pinyin: this.pinyin,
 				})
+				this.pinyin = this.card.pinyin
 			},
 			removeCard() {
 				this.$store.commit("REMOVE_CARD", this.card.id)
-				this.$parent.$forceUpdate()
+				this.$emit("deleted")
 			},
 			filterKeys(e) {
 				if (e.code === 13) {
