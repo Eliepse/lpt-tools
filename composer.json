@@ -7,19 +7,19 @@
     "repositories": [],
     "require": {
         "php": "^7.4",
-        "eliepse/working-grid-pdf": ">=2.1.7",
+        "eliepse/working-grid-pdf": ">=2.1",
         "eliepse/writing-exercise-pdf": "^1.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^5.8.0",
-        "laravel/tinker": "^2.0",
+        "laravel/framework": "7.*",
+        "laravel/tinker": "^2.4",
         "ext-mbstring" : "*",
         "ext-json" : "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
-        "filp/whoops": "^2.0",
+        "filp/whoops": "^2.7",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
