@@ -1,10 +1,7 @@
-<?php
-
+<?php /** @noinspection PhpPrivateFieldCanBeLocalVariableInspection */
 
 namespace App\Http\Controllers;
 
-
-use App\Character as CharacterModel;
 use App\Graphic;
 use App\WorkginGrids\GridTemplate;
 use App\WorkginGrids\GridTemplatePinyin;
@@ -14,132 +11,151 @@ use Carbon\Carbon;
 use Eliepse\WorkingGrid\Character;
 use Eliepse\WorkingGrid\Elements\Word;
 use Eliepse\WorkingGrid\WorkingGrid;
-use Illuminate\Database\Eloquent\Collection;
+use \Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/**
+ * Class GenerateChineseGridController
+ *
+ * @package App\Http\Controllers
+ */
 class GenerateChineseGridController
 {
-	public function __invoke(Request $request)
+	private Collection $words;
+	private string $title;
+	private ?Carbon $date;
+	private array $options;
+	private EloquentCollection $shapesDictionary;
+
+
+	/**
+	 * Load prepared data from cache and generate the exercice
+	 *
+	 * @param Request $request
+	 * @param string $uid
+	 *
+	 * @throws HttpException
+	 */
+	public function __invoke(Request $request, string $uid)
 	{
-		if (!empty($date = $request->get('date')))
-			$date = Carbon::createFromFormat('Y-m-d', $date);
-
-		$requestChars = trim($request->get('characters'));
-		$words = [];
-
-		/*
-		 * We extract according a single-caracter word pattern
-		 * and according a multi-caracters word pattern. Only chinese
-		 * caracters are extracted. Word or character separators can
-		 * be any non-chinese character.
-		 * */
-		preg_match_all("/\p{Han}/u", $requestChars, $singleCharMatches);
-		preg_match_all("/\p{Han}+/u", $requestChars, $multiCharsMatches);
-
-
-		/*
-		 * Decide if the user requested multi-caracters words
-		 * or single-caracters words.
-		 * */
-		$wordsMatches = count($multiCharsMatches[0]) > 1 ? $multiCharsMatches[0] : $singleCharMatches[0];
-
-		/**
-		 * Fetches graphical data (svg  strokes) from database
-		 *
-		 * @var Collection $charsGraphics
-		 */
-		$charsGraphics = Graphic::query()
-			->select(['character', 'strokes'])
-			->whereIn('character', $singleCharMatches[0])
-			->get();
-
-		/**
-		 * Fetches pinyin from database
-		 */
-		$charsPinyin = CharacterModel::query()
-			->select(['character', 'pinyin'])
-			->whereIn('character', $singleCharMatches[0])
-			->get();
-
-		// Casting words matches to objects
-		foreach ($wordsMatches as $wordMatch) {
-
-			$word = new Word([]);
-
-			/*
-			 * Adds every caracter separatly in the word with
-			 * its associated strokes data, if they exists.
-			 */
-			foreach ($this->mbStringToArray($wordMatch) as $char) {
-				if ($charGraph = $charsGraphics->firstWhere('character', '===', $char)) {
-					$charDictionary = $charsPinyin->firstWhere('character', '===', $char);
-					$word->addDrawable(new Character(
-						$charGraph->character,
-						$charGraph->strokes,
-						$charDictionary->pinyin[0] ?? null
-					));
-				}
-			}
-
-			// Prevent empty words to be added
-			if ($word->count())
-				$words[] = $word;
-
+		if (Cache::missing("exercice.$uid")) {
+			throw new HttpException(410, "This exercice is undefined or expired, please generate a new one.");
 		}
 
-		// Add empty lines
-		for ($i = 0; $i < intval($request->get('emptyLines', 0)); $i++)
-			$words[] = new Word([new Character("", [])]);
+		$cache = Cache::get("exercice.$uid");
+		$this->words = $cache["words"];
+		$this->title = $cache["title"];
+		$this->date = $cache["date"];
+		$this->options = $cache["options"];
 
-		// Instanciate the correct template
-		if ($request->has('strokes') && $request->has('pinyin')) {
+		$this->fetchShapesDictionary($this->words->pluck("*.han")->flatten(1)->unique());
 
-			$template = new GridTemplateStrokesPinyin();
+		$drawables = [
+			...$this->mapCacheToDrawableWords(),
+			...$this->getAdditionalLinesAsDrawables(),
+		];
 
-		} else if ($request->has('strokes')) {
+		$template = $this->getTemplate();
+		$this->configureTemplate($template);
 
-			$template = new GridTemplateStrokes();
-
-		} else if ($request->has('pinyin')) {
-
-			$template = new GridTemplatePinyin();
-
-		} else {
-
-			$template = new GridTemplate();
-
-		}
-
-		// Configure the template
-		$template->title = "LPT 三语宝贝" . $request->get('className', " ");
-		$template->columns_amount = $request->get('columns', 9);
-		$template->row_max = $request->get('lines', null);
-		$template->model_amount = $request->get('models', 3);
-		$template->day = $date ? $date->day : ' ';
-		$template->month = $date ? $date->month : ' ';
+//		dd($this->getAdditionalLinesAsDrawables());
 
 		// Render and return the template
-		WorkingGrid::inlinePrint($template, $words);
+		WorkingGrid::inlinePrint($template, $drawables);
 	}
 
 
 	/**
-	 * Split an multibyte string into an array
+	 * @param Collection $characters
 	 *
-	 * @param $string
+	 * @return void
+	 */
+	private function fetchShapesDictionary(Collection $characters): void
+	{
+		$this->shapesDictionary = Graphic::query()
+			->select(['character', 'strokes'])
+			->whereIn('character', $characters)
+			->get();
+	}
+
+
+	/**
+	 * Convert words from cache to drawable objects.
 	 *
 	 * @return array
 	 */
-	private function mbStringToArray($string)
+	private function mapCacheToDrawableWords(): array
 	{
-		$strlen = mb_strlen($string);
-		$array = [];
-		while ($strlen) {
-			$array[] = mb_substr($string, 0, 1, "UTF-8");
-			$string = mb_substr($string, 1, $strlen, "UTF-8");
-			$strlen = mb_strlen($string);
+		return $this->words->map(fn($word) => $this->mapToWord($word))->filter()->toArray();
+	}
+
+
+	/**
+	 * Transfor a character from cache to a drawable character.
+	 * If the character is not present in the Graphics database, null is returned.
+	 *
+	 * @param array $word
+	 *
+	 * @return Word|null
+	 */
+	private function mapToWord(array $word): ?Word
+	{
+		$characters = array_filter(array_map(function ($character) {
+			["han" => $han, "pinyin" => $pinyin] = $character;
+			/** @var Graphic $shape */
+			$shape = $this->shapesDictionary->firstWhere("character", $han);
+			return !empty($shape) ? new Character($han, $shape->strokes, $pinyin) : null;
+		}, $word));
+		return !empty($characters) ? new Word($characters) : null;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	private function getAdditionalLinesAsDrawables(): array
+	{
+		$emptyWord = new Word([new Character("", [], " ")]);
+		return array_fill(0, $this->options["additional_lines"], $emptyWord);
+	}
+
+
+	/**
+	 * @return GridTemplate|GridTemplatePinyin|GridTemplateStrokes|GridTemplateStrokesPinyin
+	 */
+	private function getTemplate(): GridTemplate
+	{
+		["with_pinyin" => $w_pinyin, "with_strokes" => $w_strokes] = $this->options;
+
+		if ($w_pinyin && $w_strokes) {
+			return new GridTemplateStrokesPinyin();
 		}
 
-		return $array;
+		if ($w_strokes) {
+			return new GridTemplateStrokes();
+		}
+
+		if ($w_pinyin) {
+			return new GridTemplatePinyin();
+		}
+
+		return new GridTemplate();
+	}
+
+
+	/**
+	 * @param GridTemplate $template
+	 */
+	private function configureTemplate(GridTemplate $template): void
+	{
+		$template->title = $this->title;
+		$template->columns_amount = $this->options["columns_amount"];
+//		$template->row_max = $this->options["row_max"];
+		$template->model_amount = $this->options["model_amount"];
+		$template->day = $this->date->day ?? ' ';
+		$template->month = $this->date->month ?? ' ';
 	}
 }
