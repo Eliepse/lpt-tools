@@ -16,8 +16,8 @@
 		<h1 class="welcome__title">les petits trilingues</h1>
 		<ul class="welcom__links">
 			<li><a href="http://www.lespetitstrilingues.com">Website</a>&nbsp;&rightarrow;</li>
-			<li><a href="{{ route('chineseGrid') }}">Grid generator (cn)</a>&nbsp;&rightarrow;</li>
-			<li><a href="{{ route('englishGrid') }}">Grid generator (en)</a>&nbsp;&rightarrow;</li>
+			<li><a href="{{ route('exercice.chinese-grid') }}">Grid generator (cn)</a>&nbsp;&rightarrow;</li>
+			<li><a href="{{ route('exercice.english-grid') }}">Grid generator (en)</a>&nbsp;&rightarrow;</li>
 		</ul>
 	</div>
 </main>

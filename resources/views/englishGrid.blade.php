@@ -27,7 +27,7 @@
 
 				<h1 class="card-title">English grid creator</h1>
 				<p class="card-text">This tool allows you to easily create a grid for english words.</p>
-				<form action="{{ route('englishGrid.pdf') }}" method="GET">
+				<form action="{{ route('exercice.english-grid.pdf') }}" method="GET">
 
 					<div class="form-group">
 						<label for="title">Title</label>
