@@ -5,16 +5,18 @@ Short: .btn | <button>
 */
 button,
 .btn {
+	display: block;
 	padding: .5em .875em;
 	color: $color-white;
 	background-color: $color-orange-5;
 	border-radius: .5em;
 	box-shadow: 0 .5em 0 $color-orange-7;
 	transition: box-shadow $transition-time-fast, transform $transition-time-fast;
+	transform: translateY(-.5em);
 
 	&:hover {
 		box-shadow: 0 .25em 0 $color-orange-7;
-		transform: translateY(.25em);
+		transform: translateY(-.25em);
 	}
 
 	&:focus {
@@ -25,12 +27,15 @@ button,
 
 	&:active {
 		box-shadow: 0 0 0 $color-orange-7;
-		transform: translateY(.5em);
+		transform: translateY(0);
 		transition: box-shadow 0s, transform 0s;
 	}
 }
 
 .btn--close {
+	position: absolute;
+	top: -.5em;
+	right: -.5em;
 	font-size: 1em;
 	padding: 0.4em;
 	border-radius: 50%;

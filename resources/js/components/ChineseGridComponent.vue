@@ -53,11 +53,11 @@
 					</div>
 				</div>
 				<div class="form__control">
-					<label class="control__label" for="columns">Cells/line</label>
+					<label class="control__label" for="columns">Caractères par ligne</label>
 					<input id="columns" type="number" name="columns" min="6" value="9" max="25">
 				</div>
 				<div class="form__control">
-					<label class="control__label" for="models">Mots fantômes</label>
+					<label class="control__label" for="models">Quantité d'aide à l'écriture</label>
 					<input id="models" type="number" name="models" min="0" value="1" max="10">
 				</div>
 				<div class="form__control">
@@ -69,6 +69,13 @@
 				<button @click="generateGrid">Générer l'exercice</button>
 			</div>
 		</div>
+		<aside class="popup" v-show="downloadLink">
+			<div class="popup__content">
+				<button class="btn btn--close" @click="downloadLink = null"></button>
+				<p>Votre exercice est prêt !</p>
+				<a class="btn" :href="downloadLink" target="_blank">Télécharger l'exercice</a>
+			</div>
+		</aside>
 	</div>
 </template>
 
@@ -84,7 +91,8 @@
 		},
 		data() {
 			return {
-				step: "editing"
+				step: "editing",
+				downloadLink: null
 			};
 		},
 		methods: {
@@ -104,38 +112,8 @@
 					emptyLines: Number(this.$refs.form.querySelector("input[name=emptyLines]").value),
 				})
 					.then((res) => {
-						/*******************************************************************************
-						 *******************************************************************************
-						 * L'idée est de préparer le document en mettant en cache les informations     *
-						 * nécessaires à la génération du document pdf (conserver également les        *
-						 * données vectoriels des caractères ?).                                       *
-						 * Ensuite, la clé de ce cache (plus ou moins sous la forme d'un uuid) est     *
-						 * renvoyé à l'utilisateur sous la forme d'une url. L'interface peut ainsi     *
-						 * afficher un bouton permettant permettant de télécharger le document généré. *
-						 *******************************************************************************
-						 *******************************************************************************/
-						//return;
-						//if (res.status === 200) {
-						//	// Create a new Blob object using the
-						//	//response data of the onload object
-						//	const blob = new Blob([this.response], {type: 'image/pdf'});
-						//	//Create a link element, hide it, direct
-						//	//it towards the blob, and then 'click' it programatically
-						//	const a = document.createElement("a");
-						//	a.style.display = "none";
-						//	document.body.appendChild(a);
-						//	//Create a DOMString representing the blob
-						//	//and point the link element towards it
-						//	let url = window.URL.createObjectURL(blob);
-						//	a.href = url;
-						//	a.download = 'myFile.pdf';
-						//	//programatically click the link to trigger the download
-						//	//a.click();
-						//	//release the reference to the file by revoking the Object URL
-						//	//window.URL.revokeObjectURL(url);
-						//} else {
-						//	//deal with your error state here
-						//}
+						console.debug(res)
+						this.downloadLink = res.data.url;
 					})
 			}
 		},

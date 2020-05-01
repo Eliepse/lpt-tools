@@ -1,0 +1,27 @@
+/*
+Type: Component
+Name: Popup
+Short: .popup
+*/
+
+.popup {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: context-menu;
+	background-color: rgba($color-gray-7, .75);
+	z-index: 100;
+}
+
+.popup__content {
+	position: relative;
+	cursor: default;
+	padding: 2.2em 1.8em 1.6em 1.8em;
+	background-color: $color-orange-2;
+	border-radius: 1.6rem;
+}
