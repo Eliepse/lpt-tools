@@ -11,14 +11,14 @@
 |
 */
 
-use App\Http\Controllers\GenerateChineseGridController;
+use App\Http\Controllers\GenerateGridCNController;
 use App\Http\Controllers\GenerateEnglishGridController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
 Route::view('/exercices/grids/chinese', 'chineseGrid')->name('exercice.chinese-grid');
-Route::get('/exercices/grids/chinese/{uid}', GenerateChineseGridController::class)->name('exercice.chinese-grid.pdf');
+Route::get('/exercices/grids/chinese/{uid}', GenerateGridCNController::class)->name('exercice.chinese-grid.pdf');
 
 Route::view('//exercices/grids/english', 'englishGrid')->name('exercice.english-grid');
 Route::get('/exercices/grids/english/pdf', GenerateEnglishGridController::class)->name('exercice.english-grid.pdf');

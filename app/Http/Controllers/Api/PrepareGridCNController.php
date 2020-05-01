@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Character;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
@@ -33,6 +34,8 @@ final class PrepareGridCNController
 	 * user, that leads to the the actual generation of the grid.
 	 *
 	 * @param Request $request
+	 *
+	 * @return JsonResponse
 	 */
 	public function __invoke(Request $request)
 	{
@@ -52,7 +55,7 @@ final class PrepareGridCNController
 		$dictionary = $this->fetchDefinitions($processingWords->pluck("hans")->flatten(1)->unique());
 		$this->words = $this->combinePinyin($processingWords, $dictionary);
 
-		$this->cacheGrid();
+		$this->cachePreparedData();
 
 		return response()->json(["url" => route("exercice.chinese-grid.pdf", $this->uid)]);
 	}
@@ -129,10 +132,10 @@ final class PrepareGridCNController
 	 *
 	 * @return bool
 	 */
-	private function cacheGrid(): bool
+	private function cachePreparedData(): bool
 	{
 		return Cache::put(
-			"exercice." . $this->uid,
+			"exercice.prepared." . $this->uid,
 			[
 				"title" => $this->title,
 				"date" => $this->date,

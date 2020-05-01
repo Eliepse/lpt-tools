@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Eliepse\WorkingGrid\Character;
 use Eliepse\WorkingGrid\Elements\Word;
 use Eliepse\WorkingGrid\WorkingGrid;
+use Illuminate\Support\Arr;
 use \Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  *
  * @package App\Http\Controllers
  */
-class GenerateChineseGridController
+class GenerateGridCNController
 {
 	private Collection $words;
 	private string $title;
@@ -41,15 +42,17 @@ class GenerateChineseGridController
 	 */
 	public function __invoke(Request $request, string $uid)
 	{
-		if (Cache::missing("exercice.$uid")) {
+		if (Cache::missing("exercice.prepared.$uid")) {
 			throw new HttpException(410, "This exercice is undefined or expired, please generate a new one.");
 		}
 
-		$cache = Cache::get("exercice.$uid");
+		$cache = Cache::get("exercice.prepared.$uid");
 		$this->words = $cache["words"];
 		$this->title = $cache["title"];
 		$this->date = $cache["date"];
 		$this->options = $cache["options"];
+
+		$this->pushToCachedLists();
 
 		$this->fetchShapesDictionary($this->words->pluck("*.han")->flatten(1)->unique());
 
@@ -157,5 +160,27 @@ class GenerateChineseGridController
 		$template->model_amount = $this->options["model_amount"];
 		$template->day = $this->date->day ?? ' ';
 		$template->month = $this->date->month ?? ' ';
+	}
+
+
+	/**
+	 * Push the current grid being generated to the cached lists of words
+	 * previously generated.
+	 */
+	private function pushToCachedLists(): void
+	{
+		$data = $this->words->map(function ($word) {
+			return [
+				"value" => join("", Arr::pluck($word, ["han"])),
+				"pinyin" => join(" ", Arr::pluck($word, ["pinyin"])),
+			];
+		});
+
+		$lists = collect(Cache::get("exercice.previous-lists", []))
+			->prepend($data)
+			->take(10)
+			->toArray();
+
+		Cache::forever("exercice.previous-lists", $lists);
 	}
 }
