@@ -10,12 +10,12 @@ Short: .cgCache
 	right: 2em;
 	height: 90vh;
 	max-height: 64rem;
-	width: 40vw;
+	width: 100%;
 	max-width: 56rem;
 	padding: 1.5em 2em;
 	border-radius: 2em 2em 0 0;
 	background-color: $color-blue-6;
-	box-shadow: 0 32px 32px rgba(134, 142, 150, .75);
+	box-shadow: 0 32px 32px rgba(134, 142, 150, 1);
 	transition: bottom $transition-time-slow;
 }
 
@@ -35,8 +35,15 @@ Short: .cgCache
 	color: $color-blue-0;
 }
 
-.cgCache__wrapper {
+.cgCache__listList {
+	height: 100%;
+	padding-right: .5em;
+	overflow: auto;
+}
+
+.cgCache__item {
 	margin: 2em 0;
+
 	button {
 		text-align: right;
 		margin-top: .5em;
