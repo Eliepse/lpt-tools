@@ -13,7 +13,7 @@ Short: .cg
 }
 
 .cg__container {
-	max-width: 111.2rem;
+	max-width: 112rem;
 	width: 100%;
 	min-height: 100vh;
 	margin: 0 auto;
@@ -57,12 +57,12 @@ Short: .cg
 }
 
 .cg__inputList {
-	display: flex;
-	align-items: stretch;
+	display: inline-flex;
+	align-items: center;
 	justify-content: left;
 	flex-wrap: wrap;
 }
 
 .cg__inputItem {
-	margin: 1em .5em;
+	margin: 1.6rem .8rem;
 }

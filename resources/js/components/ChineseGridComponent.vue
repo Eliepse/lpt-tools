@@ -8,16 +8,25 @@
 				<button @click="step = 'configuring'">Étape suivante</button>
 			</div>
 			<div class="cg__sheet">
-				<ul class="cg__inputList">
-					<li class="cg__inputItem list-complete-item" v-for="card in $store.state.chinese_words" :key="card.id">
-						<chinese-grid-card :card="card" :editable="true" :grabFocus="true" @deleted="$forceUpdate()"/>
-					</li>
-					<li class="cg__inputItem">
-						<div @click="addCard" class="cgCard cgCard--interactive cgCard--ghost">
+				<transition-group name="list" tag="ul" class="cg__inputList">
+					<li class="cg__inputItem list-item"
+					    v-for="card in getCards()"
+					    :key="card.id">
+						<chinese-grid-card
+								v-if="card.id !== 'add'"
+								:card="card"
+								:editable="true"
+								:grabFocus="true"
+								@deleted="$forceUpdate()"
+						/>
+						<div @click="addCard"
+						     v-else
+						     class="cgCard cgCard--interactive cgCard--ghost"
+						>
 							<div>+</div>
 						</div>
 					</li>
-				</ul>
+				</transition-group>
 			</div>
 			<chinese-cache-list ref="cacheList"/>
 		</div>
@@ -80,7 +89,6 @@
 </template>
 
 <script>
-	import {mapGetters} from "vuex"
 	import ChineseGridCard from './chineseGrid/CardComponent';
 	import ChineseCacheList from './chineseGrid/CacheListComponent';
 
@@ -119,10 +127,27 @@
 						}
 					})
 					.catch(res => alert("Erreur: " + res.message))
-			}
-		},
-		computed: {
-			...mapGetters(['getCardsCN'])
+			},
+			getCards: function () {
+				let cards = Object.values(this.$store.state.chinese_words);
+				cards.push({id:'add'});
+				return cards;
+			},
 		}
 	}
 </script>
+
+<style scoped>
+	.list-item {
+		transition: transform 250ms, opacity 200ms;
+	}
+
+	.list-enter {
+		transform: scale(.5);
+	}
+
+	.list-leave-to {
+		opacity: 0;
+		transform: scale(.5);
+	}
+</style>
