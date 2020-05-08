@@ -14,8 +14,11 @@
 		<h1 class="onb__title">{{ $title }}</h1>
 		<ul class="onb-list">
 			@foreach($cards as $card)
-				<li>
-					<a class="onb-card onb-card--full" href="{{ $card["link"] }}">{{ $card["title"] }}</a>
+				<li class="onb-card onb-card--full" >
+					<a href="{{ $card["link"] }}">
+						<h2 class="onb-card__title">{{ $card["title"] }}</h2>
+						<div class="onb-card__description">{!! nl2br($card["description"] ?? "") !!}</div>
+					</a>
 				</li>
 			@endforeach
 		</ul>

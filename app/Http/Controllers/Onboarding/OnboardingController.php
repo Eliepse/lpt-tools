@@ -91,11 +91,12 @@ final class OnboardingController
 		$courses = Course::query()
 			->where("school", $school)
 			->where("category", $category)
-			->get();
+			->get(["id", "school", "category", "name", "description"]);
 
 		$cards = $courses->map(function (Course $course) use ($school) {
 			return [
 				"title" => $course->name,
+				"description" => $course->description,
 				"link" => action([self::class, 'listSchedules'], [$course]),
 			];
 		});
