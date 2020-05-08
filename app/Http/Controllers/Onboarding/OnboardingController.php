@@ -42,8 +42,99 @@ final class OnboardingController
 	}
 
 
-	public function listSchools()
+	public function listSchools(): View
 	{
-		dd(Cache::get("onboarding:" . Session::getId() . ":student")->transform(fn($content) => Crypt::decryptString($content)));
+		$schools = Course::query()
+			->groupBy("school")
+			->get("school")
+			->pluck("school");
+
+		$cards = $schools->map(function ($name) {
+			return [
+				"title" => trans("onboarding.schools." . $name),
+				"link" => action([self::class, 'listCategories'], $name, false),
+			];
+		});
+
+		return view("onboarding.choice-list", [
+			"cards" => $cards,
+			"title" => "Choisissez une école",
+		]);
+	}
+
+
+	public function listCategories(string $school): View
+	{
+		$categories = Course::query()
+			->where("school", $school)
+			->groupBy("category")
+			->get("category")
+			->pluck("category");
+
+		$cards = $categories->map(function ($name) use ($school) {
+			return [
+				"title" => trans("onboarding.categories." . $name),
+				"link" => action([self::class, 'listCourses'], [$school, $name], false),
+			];
+		});
+
+		return view("onboarding.choice-list", [
+			"cards" => $cards,
+			"title" => "Choisissez une matière",
+		]);
+	}
+
+
+	public function listCourses(string $school, string $category): View
+	{
+		$courses = Course::query()
+			->where("school", $school)
+			->where("category", $category)
+			->get();
+
+		$cards = $courses->map(function (Course $course) use ($school) {
+			return [
+				"title" => $course->name,
+				"link" => action([self::class, 'listSchedules'], [$course]),
+			];
+		});
+
+		return view("onboarding.choice-list", [
+			"cards" => $cards,
+			"title" => "Choisissez un cours",
+		]);
+	}
+
+
+	public function listSchedules(Course $course): View
+	{
+		$schedules = $course->schedules->flatMap(function (array $schedules, string $day) use ($course): array {
+			return array_map(fn(string $hour): array => ["day" => $day, "hour" => $hour], $schedules);
+		});
+
+		$cards = $schedules->map(function (array $schedule) use ($course): array {
+			return [
+				"title" => trans("onboarding.days." . $schedule["day"]) . " {$schedule['hour']} h",
+				"link" => action([self::class, 'confirmation'], [$course, "{$schedule['day']}:{$schedule['hour']}"]),
+			];
+		});
+
+		return view("onboarding.choice-list", [
+			"cards" => $cards,
+			"title" => "Choisissez un horaire",
+		]);
+	}
+
+
+	public function confirmation(Course $course): void
+	{
+		$student = $this->fetchStoredStudent();
+	}
+
+	private function fetchStoredStudent(): array
+	{
+		return Cache::get("onboarding:" . Session::getId() . ":student", [])
+			->transform(fn($content) => Crypt::decryptString($content))
+			->toArray();
 	}
 }

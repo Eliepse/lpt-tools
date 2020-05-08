@@ -28,3 +28,7 @@ Route::get('/onboarding', [OnboardingController::class, 'welcome']);
 Route::get('/onboarding/student', [OnboardingController::class, 'showStudentForm']);
 Route::post('/onboarding/student', [OnboardingController::class, 'storeStudent']);
 Route::get('/onboarding/schools', [OnboardingController::class, 'listSchools']);
+Route::get('/onboarding/{course}/schedules', [OnboardingController::class, 'listSchedules']);
+Route::get('/onboarding/{course}/{schedule}/confirm', [OnboardingController::class, 'confirmation']);
+Route::get('/onboarding/{school}', [OnboardingController::class, 'listCategories']);
+Route::get('/onboarding/{school}/{categories}', [OnboardingController::class, 'listCourses']);
