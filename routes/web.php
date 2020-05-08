@@ -26,3 +26,5 @@ Route::get('/exercices/grids/english/pdf', GenerateEnglishGridController::class)
 
 Route::get('/onboarding', [OnboardingController::class, 'welcome']);
 Route::get('/onboarding/student', [OnboardingController::class, 'showStudentForm']);
+Route::post('/onboarding/student', [OnboardingController::class, 'storeStudent']);
+Route::get('/onboarding/schools', [OnboardingController::class, 'listSchools']);
