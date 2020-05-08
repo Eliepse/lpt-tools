@@ -132,9 +132,10 @@ final class OnboardingController
 		$student = $this->fetchStoredStudent();
 	}
 
+
 	private function fetchStoredStudent(): array
 	{
-		return Cache::get("onboarding:" . Session::getId() . ":student", [])
+		return Cache::get("onboarding:" . Session::getId() . ":student", collect())
 			->transform(fn($content) => Crypt::decryptString($content))
 			->toArray();
 	}
