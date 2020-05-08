@@ -28,7 +28,7 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 				       maxlength="32"
 				       required
 				       autofocus
-				       value="{{ old("fullname") }}"
+				       value="{{ $student ? $student["fullname"] : old("fullname") }}"
 				>
 				@error("fullname")
 				<div class="form__helper">{{$message}}</div>
@@ -41,7 +41,7 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 				       name="wechatId"
 				       placeholder=""
 				       maxlength="32"
-				       value="{{ old("wechatId") }}"
+				       value="{{ $student ? $student["wechatId"] : old("wechatId") }}"
 				>
 				@error("wechatId")
 				<div class="form__helper">{{$message}}</div>

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Onboarding;
 use App\Course;
 use App\Http\Requests\StoreStudentRequest;
 use DateInterval;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
@@ -28,7 +26,10 @@ final class OnboardingController
 
 	public function showStudentForm(): View
 	{
-		return view("onboarding.studentForm");
+		$student = $this->fetchStoredStudent();
+		return view("onboarding.studentForm", [
+			"student" => !empty($student) ? $student : null,
+		]);
 	}
 
 
