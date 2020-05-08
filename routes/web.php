@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\GenerateGridCNController;
 use App\Http\Controllers\GenerateEnglishGridController;
+use App\Http\Controllers\Onboarding\OnboardingController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -20,5 +21,8 @@ Route::view('/', 'welcome');
 Route::view('/exercices/grids/chinese', 'chineseGrid')->name('exercice.chinese-grid');
 Route::get('/exercices/grids/chinese/{uid}', GenerateGridCNController::class)->name('exercice.chinese-grid.pdf');
 
-Route::view('//exercices/grids/english', 'englishGrid')->name('exercice.english-grid');
+Route::view('/exercices/grids/english', 'englishGrid')->name('exercice.english-grid');
 Route::get('/exercices/grids/english/pdf', GenerateEnglishGridController::class)->name('exercice.english-grid.pdf');
+
+Route::get('/onboarding', [OnboardingController::class, 'welcome']);
+Route::get('/onboarding/student', [OnboardingController::class, 'showStudentForm']);
