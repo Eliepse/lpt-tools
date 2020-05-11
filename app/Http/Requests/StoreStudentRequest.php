@@ -3,7 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
+/**
+ * Class StoreStudentRequest
+ *
+ * @package App\Http\Requests
+ */
 class StoreStudentRequest extends FormRequest
 {
 	/**
@@ -27,7 +33,9 @@ class StoreStudentRequest extends FormRequest
 		return [
 			"fullname" => ["required", "string", "max:32"],
 			"wechatId" => ["nullable", "string", "max:32"],
-//			"emergencyPhone" => ['required']
+//			"course_id" => ["required", Rule::exists("courses")],
+//			"schedule" => ["required", "regex:/^(mon|tue|wed|thu|fri|sat|sun):[0-9]{1,2}$/"]
+			"emergency" => ['required', "regex:/^\+?[0-9 ]{10,16}$/"]
 		];
 	}
 }

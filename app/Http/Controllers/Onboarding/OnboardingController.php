@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class OnboardingController
@@ -24,22 +25,50 @@ final class OnboardingController
 	}
 
 
-	public function showStudentForm(): View
+	/**
+	 * @param Course $course
+	 * @param string $schedule
+	 *
+	 * @return View
+	 * @throws \Throwable
+	 */
+	public function showStudentForm(Course $course, string $schedule): View
 	{
-		$student = $this->fetchStoredStudent();
+		$data = $this->fetchCachedData();
+		[$schedule_day, $schedule_hour] = explode(":", $schedule);
+
+		throw_unless($course->schedules->has($schedule_day), new HttpException(422));
+		throw_unless(in_array(intval($schedule_hour), $course->schedules[ $schedule_day ]), new HttpException(422));
+
+		Cache::put(
+			"onboarding:" . Session::getId() . ":onboarding",
+			[
+				"student" => [],
+				"course_id" => $course->id,
+				"schedule_day" => $schedule_day,
+				"schedule_hour" => $schedule_hour,
+			],
+			new DateInterval("P1DT12H")
+		);
+
 		return view("onboarding.studentForm", [
-			"student" => !empty($student) ? $student : null,
+			"student" => !empty($data["student"]) ? $data["student"] : null,
+			"course" => $course,
+			"schedule" => $schedule,
 		]);
 	}
 
 
-	public function storeStudent(StoreStudentRequest $request): RedirectResponse
+	public function storeStudentAndCourseSchedule(StoreStudentRequest $request): RedirectResponse
 	{
-		$cache_key = "onboarding:" . Session::getId() . ":student";
 		$student = collect($request->all(["fullname", "wechatId"]));
+		$student["emergency"] = str_replace(" ", "", $request->get("emergency"));
 		$student->transform(fn($content) => Crypt::encryptString($content));
-		Cache::put($cache_key, $student, new DateInterval("P1DT12H"));
-		return redirect()->action([self::class, 'listSchools']);
+		$data = $this->fetchCachedData();
+		$data["student"] = $student->toArray();
+		Cache::put("onboarding:" . Session::getId() . ":onboarding", $data, new DateInterval("P1DT12H"));
+
+		return redirect()->action([self::class, 'confirmation']);
 	}
 
 
@@ -91,12 +120,13 @@ final class OnboardingController
 		$courses = Course::query()
 			->where("school", $school)
 			->where("category", $category)
-			->get(["id", "school", "category", "name", "description"]);
+			->get(["id", "school", "category", "name", "description", "price"]);
 
 		$cards = $courses->map(function (Course $course) use ($school) {
 			return [
 				"title" => $course->name,
 				"description" => $course->description,
+				"price" => $course->price,
 				"link" => action([self::class, 'listSchedules'], [$course]),
 			];
 		});
@@ -117,7 +147,7 @@ final class OnboardingController
 		$cards = $schedules->map(function (array $schedule) use ($course): array {
 			return [
 				"title" => trans("onboarding.days." . $schedule["day"]) . " {$schedule['hour']} h",
-				"link" => action([self::class, 'confirmation'], [$course, "{$schedule['day']}:{$schedule['hour']}"]),
+				"link" => action([self::class, 'showStudentForm'], [$course, "{$schedule['day']}:{$schedule['hour']}"]),
 			];
 		});
 
@@ -128,16 +158,34 @@ final class OnboardingController
 	}
 
 
-	public function confirmation(Course $course): void
+	public function confirmation(): View
 	{
-		$student = $this->fetchStoredStudent();
+		$data = $this->fetchCachedData();
+		return view("onboarding.confirm", [
+			"student" => $data["student"],
+			"course" => Course::query()->findOrFail($data["course_id"]),
+			"schedule_day" => $data["schedule_day"],
+			"schedule_hour" => $data["schedule_hour"],
+		]);
 	}
 
 
-	private function fetchStoredStudent(): array
+	public function confirm(): RedirectResponse
 	{
-		return Cache::get("onboarding:" . Session::getId() . ":student", collect())
-			->transform(fn($content) => Crypt::decryptString($content))
-			->toArray();
+		dd($this->fetchCachedData());
+	}
+
+
+	public function downloadRegistrationFile(string $school, string $category, Course $course): void
+	{
+		$student = $this->fetchCachedData();
+	}
+
+
+	private function fetchCachedData(): array
+	{
+		$data = Cache::get("onboarding:" . Session::getId() . ":onboarding", []);
+		$data["student"] = array_map(fn($content) => Crypt::decryptString($content), $data["student"] ?? []);
+		return $data;
 	}
 }

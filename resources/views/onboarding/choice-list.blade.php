@@ -14,10 +14,17 @@
 		<h1 class="onb__title">{{ $title }}</h1>
 		<ul class="onb-list">
 			@foreach($cards as $card)
-				<li class="onb-card onb-card--full" >
-					<a href="{{ $card["link"] }}">
+				<li>
+					<a class="onb-card onb-card--interactive onb-card--full" href="{{ $card["link"] }}">
+						@isset($card["price"])
+							<div class="onb-card__price">{{ $card["price"] }}&nbsp;€</div>
+						@endisset
+
 						<h2 class="onb-card__title">{{ $card["title"] }}</h2>
-						<div class="onb-card__description">{!! nl2br($card["description"] ?? "") !!}</div>
+
+						@isset($card["description"])
+							<div class="onb-card__description">{!! nl2br(e($card["description"])) !!}</div>
+						@endisset
 					</a>
 				</li>
 			@endforeach

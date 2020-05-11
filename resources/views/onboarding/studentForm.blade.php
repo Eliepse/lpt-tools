@@ -12,10 +12,10 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 	<link href="{{ mix("/css/styles.css") }}" rel="stylesheet" type="text/css">
 </head>
 
-<body class="page--onboarding-welcome">
+<body class="page--onboarding">
 
 <main id="app">
-	<form class="container" method="POST" action="{{ action([OnboardingController::class, 'storeStudent']) }}">
+	<form class="container" method="POST" action="{{ action([OnboardingController::class, 'storeStudentAndCourseSchedule']) }}">
 		@csrf
 		<h1 class="onb__title">Quel enfant souhaitez-vous inscrire&nbsp;?</h1>
 		<div class="cg__layout form" ref="form">
@@ -44,6 +44,19 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 				       value="{{ $student ? $student["wechatId"] : old("wechatId") }}"
 				>
 				@error("wechatId")
+				<div class="form__helper">{{$message}}</div>
+				@enderror
+			</div>
+			<div class="form__control @error("emergency") form__control--invalid @enderror">
+				<label class="control__label" for="wechatId">Numéro en cas d'urgence</label>
+				<input id="wechatId"
+				       type="tel"
+				       name="emergency"
+				       placeholder="0490123456"
+				       maxlength="17"
+				       value="{{ $student ? $student["emergency"] : old("emergency") }}"
+				>
+				@error("emergency")
 				<div class="form__helper">{{$message}}</div>
 				@enderror
 			</div>
