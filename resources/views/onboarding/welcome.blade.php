@@ -19,7 +19,7 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 		<h1 class="onb__title">Bienvenue dans la pré-inscription des Petits Trilingues</h1>
 		<p class="onb__subtitle">Vous êtes prêts&nbsp;?</p>
 
-		<a class="onb-card" href="{{ action([OnboardingController::class, 'listSchools']) }}">
+		<a class="onb-card onb-card--interactive" href="{{ action([OnboardingController::class, 'listSchools']) }}">
 			C'est parti&nbsp;!
 		</a>
 	</div>
