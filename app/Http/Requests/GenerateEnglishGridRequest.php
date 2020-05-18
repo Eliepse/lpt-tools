@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class GenerateEnglishGridRequest
+ *
+ * @package App\Http\Requests
+ */
 class GenerateEnglishGridRequest extends FormRequest
 {
 	/**
@@ -16,6 +21,7 @@ class GenerateEnglishGridRequest extends FormRequest
 		return [
 			'title' => 'required|string|max:50',
 			'words' => 'required|string|min:3',
+			'pinyin' => 'required|boolean'
 		];
 	}
 }

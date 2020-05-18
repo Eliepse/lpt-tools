@@ -40,9 +40,9 @@
 				<div class="form__control form__control--options @error("pinyin") form__control--invalid @enderror">
 					<span class="control__label">Règles pinyin</span>
 					<div>
-						<input id="pinyin-true" type="radio" name="pinyin" value="true">
+						<input id="pinyin-true" type="radio" name="pinyin" value="1" @if(old("pinyin") === "1") checked @endif>
 						<label for="pinyin-true">Oui</label>
-						<input id="pinyin-false" type="radio" name="pinyin" value="false" checked>
+						<input id="pinyin-false" type="radio" name="pinyin" value="0" @if(old("pinyin", "0") === "0") checked @endif>
 						<label for="pinyin-false">Non</label>
 					</div>
 					@error('pinyin')
