@@ -9,54 +9,54 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Working grid creator - LPT</title>
+	<title>Writting grid creator - LPT</title>
 
-	<!-- Bootstrap core CSS -->
-	<link href="/css/app.css" rel="stylesheet">
+	<link href="{{ mix("/css/styles.css") }}" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body class="page--writtingGrid">
 
-<div class="container">
+<main id="app">
+	<div class="cg">
+		<div class="cg__container cg__container--configuring">
+			<form action="{{ route('exercice.english-grid.pdf') }}" method="GET" class="cg__layout form">
 
-	<div class="row mt-5 mb-5">
+				<div class="form__control @error("emergency") form__control--invalid @enderror">
+					<label class="control__label" for="title">Titre</label>
+					<input id="title" type="text" name="title" placeholder="学前班, ..." required autofocus maxlength=50 value="{{ old('title') }}">
+					@error('words')
+					<div class="form__helper">{{ $message }}</div>
+					@enderror
+				</div>
 
-		<div class="card col-12 col-sm-10 col-lg-6 m-auto">
+				<div class="form__control @error("emergency") form__control--invalid @enderror">
+					<label class="control__label" for="words">Mots</label>
+					<textarea id="title" type="text" name="words" placeholder="apple, banana..." required autofocus maxlength=50>{{ old('words') }}</textarea>
+					@error('words')
+					<div class="form__helper">{{ $message }}</div>
+					@enderror
+				</div>
 
-			<div class="card-body">
-
-				<h1 class="card-title">English grid creator</h1>
-				<p class="card-text">This tool allows you to easily create a grid for english words.</p>
-				<form action="{{ route('exercice.english-grid.pdf') }}" method="GET">
-
-					<div class="form-group">
-						<label for="title">Title</label>
-						<input type="text" id="title" name="title" class="form-control" placeholder="学前班, ..." required autofocus maxlength=50 value="{{ old('title') }}">
+				<div class="form__control form__control--options @error("emergency") form__control--invalid @enderror">
+					<span class="control__label">Règles pinyin</span>
+					<div>
+						<input id="pinyin-true" type="radio" name="pinyin" value="true">
+						<label for="pinyin-true">Oui</label>
+						<input id="pinyin-false" type="radio" name="pinyin" value="false" checked>
+						<label for="pinyin-false">Non</label>
 					</div>
-
-					<div class="form-group">
-						<label for="words">Words</label>
-						<input type="text"
-						       id="words"
-						       name="words"
-						       class="form-control mb-3 {{ $errors->has('words') ? 'is-invalid' : '' }}"
-						       placeholder="apple, banana, ..."
-						       value="{{ old('words') }}" required>
-						@if($errors->has('words'))
-							<div class="invalid-feedback">{{ $errors->first('words') }}</div>
-						@endif
-					</div>
-
-					<button class="btn btn-primary" type="submit">Generate !</button>
-
-				</form>
+					@error('words')
+					<div class="form__helper">{{ $message }}</div>
+					@enderror
+				</div>
+			<div class="cg__actions text--right">
+				<button type="submit">Générer l'exercice</button>
 			</div>
-
+			</form>
 		</div>
-
 	</div>
 
-</div>
+</main>
 
 <script src="{{ mix('js/app.js') }}"></script>
 

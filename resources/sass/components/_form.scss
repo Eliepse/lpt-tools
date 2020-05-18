@@ -24,7 +24,8 @@ Short: .form
 }
 
 .form__control--options {
-	input {
+	input[type=radio],
+	input[type=checkbox] {
 		display: none;
 	}
 
@@ -56,7 +57,8 @@ Short: .form
 }
 
 .form__control {
-	input {
+	input,
+	textarea {
 		display: inline-block;
 		width: 100%;
 		max-width: 45rem;
