@@ -21,15 +21,15 @@
 		<div class="cg__container cg__container--configuring">
 			<form action="{{ route('exercice.english-grid.pdf') }}" method="GET" class="cg__layout form">
 
-				<div class="form__control @error("emergency") form__control--invalid @enderror">
+				<div class="form__control @error("title") form__control--invalid @enderror">
 					<label class="control__label" for="title">Titre</label>
 					<input id="title" type="text" name="title" placeholder="学前班, ..." required autofocus maxlength=50 value="{{ old('title') }}">
-					@error('words')
+					@error('title')
 					<div class="form__helper">{{ $message }}</div>
 					@enderror
 				</div>
 
-				<div class="form__control @error("emergency") form__control--invalid @enderror">
+				<div class="form__control @error("words") form__control--invalid @enderror">
 					<label class="control__label" for="words">Mots</label>
 					<textarea id="title" type="text" name="words" placeholder="apple, banana..." required autofocus maxlength=50>{{ old('words') }}</textarea>
 					@error('words')
@@ -37,7 +37,7 @@
 					@enderror
 				</div>
 
-				<div class="form__control form__control--options @error("emergency") form__control--invalid @enderror">
+				<div class="form__control form__control--options @error("pinyin") form__control--invalid @enderror">
 					<span class="control__label">Règles pinyin</span>
 					<div>
 						<input id="pinyin-true" type="radio" name="pinyin" value="true">
@@ -45,7 +45,7 @@
 						<input id="pinyin-false" type="radio" name="pinyin" value="false" checked>
 						<label for="pinyin-false">Non</label>
 					</div>
-					@error('words')
+					@error('pinyin')
 					<div class="form__helper">{{ $message }}</div>
 					@enderror
 				</div>
