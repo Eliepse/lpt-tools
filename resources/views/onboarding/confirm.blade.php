@@ -15,7 +15,7 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 <body class="page--onboarding page--onboarding-confirm">
 
 <main id="app">
-	<form class="container" method="POST" action="{{ action([OnboardingController::class, 'confirm']) }}">
+	<form class="container" method="POST" action="{{ action([OnboardingController::class, 'downloadRegistrationFile']) }}">
 		@csrf
 		<h1 class="onb__title">Ces informations sont-elle correctes&nbsp;?</h1>
 

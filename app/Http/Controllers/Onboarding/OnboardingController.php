@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Onboarding;
 use App\Course;
 use App\Http\Requests\StoreStudentRequest;
 use DateInterval;
+use Eliepse\LptLayoutPDF\GeneratePreOrder;
+use Eliepse\LptLayoutPDF\Student;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -62,8 +67,9 @@ final class OnboardingController
 	public function storeStudentAndCourseSchedule(StoreStudentRequest $request): RedirectResponse
 	{
 		$student = collect($request->all(["fullname", "wechatId"]));
-		$student["emergency"] = str_replace(" ", "", $request->get("emergency"));
+		$student->put("emergency", str_replace(" ", "", $request->get("emergency")));
 		$student->transform(fn($content) => Crypt::encryptString($content));
+
 		$data = $this->fetchCachedData();
 		$data["student"] = $student->toArray();
 		Cache::put("onboarding:" . Session::getId() . ":onboarding", $data, new DateInterval("P1DT12H"));
@@ -176,14 +182,32 @@ final class OnboardingController
 	}
 
 
-	public function downloadRegistrationFile(string $school, string $category, Course $course): void
+	/**
+	 * @throws \Mpdf\MpdfException
+	 */
+	public function downloadRegistrationFile(): Response
 	{
-		$student = $this->fetchCachedData();
+		$data = $this->fetchCachedData();
+		$course = Course::query()->findOrFail($data["course_id"] ?? null);
+		$student = new Student();
+		$student->firstname = "Yinan";
+		$student->lastname = "Chai";
+		$student->fullname_cn = "柴轶男";
+		$student->born_at = "2003-11-07";
+		$student->first_contact_phone = "0603260318";
+		$student->second_contact_phone = "0490726860";
+		$student->first_contact_wechat = "eliepse13458795";
+		$student->city_code = "92200";
+
+		$generator = new GeneratePreOrder($course, $student, $data["schedule_day"], $data["schedule_hour"]);
+		$pdf = $generator()->Output('hey.pdf', Destination::STRING_RETURN);
+		return response($pdf)->withHeaders(["Content-Type" => "application/pdf"]);
 	}
 
 
 	private function fetchCachedData(): array
 	{
+		// TODO: init student and course at construct time
 		$data = Cache::get("onboarding:" . Session::getId() . ":onboarding", []);
 		$data["student"] = array_map(fn($content) => Crypt::decryptString($content), $data["student"] ?? []);
 		return $data;
