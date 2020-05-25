@@ -15,7 +15,7 @@ final class OnboardingInfosController extends OnboardingController
 	{
 		$this->fetchCachedData();
 		return view("onboarding.studentForm", [
-			"student" => $this->student,
+			"student" => $this->student ?? new Student(),
 			"course" => $this->course,
 			"schedule" => $this->schedule,
 		]);
