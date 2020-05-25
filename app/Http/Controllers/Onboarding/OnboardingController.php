@@ -200,11 +200,8 @@ final class OnboardingController
 		$this->fetchCachedData();
 		$this->student->firstname = "Yinan";
 		$this->student->lastname = "Chai";
-//		$this->student->fullname_cn = "柴轶男";
 		$this->student->born_at = "2003-11-07";
-//		$this->student->first_contact_phone = "0603260318";
 		$this->student->second_contact_phone = "0490726860";
-//		$this->student->first_contact_wechat = "eliepse13458795";
 		$this->student->city_code = "92200";
 
 		$generator = new GeneratePreRegistration(

@@ -33,16 +33,11 @@
 	<table class="infos">
 		<tbody>
 		<tr>
-			<td class="label">Prénom</td>
-			<td class="value">{{ $student->firstname }}</td>
-		</tr>
-		<tr>
-			<td class="label">Nom</td>
-			<td class="value">{{ $student->lastname }}</td>
-		</tr>
-		<tr>
-			<td class="label">Nom chinois</td>
-			<td class="value">{{ $student->fullname_cn }}</td>
+			<td class="label">Prénom NOM</td>
+			<td class="value">
+				{{ mb_convert_case($student->firstname, MB_CASE_TITLE_SIMPLE) }} {{ mb_strtoupper($student->lastname) }}
+				@if(!empty($student->fullname_cn))({{ $student->fullname_cn }})@endif
+			</td>
 		</tr>
 		<tr>
 			<td class="label">Date de naissance</td>
@@ -51,6 +46,17 @@
 		<tr>
 			<td class="label">Ville de résidence</td>
 			<td class="value">{{ $student->city_code }}</td>
+		</tr>
+		<tr>
+			<td class="label">Parent Wechat ID</td>
+			<td class="value">{{ $student->first_contact_wechat }}</td>
+		</tr>
+		<tr>
+			<td class="label">Contact emergency</td>
+			<td class="value">
+				{{ $student->first_contact_phone }}<br>
+				{{ $student->second_contact_phone }}<br>
+			</td>
 		</tr>
 		</tbody>
 	</table>
