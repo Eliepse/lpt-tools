@@ -5,7 +5,9 @@ use App\Http\Controllers\Onboarding\OnboardingInfosController;
 use App\Http\Controllers\Onboarding\OnboardingSelectionController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix("onboarding/")->group(function () {
+Route::prefix("onboarding/")
+	->middleware(["registration.checkOpen:courses"])
+	->group(function () {
 	Route::view('/', "onboarding.welcome");
 	Route::get('confirm', [OnboardingInfosController::class, 'confirmation']);
 	Route::post('confirm', [OnboardingInfosController::class, 'confirm']);

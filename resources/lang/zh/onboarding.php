@@ -1,6 +1,7 @@
 <?php
 
 return [
+	"closed" => "关闭",
 	"school" => "校区",
 	"course" => "课程",
 	"level" => "级别",

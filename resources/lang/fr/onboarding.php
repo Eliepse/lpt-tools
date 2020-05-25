@@ -1,6 +1,7 @@
 <?php
 
 return [
+	"closed" => "Fermé",
 	"school" => "Établissement",
 	"course" => "Cours",
 	"level" => "Niveau",
