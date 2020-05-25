@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Onboarding;
 
 use App\Course;
 use App\Http\Requests\StoreStudentRequest;
-use DateInterval;
+use Carbon\CarbonInterval;
 use Eliepse\LptLayoutPDF\GeneratePreOrder;
 use Eliepse\LptLayoutPDF\Student;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -24,6 +24,18 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 final class OnboardingController
 {
+	private ?Student $student;
+	private ?Course $course;
+	private array $schedule = [];
+
+
+	public function __construct()
+	{
+//		$this->fetchCachedData();
+	}
+
+
+
 	public function welcome(): View
 	{
 		return view("onboarding.welcome");
@@ -39,40 +51,39 @@ final class OnboardingController
 	 */
 	public function showStudentForm(Course $course, string $schedule): View
 	{
-		$data = $this->fetchCachedData();
 		[$schedule_day, $schedule_hour] = explode(":", $schedule);
 
 		throw_unless($course->schedules->has($schedule_day), new HttpException(422));
 		throw_unless(in_array(intval($schedule_hour), $course->schedules[ $schedule_day ]), new HttpException(422));
 
-		Cache::put(
-			"onboarding:" . Session::getId() . ":onboarding",
-			[
-				"student" => [],
-				"course_id" => $course->id,
-				"schedule_day" => $schedule_day,
-				"schedule_hour" => $schedule_hour,
-			],
-			new DateInterval("P1DT12H")
-		);
+		$this->fetchCachedData();
+		$this->course = $course;
+		$this->schedule = ["day" => $schedule_day, "hour" => $schedule_hour];
+		$this->updateCacheData();
 
 		return view("onboarding.studentForm", [
-			"student" => !empty($data["student"]) ? $data["student"] : null,
-			"course" => $course,
-			"schedule" => $schedule,
+			"student" => $this->student,
+			"course" => $this->course,
+			"schedule" => $this->schedule,
 		]);
 	}
 
 
+	/**
+	 * @param StoreStudentRequest $request
+	 *
+	 * @return RedirectResponse
+	 * @throws \Exception
+	 */
 	public function storeStudentAndCourseSchedule(StoreStudentRequest $request): RedirectResponse
 	{
-		$student = collect($request->all(["fullname", "wechatId"]));
-		$student->put("emergency", str_replace(" ", "", $request->get("emergency")));
-		$student->transform(fn($content) => Crypt::encryptString($content));
+		$this->fetchCachedData();
+		$this->student = new Student();
+		$this->student->fullname_cn = $request->get("fullname");
+		$this->student->first_contact_wechat = $request->get("wechatId");
+		$this->student->first_contact_phone = str_replace(" ", "", $request->get("emergency"));
 
-		$data = $this->fetchCachedData();
-		$data["student"] = $student->toArray();
-		Cache::put("onboarding:" . Session::getId() . ":onboarding", $data, new DateInterval("P1DT12H"));
+		$this->updateCacheData();
 
 		return redirect()->action([self::class, 'confirmation']);
 	}
@@ -166,19 +177,18 @@ final class OnboardingController
 
 	public function confirmation(): View
 	{
-		$data = $this->fetchCachedData();
+		$this->fetchCachedData();
 		return view("onboarding.confirm", [
-			"student" => $data["student"],
-			"course" => Course::query()->findOrFail($data["course_id"]),
-			"schedule_day" => $data["schedule_day"],
-			"schedule_hour" => $data["schedule_hour"],
+			"student" => $this->student,
+			"course" => $this->course,
+			"schedule" => $this->schedule,
 		]);
 	}
 
 
 	public function confirm(): RedirectResponse
 	{
-		dd($this->fetchCachedData());
+		dd("confirmed");
 	}
 
 
@@ -187,29 +197,63 @@ final class OnboardingController
 	 */
 	public function downloadRegistrationFile(): Response
 	{
-		$data = $this->fetchCachedData();
-		$course = Course::query()->findOrFail($data["course_id"] ?? null);
-		$student = new Student();
-		$student->firstname = "Yinan";
-		$student->lastname = "Chai";
-		$student->fullname_cn = "柴轶男";
-		$student->born_at = "2003-11-07";
-		$student->first_contact_phone = "0603260318";
-		$student->second_contact_phone = "0490726860";
-		$student->first_contact_wechat = "eliepse13458795";
-		$student->city_code = "92200";
+		$this->fetchCachedData();
+		$this->student->firstname = "Yinan";
+		$this->student->lastname = "Chai";
+//		$this->student->fullname_cn = "柴轶男";
+		$this->student->born_at = "2003-11-07";
+//		$this->student->first_contact_phone = "0603260318";
+		$this->student->second_contact_phone = "0490726860";
+//		$this->student->first_contact_wechat = "eliepse13458795";
+		$this->student->city_code = "92200";
 
-		$generator = new GeneratePreOrder($course, $student, $data["schedule_day"], $data["schedule_hour"]);
+		$generator = new GeneratePreOrder(
+			$this->course,
+			$this->student,
+			$this->schedule["day"],
+			$this->schedule["hour"]
+		);
 		$pdf = $generator()->Output('hey.pdf', Destination::STRING_RETURN);
 		return response($pdf)->withHeaders(["Content-Type" => "application/pdf"]);
 	}
 
 
-	private function fetchCachedData(): array
+	private function getCacheId(): string
 	{
-		// TODO: init student and course at construct time
-		$data = Cache::get("onboarding:" . Session::getId() . ":onboarding", []);
-		$data["student"] = array_map(fn($content) => Crypt::decryptString($content), $data["student"] ?? []);
-		return $data;
+		Log::debug(__FUNCTION__, [session()->get("onboarding:key")]);
+
+		if (!session()->has("onboarding:key")) {
+			session()->put("onboarding:key", Str::random());
+		}
+
+		return "onboarding:" . session()->get("onboarding:key");
+	}
+
+
+	/**
+	 * @throws \Exception
+	 */
+	private function updateCacheData(): void
+	{
+		Log::debug(__FUNCTION__, [$this->getCacheId()]);
+		Cache::put(
+			$this->getCacheId(),
+			[
+				'student' => Crypt::encrypt($this->student),
+				'course' => $this->course,
+				'schedule' => $this->schedule,
+			],
+			CarbonInterval::create(0, 0, 0, 0, config("session.lifetime"))
+		);
+	}
+
+
+	private function fetchCachedData(): void
+	{
+		$data = Cache::get($this->getCacheId());
+		Log::debug(__FUNCTION__, [$this->getCacheId()]);
+		$this->student = empty($data['student']) ? null : Crypt::decrypt($data['student']);
+		$this->course = $data["course"] ?? null;
+		$this->schedule = $data["schedule"] ?? [];
 	}
 }

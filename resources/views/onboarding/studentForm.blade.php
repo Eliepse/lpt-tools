@@ -2,6 +2,9 @@
 
 use \App\Http\Controllers\Onboarding\OnboardingController;
 
+/**
+ * @var \Eliepse\LptLayoutPDF\Student $student
+ */
 ?>
 {{----}}<!doctype html>
 <html lang="fr">
@@ -28,7 +31,7 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 				       maxlength="32"
 				       required
 				       autofocus
-				       value="{{ $student ? $student["fullname"] : old("fullname") }}"
+				       value="{{ $student->fullname_cn ?? old("fullname") }}"
 				>
 				@error("fullname")
 				<div class="form__helper">{{$message}}</div>
@@ -41,7 +44,7 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 				       name="wechatId"
 				       placeholder=""
 				       maxlength="32"
-				       value="{{ $student ? $student["wechatId"] : old("wechatId") }}"
+				       value="{{ $student->first_contact_wechat ?? old("wechatId") }}"
 				>
 				@error("wechatId")
 				<div class="form__helper">{{$message}}</div>
@@ -54,7 +57,7 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 				       name="emergency"
 				       placeholder="0490123456"
 				       maxlength="17"
-				       value="{{ $student ? $student["emergency"] : old("emergency") }}"
+				       value="{{ $student->first_contact_phone ?? old("emergency") }}"
 				>
 				@error("emergency")
 				<div class="form__helper">{{$message}}</div>

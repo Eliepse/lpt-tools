@@ -2,6 +2,9 @@
 
 use \App\Http\Controllers\Onboarding\OnboardingController;
 
+/**
+ * @var \Eliepse\LptLayoutPDF\Student $student
+ */
 ?>
 {{----}}<!doctype html>
 <html lang="fr">
@@ -22,22 +25,22 @@ use \App\Http\Controllers\Onboarding\OnboardingController;
 		<ul class="onb-list">
 			<li class="onb-card onb-card--full">
 				<h2 class="onb-card__title">Étudiant</h2>
-				<div class="onb-card__description">{{ $student["fullname"] }}</div>
+				<div class="onb-card__description">{{ $student->fullname_cn }}</div>
 			</li>
 			<li class="onb-card onb-card--full">
 				<h2 class="onb-card__title">Contacts</h2>
 				<div class="onb-card__description">
-					Wechat&nbsp;ID&thinsp;: {{ $student["wechatId"] }}<br>
-					Téléphone d'urgence&thinsp;: {{ $student["emergency"] }}
+					Wechat&nbsp;ID&thinsp;: {{ $student->first_contact_wechat }}<br>
+					Téléphone d'urgence&thinsp;: {{ $student->first_contact_phone }}
 				</div>
 			</li>
 			<li class="onb-card onb-card--full">
 				<h2 class="onb-card__title">Cours</h2>
 				<div class="onb-card__description">
-					École&thinsp;: {{ trans("onboarding.schools." . $course->school) }}<br>
+					École&thinsp;: @lang("onboarding.schools." . $course->school)<br>
 					Nom du cours&thinsp;: {{ $course->name }}<br>
-					Horaire&thinsp;: {{ trans("onboarding.days." . $schedule_day) }} {{ $schedule_hour }} h<br>
-					Prix&thinsp;: {{ $course->price }}<br>
+					Horaire&thinsp;: @lang("onboarding.days." . $schedule["day"]) - {{ $schedule["hour"] }} h<br>
+					Prix&thinsp;: {{ $course->price }} €<br>
 				</div>
 			</li>
 		</ul>
