@@ -7,14 +7,13 @@ use App\Http\Requests\StoreStudentRequest;
 use Carbon\CarbonInterval;
 use Eliepse\LptLayoutPDF\GeneratePreRegistration;
 use Eliepse\LptLayoutPDF\Student;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Mpdf\Output\Destination;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
@@ -33,7 +32,6 @@ final class OnboardingController
 	{
 //		$this->fetchCachedData();
 	}
-
 
 
 	public function welcome(): View
@@ -155,6 +153,7 @@ final class OnboardingController
 	}
 
 
+	/** @noinspection PhpUnusedParameterInspection */
 	public function listSchedules(Course $course): View
 	{
 		$schedules = $course->schedules->flatMap(function (array $schedules, string $day) use ($course): array {
@@ -195,7 +194,7 @@ final class OnboardingController
 	/**
 	 * @throws \Mpdf\MpdfException
 	 */
-	public function downloadRegistrationFile(): Response
+	public function downloadRegistrationFile(): StreamedResponse
 	{
 		$this->fetchCachedData();
 		$this->student->firstname = "Yinan";
@@ -210,15 +209,15 @@ final class OnboardingController
 			$this->schedule["day"],
 			$this->schedule["hour"]
 		);
-		$pdf = $generator()->Output('hey.pdf', Destination::STRING_RETURN);
-		return response($pdf)->withHeaders(["Content-Type" => "application/pdf"]);
+		$title = "registration-form__" . $this->student->getFullname() . "__" . $this->course->name;
+		$pdf = $generator()->Output("$title.pdf", Destination::STRING_RETURN);
+		return response()
+			->streamDownload(function () use ($pdf) { echo $pdf; }, "$title.pdf", ["Content-Type" => "application/pdf"]);
 	}
 
 
 	private function getCacheId(): string
 	{
-		Log::debug(__FUNCTION__, [session()->get("onboarding:key")]);
-
 		if (!session()->has("onboarding:key")) {
 			session()->put("onboarding:key", Str::random());
 		}
@@ -232,7 +231,6 @@ final class OnboardingController
 	 */
 	private function updateCacheData(): void
 	{
-		Log::debug(__FUNCTION__, [$this->getCacheId()]);
 		Cache::put(
 			$this->getCacheId(),
 			[
@@ -248,7 +246,6 @@ final class OnboardingController
 	private function fetchCachedData(): void
 	{
 		$data = Cache::get($this->getCacheId());
-		Log::debug(__FUNCTION__, [$this->getCacheId()]);
 		$this->student = empty($data['student']) ? null : Crypt::decrypt($data['student']);
 		$this->course = $data["course"] ?? null;
 		$this->schedule = $data["schedule"] ?? [];
