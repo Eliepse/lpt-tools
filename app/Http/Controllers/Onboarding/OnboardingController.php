@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Onboarding;
 use App\Course;
 use App\Http\Requests\StoreStudentRequest;
 use Carbon\CarbonInterval;
-use Eliepse\LptLayoutPDF\GeneratePreOrder;
+use Eliepse\LptLayoutPDF\GeneratePreRegistration;
 use Eliepse\LptLayoutPDF\Student;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -207,7 +207,7 @@ final class OnboardingController
 //		$this->student->first_contact_wechat = "eliepse13458795";
 		$this->student->city_code = "92200";
 
-		$generator = new GeneratePreOrder(
+		$generator = new GeneratePreRegistration(
 			$this->course,
 			$this->student,
 			$this->schedule["day"],

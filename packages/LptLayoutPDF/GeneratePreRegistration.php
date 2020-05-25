@@ -8,12 +8,7 @@ use Illuminate\Support\Facades\View;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
 
-/**
- * Class GeneratePreOrder
- *
- * @package LptLayoutPDF
- */
-final class GeneratePreOrder
+final class GeneratePreRegistration
 {
 	private Course $course;
 	private Student $student;
