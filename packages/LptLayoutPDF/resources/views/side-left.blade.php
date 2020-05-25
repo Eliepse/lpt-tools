@@ -35,8 +35,7 @@
 		<tr>
 			<td class="label">Prénom NOM</td>
 			<td class="value">
-				{{ mb_convert_case($student->firstname, MB_CASE_TITLE_SIMPLE) }} {{ mb_strtoupper($student->lastname) }}
-				@if(!empty($student->fullname_cn))({{ $student->fullname_cn }})@endif
+				{{ $student->getFullname() }} @if(!empty($student->fullname_cn))({{ $student->fullname_cn }})@endif
 			</td>
 		</tr>
 		<tr>

@@ -19,6 +19,12 @@ final class Student implements \Serializable
 	public ?string $city_code = null;
 
 
+	public function getFullname(): string
+	{
+		return mb_convert_case($this->firstname, MB_CASE_TITLE_SIMPLE) . ' ' . mb_strtoupper($this->lastname);
+	}
+
+
 	public function hydrate(array $params): void
 	{
 		$this->firstname = $params['firstname'];
