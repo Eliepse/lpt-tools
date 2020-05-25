@@ -20,11 +20,11 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 <main id="app">
 	<form class="container" method="POST" action="{{ action([OnboardingInfosController::class, 'storeStudentContact']) }}">
 		@csrf
-		<h1 class="onb__title">Quel enfant souhaitez-vous inscrire&nbsp;?</h1>
+		<h1 class="onb__title">@lang("onboarding.titles.form-contact")</h1>
 		<div class="cg__layout form" ref="form">
 
 			<div class="form__control @error("first_wechat_id") form__control--invalid @enderror">
-				<label class="control__label" for="first_wechat_id">Votre ID wechat</label>
+				<label class="control__label" for="first_wechat_id">@lang("onboarding.form.wechat_id")</label>
 				<input id="first_wechat_id"
 				       type="text"
 				       name="first_wechat_id"
@@ -38,7 +38,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 			</div>
 
 			<div class="form__control @error("first_phone") form__control--invalid @enderror">
-				<label class="control__label" for="wechatId">Numéro en cas d'urgence</label>
+				<label class="control__label" for="wechatId">@lang("onboarding.form.phone_emergency")</label>
 				<input id="wechatId"
 				       type="tel"
 				       name="first_phone"
@@ -53,7 +53,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 			</div>
 
 			<div class="form__control @error("second_phone") form__control--invalid @enderror">
-				<label class="control__label" for="wechatId">Numéro en cas d'urgence</label>
+				<label class="control__label" for="wechatId">@lang("onboarding.form.phone_emergency2")</label>
 				<input id="wechatId"
 				       type="tel"
 				       name="second_phone"
@@ -68,7 +68,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 			</div>
 
 		</div>
-		<button type="submit">Continuer</button>
+		<button type="submit">@lang("onboarding.buttons.next")</button>
 	</form>
 </main>
 

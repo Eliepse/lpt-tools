@@ -16,11 +16,11 @@ use \App\Http\Controllers\Onboarding\OnboardingSelectionController;
 
 <main id="app">
 	<div class="container">
-		<h1 class="onb__title">Bienvenue dans la pré-inscription des Petits Trilingues</h1>
-		<p class="onb__subtitle">Vous êtes prêts&nbsp;?</p>
+		<h1 class="onb__title">@lang("onboarding.titles.welcome")</h1>
+		<p class="onb__subtitle">@lang("onboarding.titles.ready?")</p>
 
 		<a class="onb-card onb-card--interactive" href="{{ action([OnboardingSelectionController::class, 'listSchools']) }}">
-			C'est parti&nbsp;!
+			@lang("onboarding.buttons.lets-go")
 		</a>
 	</div>
 </main>

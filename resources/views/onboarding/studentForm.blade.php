@@ -20,11 +20,11 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 <main id="app">
 	<form class="container" method="POST" action="{{ action([OnboardingInfosController::class, 'storeStudent']) }}">
 		@csrf
-		<h1 class="onb__title">Quel enfant souhaitez-vous inscrire&nbsp;?</h1>
+		<h1 class="onb__title">@lang("onboarding.titles.form-student")</h1>
 		<div class="cg__layout form" ref="form">
 
 			<div class="form__control @error("firstname") form__control--invalid @enderror">
-				<label class="control__label" for="firstname">Prénom</label>
+				<label class="control__label" for="firstname">@lang("onboarding.form.firstname")</label>
 				<input id="firstname"
 				       type="text"
 				       name="firstname"
@@ -39,7 +39,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 			</div>
 
 			<div class="form__control @error("lastname") form__control--invalid @enderror">
-				<label class="control__label" for="lastname">Nom</label>
+				<label class="control__label" for="lastname">@lang("onboarding.form.lastname")</label>
 				<input id="lastname"
 				       type="text"
 				       name="lastname"
@@ -54,7 +54,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 			</div>
 
 			<div class="form__control @error("fullname_cn") form__control--invalid @enderror">
-				<label class="control__label" for="fullname_cn">Nom chinois complet</label>
+				<label class="control__label" for="fullname_cn">@lang("onboarding.form.fullname_cn")</label>
 				<input id="fullname_cn"
 				       type="text"
 				       name="fullname_cn"
@@ -69,7 +69,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 			</div>
 
 			<div class="form__control @error("bornAt") form__control--invalid @enderror">
-				<label class="control__label" for="bornAt">Date de naissance</label>
+				<label class="control__label" for="bornAt">@lang("onboarding.form.bornAt")</label>
 				<input id="bornAt"
 				       type="date"
 				       name="bornAt"
@@ -84,7 +84,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 			</div>
 
 			<div class="form__control @error("city_code") form__control--invalid @enderror">
-				<label class="control__label" for="city_code">Code postal de résidence</label>
+				<label class="control__label" for="city_code">@lang("onboarding.form.city-code")</label>
 				<input id="city_code"
 				       type="text"
 				       name="city_code"

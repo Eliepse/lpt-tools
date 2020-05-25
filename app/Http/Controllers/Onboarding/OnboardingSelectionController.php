@@ -27,7 +27,7 @@ final class OnboardingSelectionController extends OnboardingController
 
 		return view("onboarding.choice-list", [
 			"cards" => $cards,
-			"title" => "Choisissez une école",
+			"title" => trans("onboarding.titles.choose-school"),
 		]);
 	}
 
@@ -49,7 +49,7 @@ final class OnboardingSelectionController extends OnboardingController
 
 		return view("onboarding.choice-list", [
 			"cards" => $cards,
-			"title" => "Choisissez une matière",
+			"title" => trans("onboarding.titles.choose-category"),
 		]);
 	}
 
@@ -72,7 +72,7 @@ final class OnboardingSelectionController extends OnboardingController
 
 		return view("onboarding.choice-list", [
 			"cards" => $cards,
-			"title" => "Choisissez un cours",
+			"title" => trans("onboarding.titles.choose-course"),
 		]);
 	}
 
@@ -81,7 +81,7 @@ final class OnboardingSelectionController extends OnboardingController
 	{
 		return view("onboarding.select-course-schedule", [
 			"course" => $course,
-			"title" => "Choisissez un horaire",
+			"title" => trans("onboarding.titles.choose-schedule"),
 		]);
 	}
 

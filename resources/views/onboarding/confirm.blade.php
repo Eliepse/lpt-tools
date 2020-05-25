@@ -20,37 +20,38 @@ use \App\Http\Controllers\Onboarding\DownloadPreRegistrationController;
 <main id="app">
 	<form class="container" method="POST" action="{{ action(DownloadPreRegistrationController::class) }}">
 		@csrf
-		<h1 class="onb__title">Ces informations sont-elle correctes&nbsp;?</h1>
+		<h1 class="onb__title">@lang("onboarding.titles.confirm")</h1>
 
 		<ul class="onb-list">
 			<li class="onb-card onb-card--full">
-				<h2 class="onb-card__title">Cours</h2>
+				<h2 class="onb-card__title">@lang("onboarding.course")</h2>
 				<div class="onb-card__description">
-					École&thinsp;: @lang("onboarding.schools." . $course->school)<br>
-					Nom du cours&thinsp;: {{ $course->name }}<br>
-					Horaire&thinsp;: @lang("onboarding.days." . $schedule["day"]) - {{ $schedule["hour"] }} h<br>
-					Prix&thinsp;: {{ $course->price }} €<br>
+					@lang("onboarding.school")&thinsp;: @lang("onboarding.schools." . $course->school)<br>
+					@lang("onboarding.level")&thinsp;: {{ $course->name }}<br>
+					@lang("onboarding.schedule")&thinsp;: @lang("onboarding.days." . $schedule["day"]) - {{ $schedule["hour"] }} h<br>
+					@lang("onboarding.price")&thinsp;: {{ $course->price }} €<br>
 				</div>
 			</li>
 			<li class="onb-card onb-card--full">
-				<h2 class="onb-card__title">Étudiant</h2>
+				<h2 class="onb-card__title">@lang("onboarding.student")</h2>
 				<div class="onb-card__description">
-					{{ $student->getFullname() }} @if(!empty($student->fullname_cn))({{ $student->fullname_cn }})@endif<br>
-					Date de naissance : {{ $student->born_at->toDateString() }}<br>
-					Code postal : {{ $student->city_code }}
+					{{ $student->getFullname() }} @if(!empty($student->fullname_cn))({{ $student->fullname_cn }})@endif
+					<br>
+					@lang("onboarding.form.bornAt") : {{ $student->born_at->toDateString() }}<br>
+					@lang("onboarding.form.city-code") : {{ $student->city_code }}
 				</div>
 			</li>
 			<li class="onb-card onb-card--full">
-				<h2 class="onb-card__title">Contacts</h2>
+				<h2 class="onb-card__title">@lang("onboarding.contact")</h2>
 				<div class="onb-card__description">
-					Wechat&nbsp;ID&thinsp;: {{ $student->first_contact_wechat }}<br>
-					Contact d'urgence 1&thinsp;: {{ $student->first_contact_phone }}<br>
-					Contact d'urgence 2&thinsp;: {{ $student->second_contact_phone }}
+					@lang("onboarding.form.wechat_id")&thinsp;: {{ $student->first_contact_wechat }}<br>
+					@lang("onboarding.form.phone_emergency")&thinsp;: {{ $student->first_contact_phone }}<br>
+					@lang("onboarding.form.phone_emergency2")&thinsp;: {{ $student->second_contact_phone }}
 				</div>
 			</li>
 		</ul>
 
-		<button type="submit">Tout est bon&nbsp;!</button>
+		<button type="submit">@lang("onboarding.buttons.all-good")</button>
 	</form>
 </main>
 

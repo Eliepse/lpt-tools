@@ -1,6 +1,13 @@
 <?php
 
 return [
+	"school" => "Établissement",
+	"course" => "Cours",
+	"level" => "Niveau",
+	"schedule" => "Horaire",
+	"price" => "Prix",
+	"student" => "Élève",
+	"contact" => "Contacts",
 	"schools" => [
 		"aubervilliers" => "Aubervilliers",
 		"belleville" => "Belleville (Paris 19e)",
@@ -12,7 +19,7 @@ return [
 		"chinese" => "Chinois",
 		"english" => "Anglais",
 		"maths" => "Mathématiques",
-		"art" => "Arts",
+		"art" => "Arts plastiques",
 		"support" => "Aide aux devoirs",
 	],
 	"days" => [
@@ -24,5 +31,32 @@ return [
 		"sat" => "Samedi",
 		"sun" => "Dimanche",
 	],
+	"hour-short" => "h",
 	"elite" => "Programme Élite",
+	"titles" => [
+		"welcome" => "Bienvenue dans la pré-inscription des Petits Trilingues",
+		"ready?" => "Vous-êtes prêt ?",
+		"choose-school" => "Choisissez une école",
+		"choose-category" => "Choisissez une matière",
+		"choose-course" => "Choisissez un cours",
+		"choose-schedule" => "Choisissez un horaire",
+		"form-student" => "Quel enfant souhaitez-vous inscrire ?",
+		"form-contact" => "Comment vous contacter ?",
+		"confirm" => "Ces informations sont-elle correctes ?",
+	],
+	"form" => [
+		"firstname" => "Prénom",
+		"lastname" => "Nom de famille",
+		"fullname_cn" => "Nom chinois complet",
+		"bornAt" => "Date de naissance",
+		"city-code" => "Code postal de résidence",
+		"wechat_id" => "Votre ID wechat",
+		"phone_emergency" => "Téléphone en cas d'urgence",
+		"phone_emergency2" => "Deuxième téléphone en cas d'urgence",
+	],
+	"buttons" => [
+		"lets-go" => "C'est parti !",
+		"next" => "Continuer",
+		"all-good" => "Tout est bon !",
+	],
 ];
