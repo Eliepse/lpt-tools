@@ -8,11 +8,32 @@ $fontWeigth-Bold: 700;
 $fontWeigth-Black: 900;
 
 //@font-face {
-//	font-family: Jost;
-//	src: local('Jost* 300 Light'),
-//		url('../fonts/Jost-300-Light.subset.woff2') format('woff2'),
-//		url('../fonts/Jost-300-Light.subset.woff') format('woff');
-//	font-weight: $fontWeigth-Light;
+//	font-family: SuCaiJiShiKangKangTi;
+//	src: local('SuCaiJiShiKangKangTi'),
+//		url('../../fonts/SuCaiJiShiKangKangTi-2.ttf') format('truetype');
+//		//url('../fonts/Jost-300-Light.subset.woff2') format('woff2'),
+//		//url('../fonts/Jost-300-Light.subset.woff') format('woff');
+//	font-weight: $fontWeigth-Book;
+//	font-style: normal;
+//	font-display: swap;
+//}
+//
+//@font-face {
+//	font-family: 'Faune';
+//	src: local('Faune'),
+//		url('../../fonts/Faune-Text_Regular.woff2') format('woff2'),
+//		url('../../fonts/Faune-Text_Regular.woff') format('woff');
+//	font-weight: $fontWeigth-Book;
+//	font-style: normal;
+//	font-display: swap;
+//}
+//
+//@font-face {
+//	font-family: 'Faune Display';
+//	src: local('Faune Display'),
+//		url('../../fonts/Faune-Display_Black.woff2') format('woff2'),
+//		url('../../fonts/Faune-Display_Black.woff') format('woff');
+//	font-weight: $fontWeigth-Black;
 //	font-style: normal;
 //	font-display: swap;
 //}
