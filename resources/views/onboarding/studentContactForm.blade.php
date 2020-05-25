@@ -30,7 +30,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 				       name="first_wechat_id"
 				       placeholder=""
 				       maxlength="32"
-				       value="{{ $student->first_contact_wechat ?? old("first_wechat_id") }}"
+				       value="{{ old("first_wechat_id", $student->first_contact_wechat) }}"
 				>
 				@error("first_wechat_id")
 				<div class="form__helper">{{$message}}</div>
@@ -45,7 +45,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 				       placeholder="0490123456"
 				       pattern="[+ 0-9()]+"
 				       maxlength="17"
-				       value="{{ $student->first_contact_phone ?? old("first_phone") }}"
+				       value="{{ old("first_phone", $student->first_contact_phone) }}"
 				>
 				@error("first_phone")
 				<div class="form__helper">{{$message}}</div>
@@ -60,13 +60,13 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 				       placeholder="0490123456"
 				       pattern="[+ 0-9()]+"
 				       maxlength="17"
-				       value="{{ $student->second_contact_phone ?? old("second_phone") }}"
+				       value="{{ old("second_phone", $student->second_contact_phone) }}"
 				>
 				@error("second_phone")
 				<div class="form__helper">{{$message}}</div>
 				@enderror
 			</div>
-			
+
 		</div>
 		<button type="submit">Continuer</button>
 	</form>

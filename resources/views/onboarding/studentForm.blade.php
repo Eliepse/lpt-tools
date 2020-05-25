@@ -31,7 +31,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 				       placeholder=""
 				       maxlength="32"
 				       required
-				       value="{{ $student->firstname ?? old("firstname") }}"
+				       value="{{ old("firstname", $student->firstname) }}"
 				>
 				@error("firstname")
 				<div class="form__helper">{{$message}}</div>
@@ -46,7 +46,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 				       placeholder=""
 				       maxlength="32"
 				       required
-				       value="{{ $student->lastname ?? old("lastname") }}"
+				       value="{{ old("lastname", $student->lastname) }}"
 				>
 				@error("lastname")
 				<div class="form__helper">{{$message}}</div>
@@ -61,7 +61,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 				       placeholder=""
 				       maxlength="32"
 				       required
-				       value="{{ $student->fullname_cn ?? old("fullname_cn") }}"
+				       value="{{ old("fullname_cn", $student->fullname_cn) }}"
 				>
 				@error("fullname_cn")
 				<div class="form__helper">{{$message}}</div>
@@ -76,7 +76,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 				       placeholder="YYYY-MM-DD"
 				       pattern="\d{4}-\d{2}-\d{2}"
 				       max="{{ \Carbon\Carbon::now()->toDateString() }}"
-				       value="{{ optional($student->born_at)->toDateString() ?? old("bornAt") }}"
+				       value="{{ old("bornAt", optional($student->born_at)->toDateString()) }}"
 				>
 				@error("bornAt")
 				<div class="form__helper">{{$message}}</div>
@@ -93,7 +93,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 				       required
 				       pattern="\d{5}"
 				       title="ex: 93250"
-				       value="{{ $student->city_code ?? old("city_code") }}"
+				       value="{{ old("city_code", $student->city_code) }}"
 				>
 				@error("city_code")
 				<div class="form__helper">{{$message}}</div>
