@@ -13,7 +13,9 @@
 
 use App\Http\Controllers\GenerateGridCNController;
 use App\Http\Controllers\GenerateEnglishGridController;
-use App\Http\Controllers\Onboarding\OnboardingController;
+use App\Http\Controllers\Onboarding\DownloadPreRegistrationController;
+use App\Http\Controllers\Onboarding\OnboardingInfosController;
+use App\Http\Controllers\Onboarding\OnboardingSelectionController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -24,14 +26,15 @@ Route::get('/exercices/grids/chinese/{uid}', GenerateGridCNController::class)->n
 Route::view('/exercices/grids/english', 'englishGrid')->name('exercice.english-grid');
 Route::get('/exercices/grids/english/pdf', GenerateEnglishGridController::class)->name('exercice.english-grid.pdf');
 
-Route::get('/onboarding', [OnboardingController::class, 'welcome']);
-Route::get('/onboarding/schools', [OnboardingController::class, 'listSchools']);
-Route::get('/onboarding/confirm', [OnboardingController::class, 'confirmation']);
-Route::post('/onboarding/confirm', [OnboardingController::class, 'confirm']);
-//Route::post('/onboarding/pdf', [OnboardingController::class, 'downloadRegistrationFile']);
-Route::get('/onboarding/pdf', [OnboardingController::class, 'downloadRegistrationFile']);
-Route::get('/onboarding/{course}/schedules', [OnboardingController::class, 'listSchedules']);
-Route::get('/onboarding/{course}/{schedule}/student', [OnboardingController::class, 'showStudentForm']);
-Route::post('/onboarding/student', [OnboardingController::class, 'storeStudentAndCourseSchedule']);
-Route::get('/onboarding/{school}', [OnboardingController::class, 'listCategories']);
-Route::get('/onboarding/{school}/{categories}', [OnboardingController::class, 'listCourses']);
+Route::view('/onboarding', "onboarding.welcome");
+Route::get('/onboarding/confirm', [OnboardingInfosController::class, 'confirmation']);
+Route::post('/onboarding/confirm', [OnboardingInfosController::class, 'confirm']);
+Route::post('/onboarding/pdf', DownloadPreRegistrationController::class);
+Route::get('/onboarding/student', [OnboardingInfosController::class, 'studentForm']);
+Route::post('/onboarding/student', [OnboardingInfosController::class, 'storeStudent']);
+
+Route::get('/onboarding/schools', [OnboardingSelectionController::class, 'listSchools']);
+Route::get('/onboarding/{course}/schedules', [OnboardingSelectionController::class, 'listSchedules']);
+Route::get('/onboarding/{school}', [OnboardingSelectionController::class, 'listCategories']);
+Route::get('/onboarding/{school}/{categories}', [OnboardingSelectionController::class, 'listCourses']);
+Route::post('/onboarding/{course}/schedules', [OnboardingSelectionController::class, 'storeCourseSchedule']);

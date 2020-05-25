@@ -4,12 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class StoreStudentRequest
- *
- * @package App\Http\Requests
- */
-class StoreStudentRequest extends FormRequest
+class StoreCourseRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -30,9 +25,8 @@ class StoreStudentRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			"fullname" => ["required", "string", "max:32"],
-			"wechatId" => ["nullable", "string", "max:32"],
-			"emergency" => ['required', "regex:/^\+?[0-9 ]{10,16}$/"]
+			'day' => ['required', 'in:mon,tue,wed,thu,fri,sat,sun'],
+			'hour' => ['required', 'numeric', 'between:0,24'],
 		];
 	}
 }
