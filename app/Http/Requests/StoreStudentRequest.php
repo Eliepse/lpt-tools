@@ -34,7 +34,7 @@ class StoreStudentRequest extends FormRequest
 			"lastname" => ["required", "string", "max:16"],
 			"fullname_cn" => ["required", "string", "max:32"],
 			"bornAt" => ["required", "date:Y-m-d", "before:today"],
-			"city_code" => ["required", "regex:/^\d{5}$/w"]
+			"city_code" => ["required", "regex:/^\d{5}$/"]
 		];
 	}
 }
