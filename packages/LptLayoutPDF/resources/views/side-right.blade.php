@@ -50,7 +50,7 @@
 	</table>
 	<pre>
 Les Petits Trilingues | Association déclarée
-5 rue honoré d'estienne d'orves 92150 Suresnes
+53 Rue de Rebeval 75019 Paris
 Siret: 808 753 818
 	</pre>
 </div>
