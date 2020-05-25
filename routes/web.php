@@ -32,6 +32,8 @@ Route::post('/onboarding/confirm', [OnboardingInfosController::class, 'confirm']
 Route::post('/onboarding/pdf', DownloadPreRegistrationController::class);
 Route::get('/onboarding/student', [OnboardingInfosController::class, 'studentForm']);
 Route::post('/onboarding/student', [OnboardingInfosController::class, 'storeStudent']);
+Route::get('/onboarding/student-contact', [OnboardingInfosController::class, 'studentContactForm']);
+Route::post('/onboarding/student-contact', [OnboardingInfosController::class, 'storeStudentContact']);
 
 Route::get('/onboarding/schools', [OnboardingSelectionController::class, 'listSchools']);
 Route::get('/onboarding/{course}/schedules', [OnboardingSelectionController::class, 'listSchedules']);

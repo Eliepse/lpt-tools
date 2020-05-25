@@ -30,9 +30,11 @@ class StoreStudentRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			"fullname" => ["required", "string", "max:32"],
-			"wechatId" => ["nullable", "string", "max:32"],
-			"emergency" => ['required', "regex:/^\+?[0-9 ]{10,16}$/"]
+			"firstname" => ["required", "string", "max:16"],
+			"lastname" => ["required", "string", "max:16"],
+			"fullname_cn" => ["required", "string", "max:32"],
+			"bornAt" => ["required", "date:Y-m-d", "before:today"],
+			"city_code" => ["required", "regex:/^\d{5}$/w"]
 		];
 	}
 }

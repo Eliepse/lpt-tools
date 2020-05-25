@@ -40,7 +40,7 @@
 		</tr>
 		<tr>
 			<td class="label">Date de naissance</td>
-			<td class="value">{{ $student->born_at }}</td>
+			<td class="value">{{ $student->born_at->toDateString() }}</td>
 		</tr>
 		<tr>
 			<td class="label">Ville de résidence</td>

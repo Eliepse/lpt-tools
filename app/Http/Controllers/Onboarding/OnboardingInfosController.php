@@ -2,35 +2,15 @@
 
 namespace App\Http\Controllers\Onboarding;
 
-use App\Course;
+use App\Http\Requests\StoreStudentContactRequest;
 use App\Http\Requests\StoreStudentRequest;
-use Carbon\CarbonInterval;
-use Eliepse\LptLayoutPDF\GeneratePreRegistration;
+use Carbon\Carbon;
 use Eliepse\LptLayoutPDF\Student;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Mpdf\Output\Destination;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class OnboardingInfosController extends OnboardingController
 {
-	public function welcome(): View
-	{
-		return view("onboarding.welcome");
-	}
-
-
-	/**
-	 * @param Course $course
-	 * @param string $schedule
-	 *
-	 * @return View
-	 * @throws \Throwable
-	 */
 	public function studentForm(): View
 	{
 		$this->fetchCachedData();
@@ -41,7 +21,17 @@ final class OnboardingInfosController extends OnboardingController
 		]);
 	}
 
-//	public function storeStudent(): \Illuminate\Http\RedirectResponse {}
+
+	public function studentContactForm(): View
+	{
+		$this->fetchCachedData();
+		return view("onboarding.studentContactForm", [
+			"student" => $this->student,
+			"course" => $this->course,
+			"schedule" => $this->schedule,
+		]);
+	}
+
 
 	/**
 	 * @param StoreStudentRequest $request
@@ -53,9 +43,29 @@ final class OnboardingInfosController extends OnboardingController
 	{
 		$this->fetchCachedData();
 		$this->student = new Student();
-		$this->student->fullname_cn = $request->get("fullname");
-		$this->student->first_contact_wechat = $request->get("wechatId");
-		$this->student->first_contact_phone = str_replace(" ", "", $request->get("emergency"));
+		$this->student->firstname = $request->get("firstname");
+		$this->student->lastname = $request->get("lastname");
+		$this->student->fullname_cn = $request->get("fullname_cn");
+		$this->student->born_at = Carbon::createFromFormat("Y-m-d", $request->get("bornAt"));
+		$this->student->city_code = $request->get("city_code");
+		$this->updateCacheData();
+
+		return redirect()->action([self::class, 'studentContactForm']);
+	}
+
+
+	/**
+	 * @param StoreStudentContactRequest $request
+	 *
+	 * @return RedirectResponse
+	 * @throws \Exception
+	 */
+	public function storeStudentContact(StoreStudentContactRequest $request): RedirectResponse
+	{
+		$this->fetchCachedData();
+		$this->student->first_contact_wechat = $request->get("first_wechat_id");
+		$this->student->first_contact_phone = str_replace(" ", "", $request->get("first_phone"));
+		$this->student->second_contact_phone = str_replace(" ", "", $request->get("second_phone"));
 		$this->updateCacheData();
 
 		return redirect()->action([self::class, 'confirmation']);

@@ -2,6 +2,8 @@
 
 namespace Eliepse\LptLayoutPDF;
 
+use Carbon\Carbon;
+
 /**
  * Class Student
  *
@@ -12,7 +14,7 @@ final class Student implements \Serializable
 	public ?string $firstname = null;
 	public ?string $lastname = null;
 	public ?string $fullname_cn = null;
-	public ?string $born_at = null;
+	public ?Carbon $born_at = null;
 	public ?string $first_contact_wechat = null;
 	public ?string $first_contact_phone = null;
 	public ?string $second_contact_phone = null;

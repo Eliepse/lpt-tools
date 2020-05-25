@@ -3,18 +3,11 @@
 namespace App\Http\Controllers\Onboarding;
 
 use App\Course;
-use App\Http\Requests\StoreStudentRequest;
 use Carbon\CarbonInterval;
-use Eliepse\LptLayoutPDF\GeneratePreRegistration;
 use Eliepse\LptLayoutPDF\Student;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
-use Illuminate\View\View;
-use Mpdf\Output\Destination;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class OnboardingController
 {
