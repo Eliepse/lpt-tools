@@ -58,6 +58,7 @@ return [
 	"buttons" => [
 		"lets-go" => "C'est parti !",
 		"next" => "Continuer",
+		"previous" => "Retour",
 		"all-good" => "Tout est bon !",
 	],
 ];

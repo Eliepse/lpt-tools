@@ -21,7 +21,9 @@ use \App\Http\Controllers\Onboarding\DownloadPreRegistrationController;
 	<form class="container" method="POST" action="{{ action(DownloadPreRegistrationController::class) }}">
 		@csrf
 		<h1 class="onb__title">@lang("onboarding.titles.confirm")</h1>
-
+		@isset($back)
+			<a class="onb-card onb-card--interactive" href="{{ $back["link"] }}">{{ $back["text"] }}</a>
+		@endisset
 		<ul class="onb-list">
 			<li class="onb-card onb-card--full">
 				<h2 class="onb-card__title">@lang("onboarding.course")</h2>

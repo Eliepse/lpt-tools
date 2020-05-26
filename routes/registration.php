@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix("onboarding/")
 	->middleware(["registration.checkOpen:courses"])
 	->group(function () {
-	Route::view('/', "onboarding.welcome");
+	Route::view('/', "onboarding.welcome")->name("onboarding.welcome");
 	Route::get('confirm', [OnboardingInfosController::class, 'confirmation']);
 	Route::post('confirm', [OnboardingInfosController::class, 'confirm']);
 	Route::post('pdf', DownloadPreRegistrationController::class);

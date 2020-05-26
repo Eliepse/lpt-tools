@@ -12,6 +12,9 @@
 <main id="app">
 	<div class="container">
 		<h1 class="onb__title">{{ $title }}</h1>
+		@isset($back)
+			<a class="onb-card onb-card--interactive" href="{{ $back["link"] }}">{{ $back["text"] }}</a>
+		@endisset
 		<ul class="onb-list">
 			@foreach($cards as $card)
 				<li>

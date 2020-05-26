@@ -21,6 +21,9 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 	<form class="container" method="POST" action="{{ action([OnboardingInfosController::class, 'storeStudentContact']) }}">
 		@csrf
 		<h1 class="onb__title">@lang("onboarding.titles.form-contact")</h1>
+		@isset($back)
+			<a class="onb-card onb-card--interactive" href="{{ $back["link"] }}">{{ $back["text"] }}</a>
+		@endisset
 		<div class="cg__layout form" ref="form">
 
 			<div class="form__control @error("first_wechat_id") form__control--invalid @enderror">

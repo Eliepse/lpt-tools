@@ -18,6 +18,10 @@ final class OnboardingInfosController extends OnboardingController
 			"student" => $this->student ?? new Student(),
 			"course" => $this->course,
 			"schedule" => $this->schedule,
+			"back" => [
+				"text" => trans("onboarding.buttons.previous"),
+				"link" => action([OnboardingSelectionController::class, "listSchedules"], [$this->course]),
+			],
 		]);
 	}
 
@@ -29,6 +33,10 @@ final class OnboardingInfosController extends OnboardingController
 			"student" => $this->student,
 			"course" => $this->course,
 			"schedule" => $this->schedule,
+			"back" => [
+				"text" => trans("onboarding.buttons.previous"),
+				"link" => action([self::class, "studentForm"]),
+			],
 		]);
 	}
 
@@ -79,6 +87,10 @@ final class OnboardingInfosController extends OnboardingController
 			"student" => $this->student,
 			"course" => $this->course,
 			"schedule" => $this->schedule,
+			"back" => [
+				"text" => trans("onboarding.buttons.previous"),
+				"link" => action([self::class, "studentContactForm"]),
+			],
 		]);
 	}
 }

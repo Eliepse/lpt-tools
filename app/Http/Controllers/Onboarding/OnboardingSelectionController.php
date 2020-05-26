@@ -28,6 +28,10 @@ final class OnboardingSelectionController extends OnboardingController
 		return view("onboarding.choice-list", [
 			"cards" => $cards,
 			"title" => trans("onboarding.titles.choose-school"),
+			"back" => [
+				"text" => trans("onboarding.buttons.previous"),
+				"link" => route("onboarding.welcome"),
+			],
 		]);
 	}
 
@@ -50,6 +54,10 @@ final class OnboardingSelectionController extends OnboardingController
 		return view("onboarding.choice-list", [
 			"cards" => $cards,
 			"title" => trans("onboarding.titles.choose-category"),
+			"back" => [
+				"text" => trans("onboarding.buttons.previous"),
+				"link" => action([self::class, "listSchools"]),
+			],
 		]);
 	}
 
@@ -73,6 +81,10 @@ final class OnboardingSelectionController extends OnboardingController
 		return view("onboarding.choice-list", [
 			"cards" => $cards,
 			"title" => trans("onboarding.titles.choose-course"),
+			"back" => [
+				"text" => trans("onboarding.buttons.previous"),
+				"link" => action([self::class, "listCategories"], [$school]),
+			],
 		]);
 	}
 
@@ -82,6 +94,10 @@ final class OnboardingSelectionController extends OnboardingController
 		return view("onboarding.select-course-schedule", [
 			"course" => $course,
 			"title" => trans("onboarding.titles.choose-schedule"),
+			"back" => [
+				"text" => trans("onboarding.buttons.previous"),
+				"link" => action([self::class, "listCourses"], [$course->school, $course->category]),
+			],
 		]);
 	}
 
