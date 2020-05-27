@@ -10,7 +10,7 @@ return [
 	"student" => "Élève",
 	"contact" => "Contacts",
 	"schools" => [
-		"aubervilliers" => "Aubervilliers",
+		"aubervilliers" => "Aubervilliers (93)",
 		"belleville" => "Belleville (Paris 19e)",
 		"italie" => "Place d'Italie (Paris 13e)",
 		"marais" => "Marais (Paris 3e)",

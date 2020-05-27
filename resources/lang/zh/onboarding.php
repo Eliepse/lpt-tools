@@ -10,7 +10,7 @@ return [
 	"student" => "学生",
 	"contact" => "联系方式",
 	"schools" => [
-		"aubervilliers" => "Aubervilliers",
+		"aubervilliers" => "Aubervilliers (九十三区)",
 		"belleville" => "Belleville (巴黎 十九区)",
 		"italie" => "Place d'Italie (巴黎 十三区)",
 		"marais" => "Marais (巴黎 三区)",
