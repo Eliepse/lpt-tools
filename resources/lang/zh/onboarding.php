@@ -21,7 +21,7 @@ return [
 		"english" => "英文",
 		"maths" => "数学",
 		"art" => "绘画",
-		"support" => "托管",
+		"support" => "其他",
 	],
 	"days" => [
 		"mon" => "周一",

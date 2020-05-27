@@ -21,7 +21,7 @@ return [
 		"english" => "Anglais",
 		"maths" => "Mathématiques",
 		"art" => "Arts plastiques",
-		"support" => "Aide aux devoirs",
+		"support" => "Autres",
 	],
 	"days" => [
 		"mon" => "Lundi",
