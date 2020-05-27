@@ -38,13 +38,17 @@ final class OnboardingSelectionController extends OnboardingController
 
 	public function listCategories(string $school): View
 	{
-		$categories = Course::query()
+		$available_categories = Course::query()
 			->where("school", $school)
 			->groupBy("category")
 			->get("category")
 			->pluck("category");
 
-		$cards = $categories->map(function ($name) use ($school) {
+		// We order results according to the order set in translation file
+		$available_categories = collect(array_keys(trans("onboarding.categories")))
+			->intersect($available_categories);
+
+		$cards = $available_categories->map(function ($name) use ($school) {
 			return [
 				"title" => trans("onboarding.categories." . $name),
 				"link" => action([self::class, 'listCourses'], [$school, $name], false),
