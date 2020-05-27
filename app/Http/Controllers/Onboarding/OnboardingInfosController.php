@@ -50,7 +50,7 @@ final class OnboardingInfosController extends OnboardingController
 	public function storeStudent(StoreStudentRequest $request): RedirectResponse
 	{
 		$this->fetchCachedData();
-		$this->student = new Student();
+		$this->student = $this->student ?? new Student();
 		$this->student->firstname = $request->get("firstname");
 		$this->student->lastname = $request->get("lastname");
 		$this->student->fullname_cn = $request->get("fullname_cn");
