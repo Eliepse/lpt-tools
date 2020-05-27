@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Onboarding;
 
 use App\Course;
 use App\Http\Requests\StoreCourseRequest;
+use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -71,13 +73,15 @@ final class OnboardingSelectionController extends OnboardingController
 		$courses = Course::query()
 			->where("school", $school)
 			->where("category", $category)
-			->get(["id", "school", "category", "name", "description", "price"]);
+			->get(["id", "school", "category", "name", "description", "price", "duration"]);
 
 		$cards = $courses->map(function (Course $course) use ($school) {
+			$duration = CarbonInterval::minutes($course->duration)->cascade();
+			$duration_str = $duration->forHumans(["short" => true]);
 			return [
 				"title" => $course->name,
 				"description" => $course->description,
-				"price" => $course->price,
+				"aside" => $course->price . "&nbsp;€<br><span class='onb-card__duration'>$duration_str</span>",
 				"link" => action([self::class, 'listSchedules'], [$course]),
 			];
 		});

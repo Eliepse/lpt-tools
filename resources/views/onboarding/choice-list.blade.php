@@ -19,8 +19,8 @@
 			@foreach($cards as $card)
 				<li>
 					<a class="onb-card onb-card--interactive onb-card--full" href="{{ $card["link"] }}">
-						@isset($card["price"])
-							<div class="onb-card__price">{{ $card["price"] }}&nbsp;€</div>
+						@isset($card["aside"])
+							<div class="onb-card__aside">{!! $card["aside"] !!}</div>
 						@endisset
 
 						<h2 class="onb-card__title">{{ $card["title"] }}</h2>
