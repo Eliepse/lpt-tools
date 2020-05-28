@@ -18,6 +18,9 @@
 			<li><a href="http://www.lespetitstrilingues.com">Website</a>&nbsp;&rightarrow;</li>
 			<li><a href="{{ route('exercice.chinese-grid') }}">Grid generator (cn)</a>&nbsp;&rightarrow;</li>
 			<li><a href="{{ route('exercice.english-grid') }}">Grid generator (en)</a>&nbsp;&rightarrow;</li>
+			@if(\Illuminate\Support\Facades\Cache::get("registration.statut:courses", false))
+				<li><a href="{{ route('onboarding.welcome') }}">Inscriptions</a>&nbsp;&rightarrow;</li>
+			@endif
 		</ul>
 	</div>
 </main>
