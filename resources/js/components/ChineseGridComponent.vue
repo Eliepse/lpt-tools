@@ -2,10 +2,10 @@
 	<div class="cg">
 		<div class="cg__container cg__container--editing" v-show="step === 'editing'">
 			<div class="cg__actions text--center">
-				<button v-show="$store.state.chinese_cache.length > 0" @click="$refs.cacheList.show()">
+				<button class="btn" v-show="$store.state.chinese_cache.length > 0" @click="$refs.cacheList.show()">
 					Listes précédentes
 				</button>
-				<button @click="step = 'configuring'">Étape suivante</button>
+				<button class="btn" @click="step = 'configuring'">Étape suivante</button>
 			</div>
 			<div class="cg__sheet">
 				<transition-group name="list" tag="ul" class="cg__inputList">
@@ -32,7 +32,7 @@
 		</div>
 		<div class="cg__container cg__container--configuring" v-show="step === 'configuring'">
 			<div class="cg__actions text--left">
-				<button @click="step = 'editing'">Retour à la liste</button>
+				<button class="btn" @click="step = 'editing'">Retour à la liste</button>
 			</div>
 			<div class="cg__layout form" ref="form">
 				<div class="form__control">
@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<div class="cg__actions text--right">
-				<button @click="generateGrid">Générer l'exercice</button>
+				<button class="btn" @click="generateGrid">Générer l'exercice</button>
 			</div>
 		</div>
 		<aside class="popup" v-show="downloadLink">

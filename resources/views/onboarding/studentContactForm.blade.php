@@ -71,7 +71,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 			</div>
 
 		</div>
-		<button type="submit">@lang("onboarding.buttons.next")</button>
+		<button class="btn" type="submit">@lang("onboarding.buttons.next")</button>
 	</form>
 </main>
 

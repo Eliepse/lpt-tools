@@ -5,7 +5,7 @@ Short: .btn | <button>
 */
 button,
 .btn {
-	display: block;
+	display: inline-block;
 	padding: .5em .875em;
 	color: $color-white;
 	background-color: $color-orange-5;
@@ -29,6 +29,56 @@ button,
 		box-shadow: 0 0 0 $color-orange-7;
 		transform: translateY(0);
 		transition: box-shadow 0s, transform 0s;
+	}
+}
+
+.btn + .btn,
+.btn + button,
+button + .btn,
+button + button {
+	margin-left: 1em;
+}
+
+.btn--full {
+	display: block;
+	width: 100%;
+}
+
+.btn--white {
+	color: $color-text;
+	background-color: $color-gray-0;
+	box-shadow: 0 .5em 0 $color-gray-5;
+
+	&:hover {
+		box-shadow: 0 .25em 0 $color-gray-5;
+	}
+
+	&:focus {
+		background-color: $color-gray-0;
+	}
+
+	&:active {
+		box-shadow: 0 0 0 $color-gray-5;
+	}
+}
+
+.btn--link {
+	background: transparent;
+	box-shadow: none;
+	color: $color-orange-7;
+	transform: none;
+
+	&:hover {
+		color: $color-orange-9;
+		box-shadow: none;
+		transform: none;
+	}
+
+	&:focus,
+	&:active {
+		color: $color-white;
+		box-shadow: none;
+		transform: none;
 	}
 }
 
@@ -65,4 +115,15 @@ button,
 		font-size: 1.5em;
 		content: '×';
 	}
+}
+
+/*
+Button Groups
+*/
+.btn-group {
+
+}
+
+.btn-group--center {
+	text-align: center;
 }

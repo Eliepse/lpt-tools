@@ -50,7 +50,7 @@
 					@enderror
 				</div>
 			<div class="cg__actions text--right">
-				<button type="submit">Générer l'exercice</button>
+				<button class="btn" type="submit">Générer l'exercice</button>
 			</div>
 			</form>
 		</div>

@@ -1,6 +1,6 @@
 <template>
 	<aside class="cgCache" :class="{'cgCache--active':active}">
-		<button class="cgCache__btnClose btn--close" @click="hide"></button>
+		<button class="btn cgCache__btnClose btn--close" @click="hide"></button>
 		<h1 class="cgCache__title">Listes précédemment éditées</h1>
 		<ul class="cgCache__listList">
 			<li v-for="(list, key) in $store.state.chinese_cache" :key="key" class="cgCache__item">
@@ -10,7 +10,7 @@
 						<span class="cgCache__pinyin">{{ card.pinyin || "..." }}</span>
 					</div>
 				</div>
-				<button @click="insertList(key)">Ajouter</button>
+				<button class="btn" @click="insertList(key)">Ajouter</button>
 			</li>
 		</ul>
 	</aside>

@@ -30,7 +30,7 @@ use \App\Http\Controllers\Onboarding\OnboardingSelectionController;
 						      method="POST"
 						>
 							@csrf
-							<button class="onb-card onb-card--interactive onb-card--full">
+							<button class="btn onb-card onb-card--interactive onb-card--full">
 								<span class="onb-card__title">@lang("onboarding.days." . $day) - {{ $hour }} @lang("onboarding.hour-short")</span>
 							</button>
 							<input name="day" value="{{ $day }}" hidden>
