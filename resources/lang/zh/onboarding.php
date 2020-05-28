@@ -60,5 +60,8 @@ return [
 		"next" => "下一步",
 		"previous" => "上一步",
 		"all-good" => "确认！",
+		"print-form" => "打印预注册表格",
+		"reset" => "注册其他课程",
+		"add-student" => "注册其他学生",
 	],
 ];

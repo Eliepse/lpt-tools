@@ -15,9 +15,9 @@ Route::prefix("onboarding/")
 	Route::get('student', [OnboardingInfosController::class, 'studentForm']);
 	Route::post('student', [OnboardingInfosController::class, 'storeStudent']);
 	Route::get('student-contact', [OnboardingInfosController::class, 'studentContactForm']);
-	Route::post('student-contact', [OnboardingInfosController::class, 'storeStudentContact']);
+	Route::post('student-contact', [OnboardingInfosController::class, 'storeStudentContact'])->name("onboarding.student");
 
-	Route::get('schools', [OnboardingSelectionController::class, 'listSchools']);
+	Route::get('schools', [OnboardingSelectionController::class, 'listSchools'])->name("onboarding.schools");
 	Route::get('{course}/schedules', [OnboardingSelectionController::class, 'listSchedules']);
 	Route::get('{school}', [OnboardingSelectionController::class, 'listCategories']);
 	Route::get('{school}/{categories}', [OnboardingSelectionController::class, 'listCourses']);

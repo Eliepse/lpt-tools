@@ -60,5 +60,8 @@ return [
 		"next" => "Continuer",
 		"previous" => "Retour",
 		"all-good" => "Tout est bon !",
+		"print-form" => "Imprimer le formulaire",
+		"reset" => "Inscrire à une autre classe",
+		"add-student" => "Inscrire un autre élève",
 	],
 ];

@@ -53,7 +53,11 @@ use \App\Http\Controllers\Onboarding\DownloadPreRegistrationController;
 			</li>
 		</ul>
 
-		<button type="submit">@lang("onboarding.buttons.all-good")</button>
+		<div class="btn-group btn-group--center">
+			<button class="btn" type="submit">@lang("onboarding.buttons.all-good")</button><br>
+			<a class="btn btn--link" href="{{ route("onboarding.student") }}">@lang("onboarding.buttons.add-student")</a><br>
+			<a class="btn btn--link" href="{{ route("onboarding.schools") }}">@lang("onboarding.buttons.reset")</a>
+		</div>
 	</form>
 </main>
 
