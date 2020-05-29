@@ -18,7 +18,7 @@ use \App\Http\Controllers\Onboarding\OnboardingInfosController;
 <body class="page--onboarding">
 
 <main id="app">
-	<form class="container" method="POST" action="{{ action([OnboardingInfosController::class, 'storeStudent']) }}">
+	<form class="container" method="POST" action="{{ route("onboarding.student") }}">
 		@csrf
 		<h1 class="onb__title">@lang("onboarding.titles.form-student")</h1>
 		@isset($back)

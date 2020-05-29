@@ -10,7 +10,6 @@ Route::prefix("onboarding/")
 	->group(function () {
 	Route::view('/', "onboarding.welcome")->name("onboarding.welcome");
 	Route::get('confirm', [OnboardingInfosController::class, 'confirmation']);
-	Route::post('confirm', [OnboardingInfosController::class, 'confirm']);
 	Route::post('pdf', DownloadPreRegistrationController::class);
 	Route::get('student', [OnboardingInfosController::class, 'studentForm'])->name("onboarding.student");
 	Route::post('student', [OnboardingInfosController::class, 'storeStudent']);

@@ -73,7 +73,7 @@ final class OnboardingInfosController extends OnboardingController
 		$this->student->city_code = $request->get("city_code");
 		$this->updateCacheData();
 
-		return redirect()->action([self::class, 'studentContactForm']);
+		return redirect()->route("onboarding.student-contact");
 	}
 
 
