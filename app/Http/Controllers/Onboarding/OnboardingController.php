@@ -72,8 +72,8 @@ class OnboardingController
 	protected function hasValidCachedContactInfos(): bool
 	{
 		return ! is_null($this->student)
-			&& ! empty($this->student->first_wechat_id)
-			&& ! empty($this->student->first_phone)
-			&& ! empty($this->student->second_phone);
+			&& ! empty($this->student->first_contact_wechat)
+			&& ! empty($this->student->first_contact_phone)
+			&& ! empty($this->student->second_contact_phone);
 	}
 }
