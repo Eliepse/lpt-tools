@@ -64,7 +64,7 @@ class OnboardingController
 			&& ! empty($this->student->firstname)
 			&& ! empty($this->student->lastname)
 			&& ! empty($this->student->fullname_cn)
-			&& ! empty($this->student->bornAt)
+			&& ! empty($this->student->born_at)
 			&& ! empty($this->student->city_code);
 	}
 
