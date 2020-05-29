@@ -41,7 +41,7 @@ final class OnboardingInfosController extends OnboardingController
 		if (! $this->hasValidCachedCourse()) {
 			return redirect()->route("onboarding.welcome");
 		}
-		if ($this->hasValidCachedStudentInfos()) {
+		if (! $this->hasValidCachedStudentInfos()) {
 			return redirect()->route("onboarding.student");
 		}
 		return view("onboarding.studentContactForm", [
@@ -104,10 +104,10 @@ final class OnboardingInfosController extends OnboardingController
 		if (! $this->hasValidCachedCourse()) {
 			return redirect()->route("onboarding.welcome");
 		}
-		if ($this->hasValidCachedStudentInfos()) {
+		if (! $this->hasValidCachedStudentInfos()) {
 			return redirect()->route("onboarding.student");
 		}
-		if ($this->hasValidCachedContactInfos()) {
+		if (! $this->hasValidCachedContactInfos()) {
 			return redirect()->route("onboarding.student-contact");
 		}
 		return view("onboarding.confirm", [
