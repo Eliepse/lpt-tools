@@ -18,7 +18,7 @@ class OnboardingController
 
 	protected function getCacheId(): string
 	{
-		if (!session()->has("onboarding:key")) {
+		if (! session()->has("onboarding:key")) {
 			session()->put("onboarding:key", Str::random());
 		}
 
@@ -49,5 +49,31 @@ class OnboardingController
 		$this->student = empty($data['student']) ? null : Crypt::decrypt($data['student']);
 		$this->course = $data["course"] ?? null;
 		$this->schedule = $data["schedule"] ?? [];
+	}
+
+
+	protected function hasValidCachedCourse(): bool
+	{
+		return ! is_null($this->course) && is_int($this->course->id);
+	}
+
+
+	protected function hasValidCachedStudentInfos(): bool
+	{
+		return ! is_null($this->student)
+			&& ! empty($this->student->firstname)
+			&& ! empty($this->student->lastname)
+			&& ! empty($this->student->fullname_cn)
+			&& ! empty($this->student->bornAt)
+			&& ! empty($this->student->city_code);
+	}
+
+
+	protected function hasValidCachedContactInfos(): bool
+	{
+		return ! is_null($this->student)
+			&& ! empty($this->student->first_wechat_id)
+			&& ! empty($this->student->first_phone)
+			&& ! empty($this->student->second_phone);
 	}
 }

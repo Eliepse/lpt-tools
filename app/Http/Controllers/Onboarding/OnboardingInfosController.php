@@ -7,13 +7,19 @@ use App\Http\Requests\StoreStudentRequest;
 use Carbon\Carbon;
 use Eliepse\LptLayoutPDF\Student;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use \Illuminate\Http\RedirectResponse;
 
 final class OnboardingInfosController extends OnboardingController
 {
-	public function studentForm(): View
+	/**
+	 * @return RedirectResponse|View
+	 */
+	public function studentForm()
 	{
 		$this->fetchCachedData();
+		if (! $this->hasValidCachedCourse()) {
+			return redirect()->route("onboarding.welcome");
+		}
 		return view("onboarding.studentForm", [
 			"student" => $this->student ?? new Student(),
 			"course" => $this->course,
@@ -26,9 +32,18 @@ final class OnboardingInfosController extends OnboardingController
 	}
 
 
-	public function studentContactForm(): View
+	/**
+	 * @return RedirectResponse|View
+	 */
+	public function studentContactForm()
 	{
 		$this->fetchCachedData();
+		if (! $this->hasValidCachedCourse()) {
+			return redirect()->route("onboarding.welcome");
+		}
+		if ($this->hasValidCachedStudentInfos()) {
+			return redirect()->route("onboarding.student");
+		}
 		return view("onboarding.studentContactForm", [
 			"student" => $this->student,
 			"course" => $this->course,
@@ -80,9 +95,21 @@ final class OnboardingInfosController extends OnboardingController
 	}
 
 
-	public function confirmation(): View
+	/**
+	 * @return RedirectResponse|View
+	 */
+	public function confirmation()
 	{
 		$this->fetchCachedData();
+		if (! $this->hasValidCachedCourse()) {
+			return redirect()->route("onboarding.welcome");
+		}
+		if ($this->hasValidCachedStudentInfos()) {
+			return redirect()->route("onboarding.student");
+		}
+		if ($this->hasValidCachedContactInfos()) {
+			return redirect()->route("onboarding.student-contact");
+		}
 		return view("onboarding.confirm", [
 			"student" => $this->student,
 			"course" => $this->course,
