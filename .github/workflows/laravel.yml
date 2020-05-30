@@ -8,15 +8,23 @@ on:
 
 jobs:
   laravel-tests:
-
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v2
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v1.4.2
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
+    - name: Install Composer Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: Install Yarn Dependencies
+      uses: CultureHQ/actions-yarn@master
+      with:
+        args: install --frozen-lockfile --silent --non-interactive
+    - name: Build assets
+      uses: CultureHQ/actions-yarn@master
+      with:
+        args: production
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
