@@ -31,7 +31,7 @@
 
 				<div class="form__control @error("words") form__control--invalid @enderror">
 					<label class="control__label" for="words">Mots</label>
-					<textarea id="title" type="text" name="words" placeholder="apple, banana..." required autofocus maxlength=50>{{ old('words') }}</textarea>
+					<textarea id="title" type="text" name="words" placeholder="apple, banana..." required autofocus minlength="3" maxlength="1500">{{ old('words') }}</textarea>
 					@error('words')
 					<div class="form__helper">{{ $message }}</div>
 					@enderror

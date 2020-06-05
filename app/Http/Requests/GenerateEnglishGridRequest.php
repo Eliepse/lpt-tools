@@ -20,7 +20,7 @@ class GenerateEnglishGridRequest extends FormRequest
 	{
 		return [
 			'title' => 'required|string|max:50',
-			'words' => 'required|string|min:3',
+			'words' => 'required|string|min:3|max:1500',
 			'pinyin' => 'required|boolean'
 		];
 	}
