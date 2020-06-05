@@ -63,5 +63,6 @@ return [
 		"print-form" => "打印预注册表格",
 		"reset" => "注册其他课程",
 		"add-student" => "注册其他学生",
+		"submit-registration" => "上交注册单",
 	],
 ];

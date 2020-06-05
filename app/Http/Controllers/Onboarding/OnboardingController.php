@@ -19,7 +19,7 @@ class OnboardingController
 	protected function getCacheId(): string
 	{
 		if (! session()->has("onboarding:key")) {
-			session()->put("onboarding:key", Str::random());
+			session()->put("onboarding:key", Str::random(16));
 		}
 
 		return "onboarding:" . session()->get("onboarding:key");

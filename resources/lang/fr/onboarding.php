@@ -63,5 +63,6 @@ return [
 		"print-form" => "Imprimer le formulaire",
 		"reset" => "Inscrire à une autre classe",
 		"add-student" => "Inscrire un autre élève",
+		"submit-registration" => "Soumettre l'inscription",
 	],
 ];
