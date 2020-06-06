@@ -19,10 +19,10 @@ final class DownloadPreRegistrationController extends OnboardingController
 	{
 		$this->fetchCachedData();
 
-		if (env("MAIL_REPORT_TO")) {
+		if (config("mail.report_to")) {
 			$mail = new SendOnboardingMail($this->course, $this->student, $this->schedule);
 			$mail->from("no-reply@eliepse.fr", "LPT Server");
-			Mail::to(env("MAIL_REPORT_TO"))->queue($mail);
+			Mail::to(config("mail.report_to"))->queue($mail);
 			Log::info("An onboarding mail has been queued.");
 		}
 
