@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Onboarding;
 
 use App\Mail\SendOnboardingMail;
 use Eliepse\LptLayoutPDF\GeneratePreRegistration;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Mpdf\Output\Destination;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -18,8 +19,12 @@ final class DownloadPreRegistrationController extends OnboardingController
 	{
 		$this->fetchCachedData();
 
-		Mail::to("lespetitstrilinguesbelleville@gmail.com")
-			->queue(new SendOnboardingMail($this->course, $this->student, $this->schedule));
+		if (env("MAIL_REPORT_TO")) {
+			$mail = new SendOnboardingMail($this->course, $this->student, $this->schedule);
+			$mail->from("no-reply@eliepse.fr", "LPT Server");
+			Mail::to(env("MAIL_REPORT_TO"))->queue($mail);
+			Log::info("An onboarding mail has been queued.");
+		}
 
 		$generator = new GeneratePreRegistration(
 			$this->course,
@@ -29,6 +34,8 @@ final class DownloadPreRegistrationController extends OnboardingController
 		);
 		$title = "registration-form__" . $this->student->getFullname() . "__" . $this->course->name;
 		$pdf = $generator()->Output("$title.pdf", Destination::STRING_RETURN);
+
+		Log::info("An onboarding form has been generated.");
 
 		return response()
 			->streamDownload(

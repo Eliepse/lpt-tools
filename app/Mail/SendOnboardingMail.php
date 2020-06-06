@@ -49,8 +49,9 @@ class SendOnboardingMail extends Mailable implements ShouldQueue
 			$this->schedule["day"],
 			$this->schedule["hour"]
 		);
-		$title = "registration-form__" . $this->student->getFullname() . "__" . $this->course->name;
-		$pdf = $generator()->Output("$title.pdf", Destination::STRING_RETURN);
+
+		$title = "registration-form__" . $this->student->getFullname() . "__" . $this->course->name . ".pdf";
+		$pdf = $generator()->Output($title, Destination::STRING_RETURN);
 
 		return $this->subject("[LPT] New registration")
 			->text("mails.new-onboarding")
