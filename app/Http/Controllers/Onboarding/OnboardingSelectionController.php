@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Onboarding;
 
 use App\Course;
 use App\Http\Requests\StoreCourseRequest;
-use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -73,15 +72,23 @@ final class OnboardingSelectionController extends OnboardingController
 		$courses = Course::query()
 			->where("school", $school)
 			->where("category", $category)
-			->get(["id", "school", "category", "name", "description", "price", "duration"]);
+			->get(["id", "school", "category", "name", "description", "price", "price_denominator", "duration"]);
 
 		$cards = $courses->map(function (Course $course) use ($school) {
-			$duration = CarbonInterval::minutes($course->duration)->cascade();
-			$duration_str = $duration->forHumans(["short" => true]);
+			$duration_str = CarbonInterval::minutes($course->duration)
+				->cascade()
+				->forHumans(["short" => true]);
+			$aside = $course->price . "&nbsp;€";
+			if ($course->price_denominator) {
+				$aside .= "<span class='onb-card__denominator'> / "
+					. trans("onboarding.denominators." . $course->price_denominator)
+					. "</span>";
+			}
+			$aside .= "<br><span class='onb-card__duration'>$duration_str</span>";
 			return [
 				"title" => $course->name,
 				"description" => $course->description,
-				"aside" => $course->price . "&nbsp;€<br><span class='onb-card__duration'>$duration_str</span>",
+				"aside" => $aside,
 				"link" => action([self::class, 'listSchedules'], [$course]),
 			];
 		});

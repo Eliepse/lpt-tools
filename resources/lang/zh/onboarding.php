@@ -33,6 +33,12 @@ return [
 		"sun" => "周日",
 		"daily" => "每天",
 	],
+	"denominators" => [
+		"day" => "天",
+		"month" => "月",
+		"week" => "周",
+		"year" => "年",
+	],
 	"hour-short" => "点",
 	"elite" => "精英班",
 	"titles" => [

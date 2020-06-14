@@ -33,6 +33,12 @@ return [
 		"sun" => "Dimanche",
 		"daily" => "Chaque jour",
 	],
+	"denominators" => [
+		"day" => "jour",
+		"month" => "mois",
+		"week" => "semaine",
+		"year" => "an",
+	],
 	"hour-short" => "h",
 	"elite" => "Programme Élite",
 	"titles" => [
