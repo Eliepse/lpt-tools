@@ -31,6 +31,7 @@ return [
 		"fri" => "Vendredi",
 		"sat" => "Samedi",
 		"sun" => "Dimanche",
+		"daily" => "Chaque jour",
 	],
 	"hour-short" => "h",
 	"elite" => "Programme Élite",

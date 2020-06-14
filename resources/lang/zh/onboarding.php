@@ -31,6 +31,7 @@ return [
 		"fri" => "周五",
 		"sat" => "周六",
 		"sun" => "周日",
+		"daily" => "每天",
 	],
 	"hour-short" => "点",
 	"elite" => "精英班",
