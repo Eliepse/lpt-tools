@@ -25,7 +25,7 @@ class StoreCourseRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'day' => ['required', 'in:mon,tue,wed,thu,fri,sat,sun,daily'],
+			'day' => ['required', 'in:mon,tue,wed,thu,fri,sat,sun,daily,custom'],
 			'hour' => ['required', 'numeric', 'between:0,24'],
 		];
 	}
