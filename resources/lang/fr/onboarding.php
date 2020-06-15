@@ -32,7 +32,7 @@ return [
 		"sat" => "Samedi",
 		"sun" => "Dimanche",
 		"daily" => "Chaque jour",
-		"custom" => "Jours personnalisés",
+		"custom" => "Jours au choix",
 	],
 	"denominators" => [
 		"day" => "jour",
