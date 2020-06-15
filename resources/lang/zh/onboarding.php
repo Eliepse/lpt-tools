@@ -32,6 +32,7 @@ return [
 		"sat" => "周六",
 		"sun" => "周日",
 		"daily" => "每天",
+		"custom" => "选择哪天上课",
 	],
 	"denominators" => [
 		"day" => "天",
