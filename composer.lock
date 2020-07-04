@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf3be2ef6960f38117cc02123696004a",
+    "content-hash": "df7c2e4cbfde6634171cfd26633d5a6f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -424,16 +424,16 @@
         },
         {
             "name": "eliepse/working-grid-pdf",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Eliepse/working-grid-pdf.git",
-                "reference": "c90d1b873cf301c7600b51de3ac0b710d96431da"
+                "reference": "0ea6552f84f107580a65a02b763e4ddc6de42229"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/c90d1b873cf301c7600b51de3ac0b710d96431da",
-                "reference": "c90d1b873cf301c7600b51de3ac0b710d96431da",
+                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/0ea6552f84f107580a65a02b763e4ddc6de42229",
+                "reference": "0ea6552f84f107580a65a02b763e4ddc6de42229",
                 "shasum": ""
             },
             "require": {
@@ -466,7 +466,7 @@
                 "pdf",
                 "working grid"
             ],
-            "time": "2020-07-04T21:06:58+00:00"
+            "time": "2020-07-04T21:34:31+00:00"
         },
         {
             "name": "eliepse/writing-exercise-pdf",
