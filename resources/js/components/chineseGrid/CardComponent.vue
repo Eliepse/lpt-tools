@@ -5,14 +5,14 @@
 		     v-html="printValue"
 		     @focusin="focus.chinese = true"
 		     @focusout="(e) => focusOut('chinese', e)"
-		     @keypress="filterKeys"
+		     @keypress="onkeypress"
 		     :contenteditable="editable"
 		></div>
 		<div class="cgCard__pinyin"
 		     v-html="printPinyin"
 		     @focusin="focus.pinyin = true"
 		     @focusout="(e) => focusOut('pinyin', e)"
-		     @keypress="filterKeys"
+		     @keypress="onkeypress"
 		     :contenteditable="editable"
 		></div>
 	</div>
@@ -77,13 +77,17 @@
 				this.$emit("deleted")
 			},
 			filterKeys(e) {
-				if (e.code === 13) {
-					e.preventDefault();
-					return;
-				}
 				if (!e.key.match(pinyinCharsRegex)) {
 					e.preventDefault();
 				}
+			},
+			onkeypress(e) {
+				if (e.code === 'Enter') {
+					this.$emit("validate");
+					e.preventDefault();
+					return;
+				}
+				this.filterKeys(e)
 			}
 		},
 		computed: {

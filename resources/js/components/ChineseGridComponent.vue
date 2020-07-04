@@ -17,6 +17,7 @@
 								:card="card"
 								:editable="true"
 								:grabFocus="true"
+								@validate="addCard"
 								@deleted="$forceUpdate()"
 						/>
 						<div @click="addCard"
