@@ -178,7 +178,7 @@ class GenerateGridCNController
 
 		$lists = collect(Cache::get("exercice.previous-lists", []))
 			->prepend($data)
-			->take(10)
+			->take(32)
 			->values()
 			->toArray();
 
