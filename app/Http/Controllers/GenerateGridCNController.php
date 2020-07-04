@@ -110,9 +110,9 @@ class GenerateGridCNController
 			["han" => $han, "pinyin" => $pinyin] = $character;
 			/** @var Graphic $shape */
 			$shape = $this->shapesDictionary->firstWhere("character", $han);
-			return !empty($shape) ? new Character($han, $shape->strokes, $pinyin) : null;
+			return ! empty($shape) ? new Character($han, $shape->strokes, $pinyin) : null;
 		}, $word));
-		return !empty($characters) ? new Word($characters) : null;
+		return ! empty($characters) ? new Word($characters) : null;
 	}
 
 
@@ -169,16 +169,17 @@ class GenerateGridCNController
 	 */
 	private function pushToCachedLists(): void
 	{
-		$data = $this->words->map(function ($word) {
-			return [
+		$data = $this->words
+			->map(fn($word) => [
 				"value" => join("", Arr::pluck($word, ["han"])),
 				"pinyin" => join(" ", Arr::pluck($word, ["pinyin"])),
-			];
-		});
+			])
+			->values();
 
 		$lists = collect(Cache::get("exercice.previous-lists", []))
 			->prepend($data)
 			->take(10)
+			->values()
 			->toArray();
 
 		Cache::forever("exercice.previous-lists", $lists);
