@@ -9,4 +9,6 @@ class GridTemplateStrokesPinyin extends GridTemplate implements WithPinyin, With
 {
 	// Makes the tutorial height relative to the cell size
     public $tutorial_height = 0;
+
+	public $tutorial_color = "#bfbfbf";
 }
