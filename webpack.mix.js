@@ -13,6 +13,8 @@ const mix = require('laravel-mix');
 
 mix.disableNotifications();
 
+mix.copyDirectory('resources/images', 'public/images');
+
 mix.js('resources/js/app.js', 'public/js')
 	.sass('resources/sass/styles.scss', 'public/css');
 
