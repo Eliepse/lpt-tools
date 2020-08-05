@@ -16,7 +16,8 @@ mix.disableNotifications();
 mix.copyDirectory('resources/images', 'public/images');
 
 mix.js('resources/js/app.js', 'public/js')
-	.sass('resources/sass/styles.scss', 'public/css');
+	.sass('resources/sass/styles.scss', 'public/css')
+	.sass('resources/sass/onboarding.scss', 'public/css');
 
 if (mix.inProduction()) {
 	mix.version();

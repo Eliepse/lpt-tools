@@ -1,0 +1,20 @@
+/*
+styles: Css file for onboarding pages
+This css file is self dependant and don't need "app.css" or "styles.css"
+ */
+
+// Base styles, variables, ...
+@import "variables";
+@import "bedrock/bedrock";
+
+// Basis
+@import "basis/layout";
+@import "basis/text";
+@import "basis/helpers";
+
+// Components
+@import "components/buttons";
+@import "components/buttons-onboarding";
+
+// Pages
+@import "pages/onboarding";

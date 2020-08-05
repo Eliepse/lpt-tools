@@ -1,11 +1,11 @@
-<?php /** */ ?>
+<?php /** TODO slit code (master, header, footer, ...) */ ?>
 <?php ?><!doctype html>
 <html lang="fr {{-- TODO translation --}}">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Inscription - LPT {{-- TODO translation --}}</title>
-	<link href="{{ mix("/css/styles.css") }}" rel="stylesheet" type="text/css">
+	<link href="{{ mix("/css/onboarding.css") }}" rel="stylesheet" type="text/css">
 </head>
 
 <body class="page onboarding onboarding--portal">
