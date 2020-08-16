@@ -17,3 +17,5 @@ yarn-error.log
 .env
 .phpunit.result.cache
 public/mix-manifest.json
+resources/fonts/signika/Signika-Semibold.ttf
+resources/fonts/signika/Signika-Regular.ttf
