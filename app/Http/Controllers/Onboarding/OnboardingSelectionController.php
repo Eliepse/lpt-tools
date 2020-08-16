@@ -19,21 +19,7 @@ final class OnboardingSelectionController extends OnboardingController
 			->get("school")
 			->pluck("school");
 
-		$cards = $schools->map(function ($name) {
-			return [
-				"title" => trans("onboarding.schools." . $name),
-				"link" => action([self::class, 'listCategories'], $name, false),
-			];
-		});
-
-		return view("onboarding.choice-list", [
-			"cards" => $cards,
-			"title" => trans("onboarding.titles.choose-school"),
-			"back" => [
-				"text" => trans("onboarding.buttons.previous"),
-				"link" => route("onboarding.welcome"),
-			],
-		]);
+		return view("onboarding.courses.schools", ["schools" => $schools]);
 	}
 
 

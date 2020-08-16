@@ -6,17 +6,20 @@ Short: .btn--onboarding (works with .btn)
 
 .btn.btn-ondboarding {
 	margin: 1.6em 0;
-	padding: 0.7em 1.2em;
+	padding: .9em .7em;
 	text-align: center;
 	font-size: 1.25em;
 	line-height: 1.2;
 	font-weight: $fontWeigth-SemiBold;
-	color: $onboarding-green;
+	color: $onboarding-green-dark;
 	background: #ffffff;
 	box-shadow: 0 .375em 0 $onboarding-green;
 	border-radius: 1em;
 	transition: box-shadow $transition-time-fast, transform $transition-time-fast;
 	transform: translateY(-.375em);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 
 	&:hover {
 		box-shadow: 0 .25em 0 $onboarding-green;

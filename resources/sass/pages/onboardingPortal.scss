@@ -1,0 +1,70 @@
+.page.onboarding--portal {
+
+	.onboarding-header {
+		padding: 1em 1em 0 1em;
+	}
+
+	.header-flags {
+		display: block;
+	}
+
+	.onboarding-main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.btn.btn-ondboarding {
+		font-size: 1.125em;
+		margin: 2.22em 0;
+	}
+
+	.header-flags svg {
+		min-width: 5.4rem;
+		width: 3.47%;
+		margin-left: 1em;
+	}
+
+	.lpt-logo img {
+		width: 8rem;
+		min-width: 7.2rem;
+		margin: 0 auto 1em auto;
+	}
+}
+
+.onboarding-portalTitle {
+	width: 100%;
+	max-width: 47.2rem;
+	padding: 0 3.6rem;
+	animation: 3s infinite alternate ease-in-out floating;
+}
+
+@media (min-width: 1024px) {
+	.page.onboarding--portal {
+		.onboarding-header {
+			padding: 1.39% 1.39% 0 1.39%;
+		}
+
+		.btn.btn-ondboarding {
+			font-size: 1.91vw;
+			padding: 0.667em 1.667em;
+		}
+
+		.lpt-logo img {
+			width: 5.38vw;
+			margin: 0 auto 1.39vw auto;
+		}
+
+		.header-flags svg {
+			margin-left: 1.39%;
+		}
+	}
+
+	.onboarding-portalTitle {
+		max-width: none;
+		min-width: 40rem;
+		width: 37.5%;
+		padding: 0;
+	}
+}

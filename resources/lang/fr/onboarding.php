@@ -10,11 +10,26 @@ return [
 	"student" => "Élève",
 	"contact" => "Contacts",
 	"schools" => [
-		"aubervilliers" => "Aubervilliers (93)",
-		"belleville" => "Belleville (Paris 19e)",
-		"italie" => "Place d'Italie (Paris 13e)",
-		"marais" => "Marais (Paris 3e)",
-		"online" => "À distance",
+		"aubervilliers" => [
+			"name" => "Aubervilliers",
+			"location" => "93",
+		],
+		"belleville" => [
+			"name" => "Belleville",
+			"location" => "Paris 19e",
+		],
+		"italie" => [
+			"name" => "Place d'Italie",
+			"location" => "Paris 13e",
+		],
+		"marais" => [
+			"name" => "Marais",
+			"location" => "Paris 3e",
+		],
+		"online" => [
+			"name" => "À distance",
+			"location" => "",
+		],
 	],
 	"categories" => [
 		"chinese" => "Chinois",
@@ -73,4 +88,5 @@ return [
 		"add-student" => "Inscrire un autre élève",
 		"submit-registration" => "Soumettre l'inscription",
 	],
+	"ourSchools" => "Nos écoles"
 ];

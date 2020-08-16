@@ -11,6 +11,14 @@ Name: Onboarding
 	font-family: Signika, sans-serif;
 	font-weight: $fontWeigth-Book;
 	font-size: 1.6em;
+	display: flex;
+	flex-direction: column;
+
+	.container {
+		margin: auto;
+		width: 100%;
+		max-width: 48rem;
+	}
 
 	.onboarding-header,
 	.onboarding-main,
@@ -20,7 +28,14 @@ Name: Onboarding
 }
 
 .onboarding-header {
+	display: flex;
 	padding: 1em 1em 0 1em;
+
+	.lpt-logo,
+	.header-flags {
+		display: none;
+		flex: 1 0 0;
+	}
 
 	.header-flags {
 		text-align: right;
@@ -38,6 +53,41 @@ Name: Onboarding
 			transform: scale(1.15, 1.15) rotate(3deg);
 		}
 	}
+}
+
+.onboarding-header__text {
+	margin-bottom: 6rem;
+	flex: auto;
+	text-align: center;
+	line-height: 1;
+	color: $onboarding-green;
+
+	hr {
+		max-width: 10em;
+		margin: .5em auto .75em auto;
+		border-color: $onboarding-green;
+		border-width: 2px 0 0 0;
+	}
+}
+
+.onboarding-header__backBtn {
+	display: block;
+	text-transform: uppercase;
+
+	svg {
+		display: inline;
+		position: relative;
+		bottom: .07em;
+	}
+}
+
+.onboarding-header__title {
+	font-size: 2em;
+	font-weight: $fontWeigth-SemiBold;
+}
+
+.onboarding-main {
+	flex: auto;
 }
 
 .onboarding-footer {
@@ -92,45 +142,26 @@ Name: Onboarding
 	}
 }
 
-.page.onboarding--portal {
+.onboarding-choiceList {
+	text-align: center;
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
+	flex-flow: wrap;
 
-	.onboarding-header {
-		padding: 1em 1em 0 1em;
+	li {
+		flex: 10em 1 0;
+		display: block;
+		margin: .75em;
+		max-width: 10em;
+		height: 5.5em;
 	}
 
-	.onboarding-main {
+	.btn {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		flex: auto;
+		width: 100%;
+		height: 100%;
+		margin: 0;
 	}
-
-	.btn.btn-ondboarding {
-		font-size: 1.125em;
-		margin: 2.22em 0;
-	}
-
-	.header-flags svg {
-		min-width: 5.4rem;
-		width: 3.47%;
-		margin-left: 1em;
-	}
-
-	.lpt-logo img {
-		width: 8rem;
-		min-width: 7.2rem;
-		margin: 0 auto 1em auto;
-	}
-}
-
-.onboarding-portalTitle {
-	width: 100%;
-	max-width: 47.2rem;
-	padding: 0 3.6rem;
-	animation: 3s infinite alternate ease-in-out floating;
 }
 
 @keyframes floating {
@@ -143,30 +174,24 @@ Name: Onboarding
 }
 
 @media (min-width: 1024px) {
-	.page.onboarding--portal {
-		.onboarding-header {
-			padding: 1.39% 1.39% 0 1.39%;
-		}
-
-		.btn.btn-ondboarding {
-			font-size: 1.91vw;
-			padding: 0.667em 1.667em;
-		}
-
-		.lpt-logo img {
-			width: 5.38vw;
-			margin: 0 auto 1.39vw auto;
-		}
-
-		.header-flags svg {
-			margin-left: 1.39%;
+	.onboarding-header {
+		.lpt-logo,
+		.header-flags {
+			display: block;
 		}
 	}
 
-	.onboarding-portalTitle {
-		max-width: none;
-		min-width: 40rem;
-		width: 37.5%;
-		padding: 0;
+	.onboarding-header__text {
+		margin-bottom: 8.4rem;
+	}
+
+	.onboarding-header__title {
+		font-size: 3em;
+	}
+
+	.onboarding-footer {
+		.lpt-logo {
+			display: none;
+		}
 	}
 }
