@@ -1,6 +1,6 @@
 <?php /** TODO slit code (master, header, footer, ...) */ ?>
 <?php ?><!doctype html>
-<html lang="fr {{-- TODO translation --}}">
+<html lang="{{ \Illuminate\Support\Facades\App::getLocale() }}">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -31,9 +31,14 @@
 </header>
 
 <main id="app" class="onboarding-main">
-	<img class="onboarding-portalTitle" src="/images/decorations/onboarding-title-fr.svg" alt="Inscription - Les Petits Trilingues">
+	{{--	@dd(\Illuminate\Support\Facades\Lang::getLocale())--}}
+	@if(\Illuminate\Support\Facades\App::getLocale() === "cn")
+		<img class="onboarding-portalTitle" src="/images/decorations/onboarding-title-fr.svg" alt="Inscription - Les Petits Trilingues">
+	@else
+		<img class="onboarding-portalTitle" src="/images/decorations/onboarding-title-fr.svg" alt="Inscription - Les Petits Trilingues">
+	@endif
 	{{--	<div class="container">--}}
-	<a class="btn btn-ondboarding" href="javascript:void(0)">C'est parti&nbsp;!</a>
+	<a class="btn btn-ondboarding" href="{{ route("onboarding.schools") }}">C'est parti&nbsp;!</a>
 	{{--	</div>--}}
 </main>
 
