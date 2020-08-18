@@ -2,6 +2,14 @@
 
 	.onboarding-header {
 		padding: 1em 1em 0 1em;
+
+		.lpt-logo {
+			display: none;
+		}
+	}
+
+	.onboarding-footer .lpt-logo {
+		display: block;
 	}
 
 	.header-flags {

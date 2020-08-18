@@ -11,7 +11,7 @@
 		@lang("onboarding.buttons.previous")
 	</a>
 	<hr>
-	<h1 class="onboarding-header__title">@lang("onboarding.our schools")</h1>
+	<h1 class="onboarding-header__title">@lang("onboarding.ourSchools")</h1>
 @endsection
 
 @section("main")
@@ -21,7 +21,7 @@
 				<li>
 					@component("onboarding.courses.components.button")
 						@slot("link", route("onboarding.categories", $school))
-						@lang("onboarding.schools." . $school . ".name")<br>
+						{{ trans("onboarding.schools." . $school . ".name") }}<br>
 						@if($loc = trans("onboarding.schools." . $school . ".location"))
 							({{ $loc }})
 						@endif
