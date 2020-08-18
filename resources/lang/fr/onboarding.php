@@ -88,5 +88,6 @@ return [
 		"add-student" => "Inscrire un autre élève",
 		"submit-registration" => "Soumettre l'inscription",
 	],
-	"ourSchools" => "Nos écoles"
+	"our schools" => "Nos écoles",
+	"our categories" => "Nos matières"
 ];
