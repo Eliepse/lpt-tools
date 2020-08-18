@@ -21,7 +21,7 @@
 				<li>
 					@component("onboarding.courses.components.button")
 						@slot("link", route("onboarding.courses", [$school, $category]))
-						@lang("onboarding.categories." . $category)
+						@lang("onboarding.categories.$category")
 					@endcomponent
 				</li>
 			@endforeach

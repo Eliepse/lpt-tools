@@ -22,7 +22,7 @@
 					@component("onboarding.courses.components.button")
 						@slot("link", route("onboarding.categories", $school))
 						@lang("onboarding.schools." . $school . ".name")<br>
-						@if($loc = trans("onboarding.schools." . $school . ".location"))
+						@if($loc = trans("onboarding.schools.$school.location"))
 							({{ $loc }})
 						@endif
 					@endcomponent
