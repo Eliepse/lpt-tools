@@ -26,7 +26,7 @@ final class OnboardingInfosController extends OnboardingController
 			"schedule" => $this->schedule,
 			"back" => [
 				"text" => trans("onboarding.buttons.previous"),
-				"link" => action([OnboardingSelectionController::class, "listSchedules"], [$this->course]),
+				"link" => "",
 			],
 		]);
 	}

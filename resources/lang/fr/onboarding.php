@@ -89,5 +89,6 @@ return [
 		"submit-registration" => "Soumettre l'inscription",
 	],
 	"our schools" => "Nos écoles",
-	"our categories" => "Nos matières"
+	"our categories" => "Nos matières",
+	"our courses" => "Nos cours de :category"
 ];

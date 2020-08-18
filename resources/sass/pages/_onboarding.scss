@@ -8,7 +8,7 @@ Name: Onboarding
 	background-color: $color-orange-2;
 	background-image: url("images/background-1.gif");
 	background-size: cover;
-	font-family: Signika, sans-serif;
+	font-family: Signika, "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
 	font-weight: $fontWeigth-Book;
 	font-size: 1.6em;
 	display: flex;
@@ -16,6 +16,7 @@ Name: Onboarding
 
 	.container {
 		margin: auto;
+		padding: 0 2rem;
 		width: 100%;
 		max-width: 48rem;
 	}

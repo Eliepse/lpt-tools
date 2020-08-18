@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCourseRequest extends FormRequest
+class CreateRequestRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -25,6 +26,7 @@ class StoreCourseRequest extends FormRequest
 	public function rules()
 	{
 		return [
+			'course_id' => [Rule::exists("courses", "id")],
 			'day' => ['required', 'in:mon,tue,wed,thu,fri,sat,sun,daily,custom'],
 			'hour' => ['required', 'numeric', 'between:0,24'],
 		];

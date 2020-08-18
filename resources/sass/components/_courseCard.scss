@@ -1,0 +1,91 @@
+.courseCard {
+	margin-bottom: 2em;
+	width: 100%;
+	color: $onboarding-green-dark;
+	background: #fff;
+	border-radius: 1em;
+	overflow: hidden;
+}
+
+.courseCard__header {
+	display: flex;
+	align-items: center;
+	padding: 1em 1.5em;
+	background: $onboarding-orange-extraLight;
+}
+
+.courseCard__title {
+	flex: auto;
+	font-size: 2em;
+	font-weight: $fontWeigth-Bold;
+}
+
+.courseCard__infos {
+	text-align: right;
+	line-height: 1.2;
+}
+
+.courseCard__price {
+	font-size: 1.25em;
+	font-weight: $fontWeigth-SemiBold;
+
+	sub {
+		position: relative;
+		top: 0;
+		font-size: .6em;
+		font-weight: $fontWeigth-Book;
+	}
+}
+
+.courseCard__duration {
+	font-size: .875em;
+}
+
+.courseCard__description {
+	margin: 1.5em 1.5em 1.5em 2em;
+	font-size: 1em;
+	line-height: 1.5;
+	color: $onboarding-green-dark;
+}
+
+.courseCard__schedules {
+	margin: 0 2em 1.125em 2em;
+
+	h3 {
+		clear: both;
+		font-size: 1.125em;
+		margin-bottom: .78em;
+	}
+
+	> li {
+		clear: both;
+		margin-bottom: .625em;
+	}
+
+	& > li ul {
+		display: flex;
+		justify-content: left;
+		flex-wrap: wrap;
+	}
+
+	& > li ul li {
+		margin-right: .5em;
+		margin-bottom: .875em;
+	}
+}
+
+@media (min-width: 1024px) {
+	.courseCard__header {
+		padding: 1.25em 2em;
+	}
+	.courseCard__price {
+		font-size: 1.5em;
+	}
+	.courseCard__duration {
+		font-size: .9375em;
+	}
+	.courseCard__description {
+		margin: 1.75em 2em;
+		font-size: 1.125em;
+	}
+}

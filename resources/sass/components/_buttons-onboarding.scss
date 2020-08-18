@@ -31,5 +31,26 @@ Short: .btn--onboarding (works with .btn)
 		transform: translateY(0);
 		transition: box-shadow 0s, transform 0s;
 	}
+}
 
+.btn.btn-ondboarding--small {
+	margin: 0;
+	padding: .89em;
+	text-align: center;
+	font-size: 1.125em;
+	font-weight: $fontWeigth-Book;
+	background: $color-gray-2;
+	box-shadow: 0 .375em 0 #BFBFBF;
+	border-radius: .44em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	&:hover {
+		box-shadow: 0 .25em 0 #BFBFBF;
+	}
+
+	&:active {
+		box-shadow: 0 0 0 #BFBFBF;
+	}
 }
