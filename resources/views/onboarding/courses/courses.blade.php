@@ -44,16 +44,11 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 									<ul>
 										@foreach($hours as $hour)
 											<li>
-												<form action="{{ action([OnboardingRequestController::class, "createRequest"]) }}" method="post">
-													@csrf
-													@method("post")
-													<input name="course_id" value="{{ $course->id }}" hidden>
-													<input name="day" value="{{ $day }}" hidden>
-													<input name="hour" value="{{ $hour }}" hidden>
-													<button class="btn btn-ondboarding btn-ondboarding--small" type="submit">
-														{{ $hour }}&nbsp;@lang("onboarding.hour-short")
-													</button>
-												</form>
+												<a href="{{ action([OnboardingRequestController::class, "show"], [$school, $category, $course, "$day:$hour"]) }}"
+												   class="btn btn-ondboarding btn-ondboarding--small" type="submit"
+												>
+													{{ $hour }}&nbsp;@lang("onboarding.hour-short")
+												</a>
 											</li>
 										@endforeach
 									</ul>

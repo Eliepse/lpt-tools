@@ -14,13 +14,13 @@ final class OnboardingInfosController extends OnboardingController
 	/**
 	 * @return RedirectResponse|View
 	 */
-	public function studentForm()
+	public function form()
 	{
 		$this->fetchCachedData();
 		if (! $this->hasValidCachedCourse()) {
 			return redirect()->route("onboarding.welcome");
 		}
-		return view("onboarding.studentForm", [
+		return view("onboarding.courses.request", [
 			"student" => $this->student ?? new Student(),
 			"course" => $this->course,
 			"schedule" => $this->schedule,

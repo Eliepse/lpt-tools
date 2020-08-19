@@ -12,9 +12,6 @@ use Illuminate\Support\Str;
 class OnboardingController
 {
 	protected ?Student $student;
-	protected ?Course $course;
-	protected array $schedule = [];
-
 
 	protected function getCacheId(): string
 	{
@@ -35,7 +32,6 @@ class OnboardingController
 			$this->getCacheId(),
 			[
 				'student' => Crypt::encrypt($this->student),
-				'course' => $this->course,
 				'schedule' => $this->schedule,
 			],
 			CarbonInterval::create(0, 0, 0, 0, config("session.lifetime"))
@@ -49,12 +45,6 @@ class OnboardingController
 		$this->student = empty($data['student']) ? null : Crypt::decrypt($data['student']);
 		$this->course = $data["course"] ?? null;
 		$this->schedule = $data["schedule"] ?? [];
-	}
-
-
-	protected function hasValidCachedCourse(): bool
-	{
-		return ! is_null($this->course) && is_int($this->course->id);
 	}
 
 
