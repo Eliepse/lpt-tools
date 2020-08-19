@@ -6,13 +6,12 @@ Name: Onboarding
 .page.onboarding {
 	height: 100vh;
 	background-color: $color-orange-2;
-	background-image: url("images/background-1.gif");
-	background-size: cover;
 	font-family: Signika, "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
 	font-weight: $fontWeigth-Book;
 	font-size: 1.6em;
 	display: flex;
 	flex-direction: column;
+	overflow: auto;
 
 	.container {
 		margin: auto;
@@ -115,6 +114,8 @@ Name: Onboarding
 	top: 0;
 	right: 0;
 	bottom: 0;
+	background-image: url("images/background-1.gif");
+	background-size: cover;
 	z-index: 0;
 
 	> img {

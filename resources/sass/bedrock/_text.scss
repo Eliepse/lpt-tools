@@ -3,8 +3,11 @@ This file contains all base styles about text.
 It's not a place where to tweak variables, use _variables.scss for that purpose.
  */
 
-html, body {
+html {
 	background: $background-default;
+}
+
+html, body {
 	font-size: $font-size;
 	font-family: Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 	line-height: $line-height;
