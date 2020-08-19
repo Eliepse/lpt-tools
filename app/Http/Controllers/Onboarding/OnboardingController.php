@@ -32,7 +32,7 @@ class OnboardingController
 			$this->getCacheId(),
 			[
 				'student' => Crypt::encrypt($this->student),
-				'schedule' => $this->schedule,
+//				'schedule' => $this->schedule,
 			],
 			CarbonInterval::create(0, 0, 0, 0, config("session.lifetime"))
 		);
@@ -43,8 +43,8 @@ class OnboardingController
 	{
 		$data = Cache::get($this->getCacheId());
 		$this->student = empty($data['student']) ? null : Crypt::decrypt($data['student']);
-		$this->course = $data["course"] ?? null;
-		$this->schedule = $data["schedule"] ?? [];
+//		$this->course = $data["course"] ?? null;
+//		$this->schedule = $data["schedule"] ?? [];
 	}
 
 

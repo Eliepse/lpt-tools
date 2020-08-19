@@ -1,0 +1,69 @@
+.onboardingForm {
+	color: $onboarding-green-dark;
+	margin-bottom: 7.2rem;
+
+	.form__group {
+		margin-bottom: 6.4rem;
+	}
+
+	.control__label {
+		display: block;
+		margin-left: 1.9rem;
+		margin-bottom: .3em;
+		text-transform: uppercase;
+	}
+
+	.form__control {
+		margin-bottom: 1em;
+
+		input {
+			display: block;
+			width: 100%;
+			padding: .6em .9em;
+			line-height: 1;
+			font-size: 2rem;
+			border-radius: .7em;
+			border: .4rem solid $onboarding-green-light;
+		}
+	}
+
+	.form__control--invalid {
+		.control__label {
+			margin-bottom: 0;
+		}
+
+		input {
+			border: .4rem solid $onboarding-green-dark;
+		}
+	}
+
+	.form__helper {
+		margin: 0 1.9rem .25em 1.9rem;
+		color: $color-text;
+	}
+
+	.onboarding-header__title {
+		margin-bottom: 5.6rem;
+		text-align: center;
+	}
+
+	.btn-ondboarding {
+		display: block;
+		margin: auto;
+	}
+
+}
+
+@media (min-width: 1024px) {
+	.onboardingForm {
+		margin-bottom: 12rem;
+
+		.form__control {
+			input {
+				width: 100%;
+				padding: .72em .86em;
+				font-size: 2.2rem;
+			}
+		}
+	}
+}

@@ -76,7 +76,7 @@ return [
 		"city-code" => "Code postal de résidence",
 		"wechat_id" => "Votre ID wechat",
 		"phone_emergency" => "Téléphone en cas d'urgence",
-		"phone_emergency2" => "Deuxième téléphone en cas d'urgence",
+		"phone_emergency2" => "Autre téléphone en cas d'urgence",
 	],
 	"buttons" => [
 		"lets-go" => "C'est parti !",
@@ -90,5 +90,8 @@ return [
 	],
 	"our schools" => "Nos écoles",
 	"our categories" => "Nos matières",
-	"our courses" => "Nos cours de :category"
+	"our courses" => "Nos cours de :category",
+	"your child" => "Votre enfant",
+	"your contacts" => "Vos contacts",
+	"complete my registration request" => "Terminer mon\ndossier d'inscription"
 ];
