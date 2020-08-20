@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Onboarding\DownloadPreRegistrationController;
+use App\Http\Controllers\Onboarding\DownloadRequestPDFController;
 use App\Http\Controllers\Onboarding\OnboardingInfosController;
 use App\Http\Controllers\Onboarding\OnboardingRequestController;
 use App\Http\Controllers\Onboarding\OnboardingSelectionController;
@@ -11,7 +11,6 @@ Route::prefix("onboarding/")
 	->group(function () {
 		Route::view('/', "onboarding.courses.portal")->name("onboarding.welcome");
 		Route::get('confirm', [OnboardingInfosController::class, 'confirmation']);
-		Route::post('pdf', DownloadPreRegistrationController::class);
 		Route::post('student', [OnboardingInfosController::class, 'storeStudent']);
 		Route::get('student-contact', [OnboardingInfosController::class, 'studentContactForm'])->name("onboarding.student-contact");
 		Route::post('student-contact', [OnboardingInfosController::class, 'storeStudentContact']);
@@ -21,4 +20,5 @@ Route::prefix("onboarding/")
 		Route::get('{school}/{category}', [OnboardingSelectionController::class, 'listCourses'])->name("onboarding.courses");
 		Route::post('{course}/{schedule}/request', [OnboardingRequestController::class, 'store']);
 		Route::get('{school}/{category}/{course}/{schedule}/request', [OnboardingRequestController::class, 'show'])->name("onboarding.request");
+		Route::post('{school}/{category}/{course}/{schedule}/pdf', DownloadRequestPDFController::class);
 	});

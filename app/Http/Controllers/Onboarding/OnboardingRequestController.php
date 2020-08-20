@@ -60,6 +60,9 @@ final class OnboardingRequestController extends OnboardingController
 		$this->student->second_contact_phone = str_replace(" ", "", $request->get("second_phone"));
 		$this->updateCacheData();
 
-		dd("reached");
+		return view("onboarding.courses.confirmation", [
+			"course" => $course,
+			"schedule" => $schedule,
+		]);
 	}
 }

@@ -54,3 +54,15 @@ Short: .btn--onboarding (works with .btn)
 		box-shadow: 0 0 0 #BFBFBF;
 	}
 }
+
+.page.onboarding {
+	.btn--link {
+		margin: 0 auto;
+		font-size: 1.8rem;
+		color: $onboarding-green-dark;
+		text-decoration: underline;
+		&:hover {
+			color: $onboarding-green;
+		}
+	}
+}

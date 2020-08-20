@@ -1,6 +1,6 @@
 <?php
 
-use \App\Http\Controllers\Onboarding\DownloadPreRegistrationController;
+use \App\Http\Controllers\Onboarding\DownloadRequestPDFController;
 
 /**
  * @var \Eliepse\LptLayoutPDF\Student $student

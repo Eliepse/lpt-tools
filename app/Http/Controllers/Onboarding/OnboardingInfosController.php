@@ -20,7 +20,7 @@ final class OnboardingInfosController extends OnboardingController
 		if (! $this->hasValidCachedStudentInfos()) {
 			return redirect()->route("onboarding.student");
 		}
-		if (! $this->hasValidCachedContactInfos()) {
+		if (! $this->hasValidCachedStudent()) {
 			return redirect()->route("onboarding.student-contact");
 		}
 		return view("onboarding.confirm", [

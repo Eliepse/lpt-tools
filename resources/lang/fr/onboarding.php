@@ -84,7 +84,8 @@ return [
 		"previous" => "Retour",
 		"all-good" => "Tout est bon !",
 		"print-form" => "Imprimer le formulaire",
-		"reset" => "Inscrire à une autre classe",
+		"download-form" => "Télécharger mon dossier d’inscription",
+		"reset" => "Faire un nouveau dossier d’inscription",
 		"add-student" => "Inscrire un autre élève",
 		"submit-registration" => "Soumettre l'inscription",
 	],
@@ -93,5 +94,7 @@ return [
 	"our courses" => "Nos cours de :category",
 	"your child" => "Votre enfant",
 	"your contacts" => "Vos contacts",
-	"complete my registration request" => "Terminer mon\ndossier d'inscription"
+	"complete my registration request" => "Terminer mon\ndossier d'inscription",
+	"confirmation_text_1" => "<strong>Téléchargez-le</strong> et <strong>envoyez-le</strong> à notre équipe sur Wechat.",
+	"confirmation_text_2" => "Vous n’avez pas Wechat&nbsp;? Contactez-nous directement au 06&nbsp;01&nbsp;02&nbsp;03&nbsp;04",
 ];

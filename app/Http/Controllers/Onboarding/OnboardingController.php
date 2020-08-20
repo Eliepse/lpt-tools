@@ -13,6 +13,7 @@ class OnboardingController
 {
 	protected ?Student $student;
 
+
 	protected function getCacheId(): string
 	{
 		if (! session()->has("onboarding:key")) {
@@ -48,22 +49,16 @@ class OnboardingController
 	}
 
 
-	protected function hasValidCachedStudentInfos(): bool
+	protected function hasValidCachedStudent(): bool
 	{
 		return ! is_null($this->student)
+			&& ! empty($this->student->first_contact_wechat)
+			&& ! empty($this->student->first_contact_phone)
+			&& ! empty($this->student->second_contact_phone)
 			&& ! empty($this->student->firstname)
 			&& ! empty($this->student->lastname)
 			&& ! empty($this->student->fullname_cn)
 			&& ! empty($this->student->born_at)
 			&& ! empty($this->student->city_code);
-	}
-
-
-	protected function hasValidCachedContactInfos(): bool
-	{
-		return ! is_null($this->student)
-			&& ! empty($this->student->first_contact_wechat)
-			&& ! empty($this->student->first_contact_phone)
-			&& ! empty($this->student->second_contact_phone);
 	}
 }
