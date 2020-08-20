@@ -20,12 +20,15 @@ final class OnboardingRequestController extends OnboardingController
 	 *
 	 * @return RedirectResponse|View
 	 * @throws \Throwable
+	 * @noinspection PhpUnusedParameterInspection
 	 */
 	public function show($school, $category, Course $course, $schedule)
 	{
 		[$day, $hour] = explode(":", $schedule);
 
 		throw_unless(in_array(intval($hour), $course->schedules->get($day, []), true), new HttpException(404));
+
+		$this->fetchCachedData();
 
 		return view("onboarding.courses.request", [
 			"student" => $this->student ?? new Student(),
