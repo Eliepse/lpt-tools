@@ -21,7 +21,7 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 
 @section("main")
 	<div class="container">
-		<form class="onboardingForm" action="{{ action([OnboardingRequestController::class, "store"], [$course, $schedule]) }}" method="post">
+		<form class="onboardingForm" action="{{ action([OnboardingRequestController::class, "store"], [$course->school, $course->category, $course, $schedule]) }}" method="post">
 			@csrf
 			@method("post")
 			<div class="form__group">
