@@ -43,6 +43,7 @@ final class OnboardingRequestController extends OnboardingController
 	 * @param Course $course
 	 * @param $schedule
 	 *
+	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
 	 * @throws \Throwable
 	 */
 	public function store(StoreOnboardingRequestRequest $request, Course $course, $schedule)
