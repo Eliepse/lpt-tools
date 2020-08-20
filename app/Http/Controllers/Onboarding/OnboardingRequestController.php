@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Onboarding;
 
 use App\Course;
 use App\Http\Requests\StoreOnboardingRequestRequest;
+use App\Mail\SendOnboardingMail;
 use Carbon\Carbon;
 use Eliepse\LptLayoutPDF\Student;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -63,6 +66,13 @@ final class OnboardingRequestController extends OnboardingController
 		$this->student->first_contact_phone = str_replace(" ", "", $request->get("first_phone"));
 		$this->student->second_contact_phone = str_replace(" ", "", $request->get("second_phone"));
 		$this->updateCacheData();
+
+		if (config("mail.report_to")) {
+			$mail = new SendOnboardingMail($course, $this->student, ["day" => $day, "hour" => $hour]);
+			$mail->from("no-reply@eliepse.fr", "LPT Server");
+			Mail::to(config("mail.report_to"))->queue($mail);
+			Log::info("An onboarding mail has been queued.");
+		}
 
 		return view("onboarding.courses.confirmation", [
 			"course" => $course,

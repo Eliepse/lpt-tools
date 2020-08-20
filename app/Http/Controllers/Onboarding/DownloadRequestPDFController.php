@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Onboarding;
 
 use App\Course;
-use App\Mail\SendOnboardingMail;
 use Eliepse\LptLayoutPDF\GeneratePreRegistration;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Mpdf\Output\Destination;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -37,13 +35,6 @@ final class DownloadRequestPDFController extends OnboardingController
 					[OnboardingRequestController::class, 'show'],
 					[$course->school, $course->category, $course, $schedule]
 				);
-		}
-
-		if (config("mail.report_to")) {
-			$mail = new SendOnboardingMail($course, $this->student, ["day" => $day, "hour" => $hour]);
-			$mail->from("no-reply@eliepse.fr", "LPT Server");
-			Mail::to(config("mail.report_to"))->queue($mail);
-			Log::info("An onboarding mail has been queued.");
 		}
 
 		$generator = new GeneratePreRegistration($course, $this->student, $day, $hour);
