@@ -10,11 +10,26 @@ return [
 	"student" => "学生",
 	"contact" => "联系方式",
 	"schools" => [
-		"aubervilliers" => "Aubervilliers (九十三区)",
-		"belleville" => "Belleville (巴黎 十九区)",
-		"italie" => "Place d'Italie (巴黎 十三区)",
-		"marais" => "Marais (巴黎 三区)",
-		"online" => "网课",
+		"aubervilliers" => [
+			"name" => "Aubervilliers",
+			"location" => "(九十三区)",
+		],
+		"belleville" => [
+			"name" => "Belleville",
+			"location" => "(巴黎 十九区)",
+		],
+		"italie" => [
+			"name" => "Place d'Italie",
+			"location" => "(巴黎 十三区)",
+		],
+		"marais" => [
+			"name" => "Marais",
+			"location" => "(巴黎 三区)",
+		],
+		"online" => [
+			"name" => "网课",
+			"location" => "",
+		],
 	],
 	"categories" => [
 		"chinese" => "中文",
@@ -69,8 +84,17 @@ return [
 		"previous" => "上一步",
 		"all-good" => "确认！",
 		"print-form" => "打印预注册表格",
-		"reset" => "注册其他课程",
+		"download-form" => "下载我的注册表",
+		"reset" => "继续下一个课程的注册",
 		"add-student" => "注册其他学生",
 		"submit-registration" => "上交注册单",
 	],
+	"our schools" => "Nos écoles",
+	"our categories" => "Nos matières",
+	"our courses" => "Nos cours de :category",
+	"your child" => "Votre enfant",
+	"your contacts" => "Vos contacts",
+	"complete my registration request" => "Terminer mon\ndossier d'inscription",
+	"confirmation_text_1" => "<strong>下载并发送</strong>到我们的微信团队！",
+	"confirmation_text_2" => "如果您还没有微信，请直接电话联系：0627350435",
 ];
