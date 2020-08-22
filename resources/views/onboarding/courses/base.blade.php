@@ -52,7 +52,5 @@ use \Illuminate\Support\Facades\Route;
 		<img src="/images/logo.gif" width="68" alt="Logo Les Petits Trilingues">
 	</a>
 </footer>
-
-<script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>

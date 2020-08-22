@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Onboarding\DownloadRequestPDFController;
-use App\Http\Controllers\Onboarding\OnboardingInfosController;
 use App\Http\Controllers\Onboarding\OnboardingRequestController;
 use App\Http\Controllers\Onboarding\OnboardingSelectionController;
 use Illuminate\Support\Facades\Route;
