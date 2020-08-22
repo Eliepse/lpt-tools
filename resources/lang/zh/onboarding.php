@@ -94,7 +94,7 @@ return [
 	"our courses" => "我们:category的课程",
 	"your child" => "您的孩子",
 	"your contacts" => "您的联系",
-	"complete my registration request" => "Terminer mon\ndossier d'inscription",
+	"complete my registration request" => "完成注册",
 	"confirmation_text_1" => "<strong>下载并发送</strong>到我们的微信团队！",
 	"confirmation_text_2" => "如果您还没有微信，请直接电话联系：0627350435",
 ];
