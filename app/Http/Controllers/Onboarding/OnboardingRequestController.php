@@ -43,13 +43,16 @@ final class OnboardingRequestController extends OnboardingController
 
 	/**
 	 * @param StoreOnboardingRequestRequest $request
+	 * @param $school
+	 * @param $category
 	 * @param Course $course
 	 * @param $schedule
 	 *
 	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
 	 * @throws \Throwable
+	 * @noinspection PhpUnusedParameterInspection
 	 */
-	public function store(StoreOnboardingRequestRequest $request, Course $course, $schedule)
+	public function store(StoreOnboardingRequestRequest $request, $school, $category, Course $course, $schedule)
 	{
 		[$day, $hour] = explode(":", $schedule);
 
