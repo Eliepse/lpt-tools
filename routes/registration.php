@@ -6,7 +6,10 @@ use App\Http\Controllers\Onboarding\OnboardingSelectionController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix("onboarding/")
-	->middleware(["registration.checkOpen:courses"])
+	->middleware([
+		"registration.checkOpen:courses",
+		\App\Http\Middleware\SessionLanguageMiddleware::class
+	])
 	->group(function () {
 		Route::view('/', "onboarding.courses.portal")->name("onboarding.welcome");
 		Route::get('schools', [OnboardingSelectionController::class, 'listSchools'])->name("onboarding.schools");
