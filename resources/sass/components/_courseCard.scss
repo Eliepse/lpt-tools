@@ -21,6 +21,8 @@
 }
 
 .courseCard__infos {
+	flex-shrink: 0;
+	margin-left: .5em;
 	text-align: right;
 	line-height: 1.2;
 }
