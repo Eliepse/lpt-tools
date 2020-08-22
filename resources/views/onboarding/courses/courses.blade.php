@@ -47,7 +47,15 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 												<a href="{{ action([OnboardingRequestController::class, "show"], [$school, $category, $course, "$day:$hour"]) }}"
 												   class="btn btn-ondboarding btn-ondboarding--small" type="submit"
 												>
-													{{ $hour }}&nbsp;@lang("onboarding.hour-short")
+													<?php
+													if (is_int($hour)) {
+														$h = $hour < 10 ? "0$hour" : $hour;
+														$min = "00";
+													} else {
+														[$h, $min] = explode(":", $hour);
+													}
+													?>
+													@lang("onboarding.hour-short", ["hour" => $h, "minutes" => $min])
 												</a>
 											</li>
 										@endforeach

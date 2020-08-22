@@ -55,7 +55,7 @@ return [
 		"week" => "周",
 		"year" => "年",
 	],
-	"hour-short" => "点",
+	"hour-short" => ":hour&#58;:minutes",
 	"elite" => "精英班",
 	"titles" => [
 		"welcome" => "欢迎报名三语宝贝",

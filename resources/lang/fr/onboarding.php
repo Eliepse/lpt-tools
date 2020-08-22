@@ -55,7 +55,7 @@ return [
 		"week" => "semaine",
 		"year" => "an",
 	],
-	"hour-short" => "h",
+	"hour-short" => ":hour h :minutes",
 	"elite" => "Programme Élite",
 	"titles" => [
 		"welcome" => "Bienvenue dans la pré-inscription des Petits Trilingues",
