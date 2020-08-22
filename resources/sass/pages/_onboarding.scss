@@ -37,6 +37,10 @@ Name: Onboarding
 		flex: 1 0 0;
 	}
 
+	.lpt-logo a {
+		display: inline-block;
+	}
+
 	.header-flags {
 		text-align: right;
 		letter-spacing: 0;
@@ -71,7 +75,7 @@ Name: Onboarding
 }
 
 .onboarding-header__backBtn {
-	display: block;
+	display: inline-block;
 	text-transform: uppercase;
 
 	svg {
@@ -151,7 +155,7 @@ Name: Onboarding
 	flex-flow: wrap;
 
 	li {
-		flex: 10em 1 0;
+		flex: 8.75em 1 0;
 		display: block;
 		margin: .75em;
 		max-width: 10em;
@@ -188,6 +192,7 @@ Name: Onboarding
 }
 
 .onboarding--confirmation {
+
 	.onboarding-main {
 		display: flex;
 		flex-direction: column;
@@ -252,6 +257,9 @@ Name: Onboarding
 	}
 
 	.onboarding--confirmation {
+		.header-flags {
+			display: none;
+		}
 		.onboarding-main {
 			.lpt-logo {
 				display: none;

@@ -16,9 +16,11 @@ use \Illuminate\Support\Facades\Route;
 @include("onboarding.courses.components.decorations", ["withAnts" => Route::current()->named(["onboarding.welcome"])])
 
 <header class="onboarding-header">
-	<a class="lpt-logo" href="http://www.lespetitstrilingues.com">
-		<img src="/images/logo.gif" width="70" alt="Logo Les Petits Trilingues">
-	</a>
+	<div class="lpt-logo">
+		<a href="http://www.lespetitstrilingues.com">
+			<img src="/images/logo.gif" width="70" alt="Logo Les Petits Trilingues">
+		</a>
+	</div>
 	@hasSection("header-text")
 		<div class="onboarding-header__text">
 			@yield("header-text")
