@@ -12,19 +12,19 @@ return [
 	"schools" => [
 		"aubervilliers" => [
 			"name" => "Aubervilliers",
-			"location" => "(九十三区)",
+			"location" => "九十三区",
 		],
 		"belleville" => [
 			"name" => "Belleville",
-			"location" => "(巴黎 十九区)",
+			"location" => "巴黎 十九区",
 		],
 		"italie" => [
 			"name" => "Place d'Italie",
-			"location" => "(巴黎 十三区)",
+			"location" => "巴黎 十三区",
 		],
 		"marais" => [
 			"name" => "Marais",
-			"location" => "(巴黎 三区)",
+			"location" => "巴黎 三区",
 		],
 		"online" => [
 			"name" => "网课",
@@ -89,11 +89,11 @@ return [
 		"add-student" => "注册其他学生",
 		"submit-registration" => "上交注册单",
 	],
-	"our schools" => "Nos écoles",
-	"our categories" => "Nos matières",
-	"our courses" => "Nos cours de :category",
-	"your child" => "Votre enfant",
-	"your contacts" => "Vos contacts",
+	"our schools" => "我们的校区",
+	"our categories" => "我们的学科",
+	"our courses" => "我们:category的课程",
+	"your child" => "您的孩子",
+	"your contacts" => "您的联系",
 	"complete my registration request" => "Terminer mon\ndossier d'inscription",
 	"confirmation_text_1" => "<strong>下载并发送</strong>到我们的微信团队！",
 	"confirmation_text_2" => "如果您还没有微信，请直接电话联系：0627350435",

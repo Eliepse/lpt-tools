@@ -9,7 +9,7 @@ use \App\Http\Controllers\Onboarding\DownloadRequestPDFController;
 
 @section("main")
 	<img class="lpt-logo" src="/images/logo.png" alt="LPT logo">
-	@if(\Illuminate\Support\Facades\App::getLocale() === "cn")
+	@if(\Illuminate\Support\Facades\App::getLocale() === "zh")
 		<img class="onboarding-requestReady" src="/images/decorations/request_ready-zh.svg" alt="Votre dossier d'inscription est prêt !">
 	@else
 		<img class="onboarding-requestReady" src="/images/decorations/request_ready-fr.svg" alt="Votre dossier d'inscription est prêt !">
