@@ -36,6 +36,7 @@ return [
 		"english" => "Anglais",
 		"maths" => "Mathématiques",
 		"art" => "Arts plastiques",
+		"french" => "Français",
 		"support" => "Autres",
 	],
 	"days" => [
