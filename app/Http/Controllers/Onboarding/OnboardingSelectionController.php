@@ -43,17 +43,4 @@ final class OnboardingSelectionController extends OnboardingController
 
 		return view("onboarding.courses.courses", ["school" => $school, "category" => $category, "courses" => $courses]);
 	}
-
-
-	public function listSchedules(Course $course): View
-	{
-		return view("onboarding.select-course-schedule", [
-			"course" => $course,
-			"title" => trans("onboarding.titles.choose-schedule"),
-			"back" => [
-				"text" => trans("onboarding.buttons.previous"),
-				"link" => action([self::class, "listCourses"], [$course->school, $course->category]),
-			],
-		]);
-	}
 }
