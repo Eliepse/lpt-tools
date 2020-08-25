@@ -8,6 +8,7 @@ use Eliepse\LptLayoutPDF\Student;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class OnboardingController
 {
@@ -33,7 +34,6 @@ class OnboardingController
 			$this->getCacheId(),
 			[
 				'student' => Crypt::encrypt($this->student),
-//				'schedule' => $this->schedule,
 			],
 			CarbonInterval::create(0, 0, 0, 0, config("session.lifetime"))
 		);
@@ -44,8 +44,6 @@ class OnboardingController
 	{
 		$data = Cache::get($this->getCacheId());
 		$this->student = empty($data['student']) ? null : Crypt::decrypt($data['student']);
-//		$this->course = $data["course"] ?? null;
-//		$this->schedule = $data["schedule"] ?? [];
 	}
 
 
@@ -60,5 +58,26 @@ class OnboardingController
 			&& ! empty($this->student->fullname_cn)
 			&& ! empty($this->student->born_at)
 			&& ! empty($this->student->city_code);
+	}
+
+
+	/**
+	 * @param Course $course
+	 * @param string $day
+	 * @param string $hour
+	 *
+	 * @return bool
+	 * @throws \Throwable
+	 */
+	protected function validateSchedule(Course $course, string $day, string $hour): bool
+	{
+		// This condition is here for compatibility
+		if (strlen($hour) === 2) {
+			throw_unless(in_array(intval($hour), $course->schedules->get($day, []), true), new HttpException(404));
+			return true;
+		}
+
+		throw_unless(in_array($hour, $course->schedules->get($day, []), true), new HttpException(404));
+		return true;
 	}
 }

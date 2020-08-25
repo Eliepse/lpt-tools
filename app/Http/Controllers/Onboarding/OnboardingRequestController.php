@@ -11,7 +11,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class OnboardingRequestController extends OnboardingController
 {
@@ -27,9 +26,9 @@ final class OnboardingRequestController extends OnboardingController
 	 */
 	public function show($school, $category, Course $course, $schedule)
 	{
-		[$day, $hour] = explode(":", $schedule);
+		[$day, $hour] = explode("-", $schedule);
 
-		throw_unless(in_array(intval($hour), $course->schedules->get($day, []), true), new HttpException(404));
+		$this->validateSchedule($course, $day, $hour);
 
 		$this->fetchCachedData();
 
@@ -54,9 +53,9 @@ final class OnboardingRequestController extends OnboardingController
 	 */
 	public function store(StoreOnboardingRequestRequest $request, $school, $category, Course $course, $schedule)
 	{
-		[$day, $hour] = explode(":", $schedule);
+		[$day, $hour] = explode("-", $schedule);
 
-		throw_unless(in_array(intval($hour), $course->schedules->get($day, []), true), new HttpException(404));
+		$this->validateSchedule($course, $day, $hour);
 
 		$this->fetchCachedData();
 		$this->student = $this->student ?? new Student();

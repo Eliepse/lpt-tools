@@ -44,7 +44,7 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 									<ul>
 										@foreach($hours as $hour)
 											<li>
-												<a href="{{ action([OnboardingRequestController::class, "show"], [$school, $category, $course, "$day:$hour"]) }}"
+												<a href="{{ action([OnboardingRequestController::class, "show"], [$school, $category, $course, "$day-$hour"]) }}"
 												   class="btn btn-ondboarding btn-ondboarding--small" type="submit"
 												>
 													<?php

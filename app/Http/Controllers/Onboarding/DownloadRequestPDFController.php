@@ -7,7 +7,6 @@ use Eliepse\LptLayoutPDF\GeneratePreRegistration;
 use Illuminate\Support\Facades\Log;
 use Mpdf\Output\Destination;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class DownloadRequestPDFController extends OnboardingController
 {
@@ -23,9 +22,9 @@ final class DownloadRequestPDFController extends OnboardingController
 	 */
 	public function __invoke($school, $category, Course $course, $schedule)
 	{
-		[$day, $hour] = explode(":", $schedule);
+		[$day, $hour] = explode("-", $schedule);
 
-		throw_unless(in_array(intval($hour), $course->schedules->get($day, []), true), new HttpException(404));
+		$this->validateSchedule($course, $day, $hour);
 
 		$this->fetchCachedData();
 
