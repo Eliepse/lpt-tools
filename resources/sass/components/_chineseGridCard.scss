@@ -22,7 +22,7 @@ Shorthand: .cgCard
 	box-shadow: 0 .1em 0 $color-cyan-5;
 	transition: box-shadow $transition-time-fast, transform $transition-time-fast;
 
-	.btn--close {
+	.btn-group--actions {
 		display: none;
 	}
 }
@@ -37,7 +37,7 @@ Shorthand: .cgCard
 		transform: translateY(-.025em);
 	}
 
-	&:hover .btn--close {
+	&:hover .btn-group--actions {
 		display: block;
 	}
 }
@@ -76,7 +76,7 @@ Shorthand: .cgCard
 		transform: translateY(-.1em);
 	}
 
-	.btn--close {
+	.btn-group--actions {
 		display: block;
 	}
 }

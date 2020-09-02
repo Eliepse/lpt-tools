@@ -82,11 +82,8 @@ button + button {
 	}
 }
 
-.btn--close {
-	position: absolute;
-	top: -.5em;
-	right: -.5em;
-	font-size: $font-size;
+.btn--action {
+	display: inline-block;
 	padding: 0.4em;
 	border-radius: 50%;
 	width: 2.5em;
@@ -113,7 +110,18 @@ button + button {
 
 	&:after {
 		font-size: 1.5em;
+	}
+
+	&.btn--close:after {
 		content: '×';
+	}
+
+	&.btn--moveLeft:after {
+		content: '←';
+	}
+
+	&.btn--moveRight:after {
+		content: '→';
 	}
 }
 
@@ -122,6 +130,17 @@ Button Groups
 */
 .btn-group {
 
+}
+
+.btn-group--actions {
+	position: absolute;
+	top: -.5em;
+	right: -.5em;
+	font-size: $font-size;
+
+	.btn + .btn {
+		margin-left: 0.125em;
+	}
 }
 
 .btn-group--center {

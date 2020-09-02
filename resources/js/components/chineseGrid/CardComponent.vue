@@ -1,6 +1,8 @@
 <template>
 	<div class="cgCard" :class="{ 'cgCard--editable': editable, 'cgCard--editing': editing }">
-		<button class="btn btn--close" @click="removeCard"></button>
+    <div class="btn-group--actions">
+      <button class="btn btn--action btn--close" @click="removeCard"></button>
+    </div>
 		<div class="cgCard__cn"
 		     v-html="printValue"
 		     @focusin="focus.chinese = true"
