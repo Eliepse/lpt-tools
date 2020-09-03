@@ -1,6 +1,8 @@
 <template>
 	<div class="cgCard" :class="{ 'cgCard--editable': editable, 'cgCard--editing': editing }">
     <div class="btn-group--actions">
+      <button class="btn btn--action btn-moveLeft" @click="onMove(card.id, -1)">&larr;</button>
+      <button class="btn btn--action btn-moveRight" @click="onMove(card.id, 1)">&rarr;</button>
       <button class="btn btn--action btn--close" @click="removeCard"></button>
     </div>
 		<div class="cgCard__cn"
@@ -39,7 +41,12 @@
 				type: Boolean,
 				required: false,
 				default() {return false;}
-			}
+			},
+      onMove: {
+			  type: Function,
+        required: false,
+        default() {return function (card, direction) {}}
+      }
 		},
 		data() {
 			return {

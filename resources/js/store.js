@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	strict: true,
 	state: {
-		chinese_words: {},
+		chinese_words: [],
 		chinese_cache: {}
 	},
 	mutations: {
@@ -17,28 +17,44 @@ export default new Vuex.Store({
 			state.chinese_cache = list;
 		},
 		STORE_CARD(state, {value, pinyin}) {
-			const id = Object.keys(state.chinese_words)
-				.reduce(function (carr, id) {
-					id = Number(id);
-					return id < carr ? carr : id;
-				}, -1) + 1;
-			this.state.chinese_words[id] = {
-				id,
+			const id = state.chinese_words.reduce((carr, word) => carr < word.id ? word.id : carr, 0)
+			this.state.chinese_words.push({
+				id: id + 1,
 				value: filterNonChinese(value),
 				pinyin: (filterNonPinyin(pinyin.trim() || "").match(/\S+/g) || [])
 					.map(pin => pinTls.numberToMark(pin)).join(" ")
-			}
+			})
 		},
 		UPDATE_CARD(state, {id, value, pinyin}) {
-			if (!state.chinese_words[id]) return;
-			state.chinese_words[id].value = filterNonChinese(value)
-			state.chinese_words[id].pinyin = (filterNonPinyin(pinyin || "").match(/\S+/g) || [])
+			const word = state.chinese_words.find(word => word.id === id)
+			if (!word) return;
+			word.value = filterNonChinese(value)
+			word.pinyin = (filterNonPinyin(pinyin || "").match(/\S+/g) || [])
 				.map(pin => pinTls.numberToMark(pin))
 				.join(" ");
 		},
+		MOVE_CARD(state, {id, direction}) {
+			const actualId = state.chinese_words.findIndex(word => word.id === id)
+			if (actualId < 0) return;
+
+			if (direction === 1 && actualId + 1 < state.chinese_words.length) {
+				state.chinese_words = [
+					...state.chinese_words.slice(0, actualId),
+					state.chinese_words[actualId + 1],
+					state.chinese_words[actualId],
+					...state.chinese_words.slice(actualId + 2),
+				]
+			} else if (direction === -1 && actualId - 1 >= 0) {
+				state.chinese_words = [
+					...state.chinese_words.slice(0, actualId - 1),
+					state.chinese_words[actualId],
+					state.chinese_words[actualId - 1],
+					...state.chinese_words.slice(actualId + 1),
+				]
+			}
+		},
 		REMOVE_CARD(state, id) {
-			if (!state.chinese_words[id]) return;
-			delete state.chinese_words[id];
+			state.chinese_words = state.chinese_words.filter(card => card.id !== id);
 		}
 	},
 	actions: {

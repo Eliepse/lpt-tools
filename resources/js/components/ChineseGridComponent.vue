@@ -10,13 +10,14 @@
 			<div class="cg__sheet">
 				<transition-group name="list" tag="ul" class="cg__inputList">
 					<li class="cg__inputItem list-item"
-					    v-for="card in getCards()"
+					    v-for="card in getCards"
 					    :key="card.id">
 						<chinese-grid-card
 								v-if="card.id !== 'add'"
 								:card="card"
 								:editable="true"
 								:grabFocus="true"
+                :onMove="handleMove"
 								@validate="addCard"
 								@deleted="$forceUpdate()"
 						/>
@@ -81,7 +82,9 @@
 		</div>
 		<aside class="popup" v-show="downloadLink">
 			<div class="popup__content">
-				<button class="btn btn--close" @click="downloadLink = null"></button>
+        <div class="btn-group--actions">
+				  <button class="btn btn--action btn--close" @click="downloadLink = null"></button>
+        </div>
 				<p>Votre exercice est prêt !</p>
 				<a class="btn" :href="downloadLink" target="_blank">Télécharger l'exercice</a>
 			</div>
@@ -112,7 +115,7 @@
 			generateGrid() {
 				Axios.post("/api/grid/chinese", {
 					words: this.$store.state.chinese_words,
-					title: this.$refs.form.querySelector("input[name=title").value,
+					title: this.$refs.form.querySelector("input[name=title]").value,
 					date: this.$refs.form.querySelector("input[name=date]").value,
 					strokes: this.$refs.form.querySelector("input[name=strokes]:checked").value === "true",
 					pinyin: this.$refs.form.querySelector("input[name=pinyin]:checked").value === "true",
@@ -129,15 +132,21 @@
 					})
 					.catch(res => alert("Erreur: " + res.message))
 			},
-			getCards: function () {
-				let cards = Object.values(this.$store.state.chinese_words);
-				cards.push({id:'add'});
-				return cards;
-			},
-		}
+
+      handleMove: function(id, direction) {
+        this.$store.commit("MOVE_CARD", {id, direction})
+        this.$forceUpdate()
+      }
+		},
+    computed: {
+      getCards: function () {
+        return [...this.$store.state.chinese_words, {id:'add'}];
+      },
+    }
 	}
 </script>
 
+<!--suppress CssUnusedSymbol -->
 <style scoped>
 	.list-item {
 		transition: transform 250ms, opacity 200ms;
