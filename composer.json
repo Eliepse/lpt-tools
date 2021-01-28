@@ -6,7 +6,7 @@
     "type": "project",
     "repositories": [],
     "require": {
-        "php": "^7.4",
+        "php": "^8.0",
         "ext-json": "*",
         "ext-mbstring": "*",
         "eliepse/working-grid-pdf": "^2.3",
