@@ -1,6 +1,6 @@
 import axios from "axios"
 import Vue from "vue"
-import ChineseGridComponent from "./components/ChineseGridComponent"
+import ChineseGridComponent from "./components/ChineseGridComponent.vue"
 import store from "./store"
 
 window.Axios = axios;
