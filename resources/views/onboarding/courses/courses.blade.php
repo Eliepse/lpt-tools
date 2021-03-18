@@ -20,7 +20,7 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 
 @section("main")
 	<div class="container">
-		<ul>
+		<ul class="coursesList">
 			<?php /** @var \App\Course $course */ ?>
 			@foreach($courses as $course)
 				<li>

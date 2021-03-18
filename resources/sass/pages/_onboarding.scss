@@ -17,13 +17,17 @@ Name: Onboarding
 		margin: auto;
 		padding: 0 2rem;
 		width: 100%;
-		max-width: 48rem;
+		max-width: 80rem;
 	}
 
 	.onboarding-header,
 	.onboarding-main,
 	.onboarding-footer {
 		z-index: 10;
+	}
+
+	.coursesList > li {
+		padding: 0 0 2rem 0;
 	}
 }
 
@@ -222,6 +226,24 @@ Name: Onboarding
 	}
 	to {
 		transform: rotate(2deg);
+	}
+}
+
+@media (min-width: 560px) {
+	.page.onboarding {
+		.coursesList {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 -1rem;
+		}
+
+		.coursesList > li {
+			width: 50%;
+			padding: 0 1rem 2rem 1rem;
+		}
+		.coursesList > li > section {
+			height: 100%;
+		}
 	}
 }
 
