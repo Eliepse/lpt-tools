@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -23,7 +23,7 @@ class UserFactory extends Factory
 	public function definition():array
 	{
 		/*
-		$factory->define(App\User::class, function (Faker $faker) {
+		$factory->define(App\Models\User::class, function (Faker $faker) {
 			return [
 				'name' => $faker->name,
 				'email' => $faker->unique()->safeEmail,
