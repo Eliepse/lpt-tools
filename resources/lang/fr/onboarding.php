@@ -37,6 +37,7 @@ return [
 		"maths" => "Mathématiques",
 		"art" => "Arts plastiques",
 		"french" => "Français",
+		"vacation" => "Vacances",
 		"support" => "Autres",
 	],
 	"days" => [

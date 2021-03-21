@@ -17,13 +17,17 @@ Name: Onboarding
 		margin: auto;
 		padding: 0 2rem;
 		width: 100%;
-		max-width: 48rem;
+		max-width: 80rem;
 	}
 
 	.onboarding-header,
 	.onboarding-main,
 	.onboarding-footer {
 		z-index: 10;
+	}
+
+	.coursesList > li {
+		padding: 0 0 2rem 0;
 	}
 }
 
@@ -90,6 +94,21 @@ Name: Onboarding
 	font-weight: $fontWeigth-SemiBold;
 }
 
+.onboarding-breadcrumb {
+	li {
+		display: inline-block;
+	}
+
+	li:nth-child(n+2):before {
+		content: "\203a";
+		margin-right: .25rem;
+	}
+
+	a:hover {
+		text-decoration: underline;
+	}
+}
+
 .onboarding-main {
 	flex: auto;
 }
@@ -118,7 +137,7 @@ Name: Onboarding
 	top: 0;
 	right: 0;
 	bottom: 0;
-	background-image: url("images/background-1.gif");
+	background-image: url("../../images/background-1.gif");
 	background-size: cover;
 	z-index: 0;
 
@@ -225,6 +244,25 @@ Name: Onboarding
 	}
 }
 
+@media (min-width: 560px) {
+	.page.onboarding {
+		.coursesList {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 -1rem;
+		}
+
+		.coursesList > li {
+			width: 50%;
+			padding: 0 1rem 2rem 1rem;
+		}
+
+		.coursesList > li > section {
+			height: 100%;
+		}
+	}
+}
+
 @media (min-width: 1024px) {
 	.onboarding-header {
 		.lpt-logo,
@@ -260,6 +298,7 @@ Name: Onboarding
 		.header-flags {
 			display: none;
 		}
+
 		.onboarding-main {
 			.lpt-logo {
 				display: none;

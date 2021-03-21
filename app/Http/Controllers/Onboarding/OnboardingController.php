@@ -8,7 +8,6 @@ use Eliepse\LptLayoutPDF\Student;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class OnboardingController
 {
@@ -61,23 +60,20 @@ class OnboardingController
 	}
 
 
-	/**
-	 * @param Course $course
-	 * @param string $day
-	 * @param string $hour
-	 *
-	 * @return bool
-	 * @throws \Throwable
-	 */
-	protected function validateSchedule(Course $course, string $day, string $hour): bool
+	protected function validateSchedule(Course $course, string $type, string $key, string $hour): bool
 	{
-		// This condition is here for compatibility
-		if (strlen($hour) === 2) {
-			throw_unless(in_array(intval($hour), $course->schedules->get($day, []), true), new HttpException(404));
-			return true;
+		$shedules = $course->schedules;
+
+		if ($type === "weekly") {
+			$weeklies = $shedules->get("weekly", []);
+			return in_array($hour, $weeklies[$key] ?? [], true);
 		}
 
-		throw_unless(in_array($hour, $course->schedules->get($day, []), true), new HttpException(404));
-		return true;
+		if ($type === "daily") {
+			$dayHours = $shedules->get($key, []);
+			return in_array($hour, $dayHours, true);
+		}
+
+		return false;
 	}
 }

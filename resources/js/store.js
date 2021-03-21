@@ -1,8 +1,8 @@
 import Vuex from 'vuex';
-import {filterNonPinyin, filterNonChinese, pinyinCharsRegex} from './utils/chineseRegex';
+import {filterNonChinese, filterNonPinyin} from './utils/chineseRegex';
 import Vue from 'vue';
 import Axios from 'axios';
-import pinTls from "pinyin-utils";
+import {numberToMark} from "pinyin-utils";
 
 Vue.use(Vuex)
 
@@ -22,7 +22,7 @@ export default new Vuex.Store({
 				id: id + 1,
 				value: filterNonChinese(value),
 				pinyin: (filterNonPinyin(pinyin.trim() || "").match(/\S+/g) || [])
-					.map(pin => pinTls.numberToMark(pin)).join(" ")
+						.map(pin => numberToMark(pin)).join(" ")
 			})
 		},
 		UPDATE_CARD(state, {id, value, pinyin}) {
@@ -30,8 +30,8 @@ export default new Vuex.Store({
 			if (!word) return;
 			word.value = filterNonChinese(value)
 			word.pinyin = (filterNonPinyin(pinyin || "").match(/\S+/g) || [])
-				.map(pin => pinTls.numberToMark(pin))
-				.join(" ");
+					.map(pin => numberToMark(pin))
+					.join(" ");
 		},
 		MOVE_CARD(state, {id, direction}) {
 			const actualId = state.chinese_words.findIndex(word => word.id === id)
@@ -60,12 +60,12 @@ export default new Vuex.Store({
 	actions: {
 		async fetchChineseLists({commit}) {
 			await Axios.get("/api/lists/chinese")
-				.then((resp) => {
-					commit("SET_CN_CACHE", resp.data)
-				})
-				.catch((resp) => {
-					console.error("Unable to load chinese cached lists.", resp.message)
-				})
+					.then((resp) => {
+						commit("SET_CN_CACHE", resp.data)
+					})
+					.catch((resp) => {
+						console.error("Unable to load chinese cached lists.", resp.message)
+					})
 		},
 	},
 	getters: {

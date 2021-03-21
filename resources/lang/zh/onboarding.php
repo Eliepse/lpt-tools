@@ -37,6 +37,7 @@ return [
 		"maths" => "数学",
 		"art" => "绘画",
 		"french" => "法文",
+		"vacation" => "假期班",
 		"support" => "其他",
 	],
 	"days" => [

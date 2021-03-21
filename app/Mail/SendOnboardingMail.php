@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Mpdf\Output\Destination;
 
-class SendOnboardingMail extends Mailable implements ShouldQueue
+final class SendOnboardingMail extends Mailable implements ShouldQueue
 {
 	use Queueable, SerializesModels;
 
@@ -39,22 +39,10 @@ class SendOnboardingMail extends Mailable implements ShouldQueue
 	 * Build the message.
 	 *
 	 * @return $this
-	 * @throws \Mpdf\MpdfException
 	 */
-	public function build()
+	public function build(): SendOnboardingMail
 	{
-		$generator = new GeneratePreRegistration(
-			$this->course,
-			$this->student,
-			$this->schedule["day"],
-			$this->schedule["hour"]
-		);
-
-		$title = "registration-form__" . $this->student->getFullname() . "__" . $this->course->name . ".pdf";
-		$pdf = $generator()->Output($title, Destination::STRING_RETURN);
-
 		return $this->subject("[LPT] New registration")
-			->text("mails.new-onboarding")
-			->attachData($pdf, $title, ['mime' => 'application/pdf']);
+			->view("mails.new-onboarding");
 	}
 }
