@@ -43,6 +43,13 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 							@foreach($course->schedules as $key => $value)
 								@if(in_array($key, ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], true))
 									@include("onboarding.courses.components.courseButtonItem-day", ["day" => $key, "hours" => $value])
+								@elseif($key === "weekly")
+									@foreach($value as $range => $hours)
+										@include(
+											"onboarding.courses.components.courseButtonItem-weekly",
+											["range" => $range, "hours" => $hours]
+										)
+									@endforeach
 								@endif
 							@endforeach
 						</ul>

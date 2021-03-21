@@ -24,9 +24,11 @@ final class OnboardingRequestController extends OnboardingController
 	 */
 	public function show($school, $category, Course $course, $schedule)
 	{
-		[$day, $hour] = explode("-", $schedule);
+		[$type, $key, $hour] = explode("+", $schedule);
 
-		$this->validateSchedule($course, $day, $hour);
+		if (! $this->validateSchedule($course, $type, $key, $hour)) {
+			abort(404);
+		}
 
 		$this->fetchCachedData();
 
@@ -53,9 +55,11 @@ final class OnboardingRequestController extends OnboardingController
 	 */
 	public function store(StoreOnboardingRequestRequest $request, $school, $category, Course $course, $schedule)
 	{
-		[$day, $hour] = explode("-", $schedule);
+		[$type, $key, $hour] = explode("+", $schedule);
 
-		$this->validateSchedule($course, $day, $hour);
+		if (! $this->validateSchedule($course, $type, $key, $hour)) {
+			abort(404);
+		}
 
 		$this->fetchCachedData();
 		$this->student = $this->student ?? new Student();
@@ -70,7 +74,7 @@ final class OnboardingRequestController extends OnboardingController
 		$this->updateCacheData();
 
 		if (config("mail.report_to")) {
-			$mail = new SendOnboardingMail($course, $this->student, ["day" => $day, "hour" => $hour]);
+			$mail = new SendOnboardingMail($course, $this->student, ["day" => $key, "hour" => $hour]);
 			$mail->from("no-reply@eliepse.fr", "LPT Server");
 			Mail::to(config("mail.report_to"))->queue($mail);
 			Log::info("An onboarding mail has been queued.");

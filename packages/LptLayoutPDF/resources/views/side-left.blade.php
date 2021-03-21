@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<td class="label">@lang("onboarding.schedule")</td>
-			<td class="value">@lang("onboarding.days." . $schedule["day"]) - {{ $schedule["hour"] }} h</td>
+			<td class="value">{{ $schedule["day"] }} - {{ $schedule["hour"] }} h</td>
 		</tr>
 		<tr>
 			<td class="label">@lang("onboarding.school")</td>

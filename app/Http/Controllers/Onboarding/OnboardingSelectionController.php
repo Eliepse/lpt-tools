@@ -7,7 +7,7 @@ use Illuminate\View\View;
 
 final class OnboardingSelectionController extends OnboardingController
 {
-	public function listSchools(): View
+	public function listSchools(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
 	{
 		$schools = Course::query()
 			->groupBy("school")
@@ -18,7 +18,7 @@ final class OnboardingSelectionController extends OnboardingController
 	}
 
 
-	public function listCategories(string $school): View
+	public function listCategories(string $school): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
 	{
 		$categories = Course::query()
 			->where("school", $school)
@@ -26,15 +26,20 @@ final class OnboardingSelectionController extends OnboardingController
 			->get("category")
 			->pluck("category");
 
-		// We order results according to the order set in translation file
-		$categories = collect(array_keys(trans("onboarding.categories")))
-			->intersect($categories);
 
-		return view("onboarding.courses.categories", ["school" => $school, "categories" => $categories]);
+		// We order results according to the order set in translation file
+		$categoriesOrder = array_flip(array_keys(trans("onboarding.categories")));
+		$sortedCategories = array_combine(
+			$categories->toArray(),
+			array_map(fn($name) => $categoriesOrder[$name] ?? 9999, $categories->toArray())
+		);
+		asort($sortedCategories);
+
+		return view("onboarding.courses.categories", ["school" => $school, "categories" => array_keys($sortedCategories)]);
 	}
 
 
-	public function listCourses(string $school, string $category): View
+	public function listCourses(string $school, string $category): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
 	{
 		$courses = Course::query()
 			->where("school", $school)
