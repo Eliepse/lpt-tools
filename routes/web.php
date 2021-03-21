@@ -25,6 +25,6 @@ Route::get('/exercices/grids/chinese/{uid}', GenerateGridCNController::class)->n
 Route::view('/exercices/grids/english', 'englishGrid')->name('exercice.english-grid');
 Route::get('/exercices/grids/english/pdf', GenerateEnglishGridController::class)->name('exercice.english-grid.pdf');
 
-Auth::routes(["register" => false]);
+Auth::routes(["register" => false, "reset" => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
