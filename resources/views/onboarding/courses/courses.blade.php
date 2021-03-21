@@ -38,31 +38,12 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 									/&nbsp;@lang("onboarding.denominators.week")</span>
 							</div>
 						</header>
-						<p class="courseCard__description">{!! nl2br($course->description) !!}</p>
+						<p class="courseCard__description">{!! nl2br(e($course->description)) !!}</p>
 						<ul class="courseCard__schedules">
-							@foreach($course->schedules as $day => $hours)
-								<li>
-									<h3>@lang("onboarding.days.$day")</h3>
-									<ul>
-										@foreach($hours as $hour)
-											<li>
-												<a href="{{ action([OnboardingRequestController::class, "show"], [$school, $category, $course, "$day-$hour"]) }}"
-												   class="btn btn-ondboarding btn-ondboarding--small" type="submit"
-												>
-													<?php
-													if (is_int($hour)) {
-														$h = $hour < 10 ? "0$hour" : $hour;
-														$min = "00";
-													} else {
-														[$h, $min] = explode(":", $hour);
-													}
-													?>
-													@lang("onboarding.hour-short", ["hour" => $h, "minutes" => $min])
-												</a>
-											</li>
-										@endforeach
-									</ul>
-								</li>
+							@foreach($course->schedules as $key => $value)
+								@if(in_array($key, ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], true))
+									@include("onboarding.courses.components.courseButtonItem-day", ["day" => $key, "hours" => $value])
+								@endif
 							@endforeach
 						</ul>
 					</section>
