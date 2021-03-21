@@ -18,6 +18,7 @@ use Illuminate\Support\Collection;
  * @property int $duration
  * @property string $price_denominator
  * @property Collection $schedules
+ * @property string $duration_denominator
  */
 final class Course extends Model
 {

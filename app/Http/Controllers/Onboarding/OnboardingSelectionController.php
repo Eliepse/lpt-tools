@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Onboarding;
 
 use App\Course;
-use Illuminate\View\View;
 
 final class OnboardingSelectionController extends OnboardingController
 {
@@ -44,7 +43,7 @@ final class OnboardingSelectionController extends OnboardingController
 		$courses = Course::query()
 			->where("school", $school)
 			->where("category", $category)
-			->get(["id", "name", "description", "price", "price_denominator", "duration", "schedules"]);
+			->get(["id", "name", "description", "price", "price_denominator", "duration_denominator", "duration", "schedules"]);
 
 		return view("onboarding.courses.courses", ["school" => $school, "category" => $category, "courses" => $courses]);
 	}

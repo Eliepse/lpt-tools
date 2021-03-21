@@ -35,7 +35,7 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 								</span><br>
 								<span class="courseCard__duration">
 									{{ CarbonInterval::minutes($course->duration)->cascade()->forHumans(["short" => true]) }}
-									/&nbsp;@lang("onboarding.denominators.week")</span>
+									/&nbsp;@lang("onboarding.denominators.{$course->duration_denominator}")</span>
 							</div>
 						</header>
 						<p class="courseCard__description">{!! nl2br(e($course->description)) !!}</p>
