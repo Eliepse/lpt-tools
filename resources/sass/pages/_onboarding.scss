@@ -94,6 +94,21 @@ Name: Onboarding
 	font-weight: $fontWeigth-SemiBold;
 }
 
+.onboarding-breadcrumb {
+	li {
+		display: inline-block;
+	}
+
+	li:nth-child(n+2):before {
+		content: "\203a";
+		margin-right: .25rem;
+	}
+
+	a:hover {
+		text-decoration: underline;
+	}
+}
+
 .onboarding-main {
 	flex: auto;
 }
@@ -241,6 +256,7 @@ Name: Onboarding
 			width: 50%;
 			padding: 0 1rem 2rem 1rem;
 		}
+
 		.coursesList > li > section {
 			height: 100%;
 		}
@@ -282,6 +298,7 @@ Name: Onboarding
 		.header-flags {
 			display: none;
 		}
+
 		.onboarding-main {
 			.lpt-logo {
 				display: none;

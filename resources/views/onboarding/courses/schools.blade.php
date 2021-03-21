@@ -11,6 +11,8 @@
 		@lang("onboarding.buttons.previous")
 	</a>
 	<hr>
+	@include("onboarding.courses.components.breadcrumb")
+	<hr>
 	<h1 class="onboarding-header__title">@lang("onboarding.our schools")</h1>
 @endsection
 

@@ -15,6 +15,8 @@ use App\Http\Controllers\Onboarding\OnboardingRequestController;
 		@lang("onboarding.buttons.previous")
 	</a>
 	<hr>
+	@include("onboarding.courses.components.breadcrumb")
+	<hr>
 	<h1 class="onboarding-header__title">@lang("onboarding.our courses", ["category" => trans("onboarding.categories.$category")])</h1>
 @endsection
 

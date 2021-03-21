@@ -7,7 +7,6 @@ use App\Http\Requests\StoreOnboardingRequestRequest;
 use App\Mail\SendOnboardingMail;
 use Carbon\Carbon;
 use Eliepse\LptLayoutPDF\Student;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -20,9 +19,8 @@ final class OnboardingRequestController extends OnboardingController
 	 * @param Course $course
 	 * @param $schedule
 	 *
-	 * @return RedirectResponse|View
+	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
 	 * @throws \Throwable
-	 * @noinspection PhpUnusedParameterInspection
 	 */
 	public function show($school, $category, Course $course, $schedule)
 	{
@@ -34,6 +32,8 @@ final class OnboardingRequestController extends OnboardingController
 
 		return view("onboarding.courses.request", [
 			"student" => $this->student ?? new Student(),
+			"school" => $school,
+			"category" => $category,
 			"course" => $course,
 			"schedule" => $schedule,
 		]);
