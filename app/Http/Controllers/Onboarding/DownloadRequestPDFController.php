@@ -22,9 +22,11 @@ final class DownloadRequestPDFController extends OnboardingController
 	 */
 	public function __invoke($school, $category, Course $course, $schedule)
 	{
-		[$day, $hour] = explode("-", $schedule);
+		[$type, $key, $hour] = explode("+", $schedule);
 
-		$this->validateSchedule($course, $day, $hour);
+		if (! $this->validateSchedule($course, $type, $key, $hour)) {
+			abort(404);
+		}
 
 		$this->fetchCachedData();
 
@@ -36,7 +38,7 @@ final class DownloadRequestPDFController extends OnboardingController
 				);
 		}
 
-		$generator = new GeneratePreRegistration($course, $this->student, $day, $hour);
+		$generator = new GeneratePreRegistration($course, $this->student, $key, $hour);
 		$title = "registration-form__" . $this->student->getFullname() . "__" . $course->name;
 		$pdf = $generator()->Output("$title.pdf", Destination::STRING_RETURN);
 
