@@ -32,9 +32,15 @@ use Illuminate\Database\Eloquent\Collection;
 				<?php
 				$course = new Course($registration["course"]);
 				$fromHour = Carbon::createFromFormat("H:i", $registration->schedule["hour"]);
-				$toHour = $fromHour->copy()->addMinutes($course->duration)
+				$toHour = $fromHour->copy()->addMinutes($course->duration);
+				$class = "";
+				if (request("uid") === $registration->uid) {
+					$class = "bg-yellow-200";
+				} elseif ($key % 2) {
+					$class = "bg-green-50";
+				}
 				?>
-				<tr class="{{ $key % 2 ? "bg-green-50" : "" }}">
+				<tr class="{{ $class }}" id="uid-{{ $registration->uid }}">
 					<td class="text-left py-4 px-2">
 						@lang("onboarding.schools.{$registration->school}.name")
 					</td>
