@@ -17,6 +17,12 @@ mix.js('resources/js/app.js', 'public/js')
 		.vue()
 		.sass('resources/sass/styles.scss', 'public/css')
 		.sass('resources/sass/onboarding.scss', 'public/css')
+		.sass("resources/sass/app.scss", "public/css")
+		.options({
+			'postCss': [
+				require("tailwindcss"),
+			]
+		})
 		.copyDirectory('resources/images', 'public/images');
 
 if (mix.inProduction()) {
