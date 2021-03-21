@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Onboarding;
 use App\Course;
 use App\Http\Requests\StoreOnboardingRequestRequest;
 use App\Mail\SendOnboardingMail;
+use App\Models\CourseRegistration;
 use Carbon\Carbon;
 use Eliepse\LptLayoutPDF\Student;
 use Illuminate\Support\Facades\Log;
@@ -73,6 +74,16 @@ final class OnboardingRequestController extends OnboardingController
 		$this->student->second_contact_phone = str_replace(" ", "", $request->get("second_phone"));
 		$this->updateCacheData();
 
+		$registration = new CourseRegistration([
+			"school" => $school,
+			"category" => $category,
+			"course" => $this->getCourseInfos($course),
+			"schedule" => $this->getScheduleInfos($key, $hour),
+			"student" => $this->getStudentInfos($this->student),
+			"contact" => $this->getContactInfos($this->student),
+		]);
+		$registration->save();
+
 		if (config("mail.report_to")) {
 			$mail = new SendOnboardingMail($course, $this->student, ["day" => $key, "hour" => $hour]);
 			$mail->from("no-reply@eliepse.fr", "LPT Server");
@@ -84,5 +95,48 @@ final class OnboardingRequestController extends OnboardingController
 			"course" => $course,
 			"schedule" => $schedule,
 		]);
+	}
+
+
+	private function getStudentInfos(Student $student): array
+	{
+		return [
+			"firstname" => $student->firstname,
+			"lastname" => $student->lastname,
+			"fullname_cn" => $student->fullname_cn,
+			"birthday" => $student->born_at,
+			"city_code" => $student->city_code,
+		];
+	}
+
+
+	private function getContactInfos(Student $student): array
+	{
+		return [
+			"wechat_1" => $student->first_contact_wechat,
+			"phone_1" => $student->first_contact_phone,
+			"phone_2" => $student->second_contact_phone,
+		];
+	}
+
+
+	private function getScheduleInfos(string $key, string $hour): array
+	{
+		return [
+			"days" => $key,
+			"hour" => $hour,
+		];
+	}
+
+
+	private function getCourseInfos(Course $course): array
+	{
+		return [
+			"name" => $course->name,
+			"duration" => $course->duration,
+			"duration_denominator" => $course->duration_denominator,
+			"price" => $course->price,
+			"price_denominator" => $course->price_denominator,
+		];
 	}
 }

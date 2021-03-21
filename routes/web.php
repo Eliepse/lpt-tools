@@ -14,6 +14,7 @@
 use App\Http\Controllers\GenerateGridCNController;
 use App\Http\Controllers\GenerateEnglishGridController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Onboarding\RegistrationsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,4 @@ Route::get('/exercices/grids/english/pdf', GenerateEnglishGridController::class)
 Auth::routes(["register" => false, "reset" => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/registrations', [RegistrationsController::class, 'index'])->name('registrations');
