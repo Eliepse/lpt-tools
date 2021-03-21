@@ -17,12 +17,6 @@ final class RegistrationsController extends Controller
 	}
 
 
-	public function show(Course $course)
-	{
-
-	}
-
-
 	public function index(): Factory|View|Application
 	{
 		return view("admin.registration-index", [

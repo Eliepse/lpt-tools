@@ -8,6 +8,8 @@ use App\Mail\SendOnboardingMail;
 use App\Models\CourseRegistration;
 use Carbon\Carbon;
 use Eliepse\LptLayoutPDF\Student;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -20,10 +22,10 @@ final class OnboardingRequestController extends OnboardingController
 	 * @param Course $course
 	 * @param $schedule
 	 *
-	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+	 * @return Application|Factory|\Illuminate\Contracts\View\View
 	 * @throws \Throwable
 	 */
-	public function show($school, $category, Course $course, $schedule)
+	public function show($school, $category, Course $course, $schedule): Factory|\Illuminate\Contracts\View\View|Application
 	{
 		[$type, $key, $hour] = explode("+", $schedule);
 
@@ -50,9 +52,8 @@ final class OnboardingRequestController extends OnboardingController
 	 * @param Course $course
 	 * @param $schedule
 	 *
-	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+	 * @return Application|Factory|View
 	 * @throws \Throwable
-	 * @noinspection PhpUnusedParameterInspection
 	 */
 	public function store(StoreOnboardingRequestRequest $request, $school, $category, Course $course, $schedule)
 	{
