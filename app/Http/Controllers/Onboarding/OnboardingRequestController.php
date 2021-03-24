@@ -25,7 +25,7 @@ final class OnboardingRequestController extends OnboardingController
 	 * @return Application|Factory|\Illuminate\Contracts\View\View
 	 * @throws \Throwable
 	 */
-	public function show($school, $category, Course $course, $schedule): Factory|\Illuminate\Contracts\View\View|Application
+	public function show($school, $category, Course $course, $schedule)
 	{
 		[$type, $key, $hour] = explode("+", $schedule);
 
