@@ -67,7 +67,9 @@ class GenerateGridCNController
 //		dd($this->getAdditionalLinesAsDrawables());
 
 		// Render and return the template
-		WorkingGrid::inlinePrint($template, $drawables);
+		// We ignore errors as a workaround of the "pageLinks" problem that
+		// is on the Mpdf side, not yet understood on "working-grid-pdf" level.
+		@WorkingGrid::inlinePrint($template, $drawables);
 	}
 
 
