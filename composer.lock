@@ -461,16 +461,16 @@
         },
         {
             "name": "eliepse/working-grid-pdf",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Eliepse/working-grid-pdf.git",
-                "reference": "25bb44cf6f7c51f7da7bd2990c188ba293e74211"
+                "reference": "149a8a1c76fb9db82014834e59602eb9d7df5d5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/25bb44cf6f7c51f7da7bd2990c188ba293e74211",
-                "reference": "25bb44cf6f7c51f7da7bd2990c188ba293e74211",
+                "url": "https://api.github.com/repos/Eliepse/working-grid-pdf/zipball/149a8a1c76fb9db82014834e59602eb9d7df5d5e",
+                "reference": "149a8a1c76fb9db82014834e59602eb9d7df5d5e",
                 "shasum": ""
             },
             "require": {
@@ -505,9 +505,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Eliepse/working-grid-pdf/issues",
-                "source": "https://github.com/Eliepse/working-grid-pdf/tree/2.4.0"
+                "source": "https://github.com/Eliepse/working-grid-pdf/tree/2.5.0"
             },
-            "time": "2021-01-28T21:21:26+00:00"
+            "time": "2021-03-28T17:52:57+00:00"
         },
         {
             "name": "eliepse/writing-exercise-pdf",
@@ -6303,16 +6303,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.5",
+            "version": "9.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "f3e026641cc91909d421802dd3ac7827ebfd97e1"
+                "reference": "f6293e1b30a2354e8428e004689671b83871edde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f3e026641cc91909d421802dd3ac7827ebfd97e1",
-                "reference": "f3e026641cc91909d421802dd3ac7827ebfd97e1",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f6293e1b30a2354e8428e004689671b83871edde",
+                "reference": "f6293e1b30a2354e8428e004689671b83871edde",
                 "shasum": ""
             },
             "require": {
@@ -6368,7 +6368,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.5"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.6"
             },
             "funding": [
                 {
@@ -6376,7 +6376,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-28T06:44:49+00:00"
+            "time": "2021-03-28T07:26:59+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

@@ -24,21 +24,33 @@ class GridTemplate extends Template implements CustomizableHeader
 
     public function header(Mpdf $pdf, PageInfo $infos): void
     {
-        // - titre du document : LPT 三语宝贝 学前班  姓名:_
-        $pdf->SetFontSize(16);
+        // - titre du document : LPT 三语宝贝 学前班  姓名:
 
-        $pdf->Cell(210, 0, $this->title, false, false, 'C', 0, 0, 0, '', 'T', 'T');
+		    $css = "font-family: {$this->defaultFonts}; text-align: center; font-size: 1rem;";
+
+        $pdf->SetFontSize(16);
+		    $pdf->WriteHTML("<h1 style='$css'>{$this->title}</h1>");
 
         $pdf->SetFontSize(14);
 
-        $pdf->SetXY(30, 16);
-        $pdf->Cell(120, 5, "姓名:", false, false, "L");;
+        $pdf->WriteFixedPosHTML(
+        	"<div style='font-family: {$this->defaultFonts};'>姓名:</div>",
+	        30,
+	        16,
+	        120,
+	        5,
+        );
 
-        $month = mb_strlen($this->month) === 2 ? $this->month . " " : $this->month . " ";
-        $day = mb_strlen($this->day) === 2 ? $this->day . " " : $this->day . " ";
+        $month = $this->month . " ";
+        $day = $this->day . " ";
 
-        $pdf->SetXY(40, 16);
-        $pdf->Cell(120, 5, "{$month}月 {$day}日", false, false, "R");
+        $pdf->WriteFixedPosHTML(
+        	"<div style='font-family: {$this->defaultFonts}; text-align: right'>{$month}月 {$day}日</div>",
+	        40,
+	        16,
+	        120,
+	        5,
+        );
 
         $pdf->Image(resource_path("images/logo.png"), 170, 5, 20);
 
