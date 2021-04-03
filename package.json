@@ -9,20 +9,20 @@
     },
     "devDependencies": {
         "autoprefixer": "^10.2.5",
-        "laravel-mix": "^6.0.13",
+        "laravel-mix": "^6.0.16",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.32.8",
         "sass-loader": "^11.0.1",
         "tailwindcss": "^2.0.4",
         "vue": "^2.6.12",
-        "vue-loader": "^15.9.5",
+        "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "axios": "^0.21.1",
         "normalize.css": "^8.0.1",
-        "pinyin-utils": "^2.20.0",
-        "postcss": "^8.2.8",
+        "pinyin-utils": "^2.21.0",
+        "postcss": "^8.2.9",
         "vuex": "^3.6.2"
     }
 }
