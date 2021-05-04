@@ -19,10 +19,16 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@babel/preset-react": "^7.13.13",
+        "antd": "^4.15.4",
         "axios": "^0.21.1",
+        "css-loader": "^5.2.4",
+        "dayjs": "^1.10.4",
         "normalize.css": "^8.0.1",
         "pinyin-utils": "^2.21.0",
         "postcss": "^8.2.9",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
         "vuex": "^3.6.2"
     }
 }
