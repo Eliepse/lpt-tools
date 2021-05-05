@@ -29,5 +29,5 @@ Route::get('/exercices/grids/english/pdf', GenerateEnglishGridController::class)
 Auth::routes(["register" => false, "reset" => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/dashboard', [HomeController::class, 'dashboard']);
+Route::get('/dashboard/{path?}', [HomeController::class, 'dashboard'])->where('path', '.*');
 Route::get('/registrations', [RegistrationsController::class, 'index'])->name('registrations');
