@@ -2,7 +2,7 @@ import {useAuth} from './useAuth';
 import {Layout, Spin} from 'antd';
 import {useRouter} from '../useRouter';
 import {useEffect} from 'react';
-import LoginForm from '../../components/loginForm';
+import LoginForm from '../../components/LoginForm';
 
 export default function AuthRequired({children}) {
 	const auth = useAuth();

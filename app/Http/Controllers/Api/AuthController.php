@@ -19,7 +19,10 @@ class AuthController extends Controller
 
 	public function login(Request $request)
 	{
-		if (Auth::guard("web")->attempt($request->only(['email', 'password']))) {
+		$credentials = $request->only(['email', 'password']);
+		$remember = $request->filled("remember");
+
+		if (Auth::guard("web")->attempt($credentials, $remember)) {
 			return Auth::user();
 		}
 
