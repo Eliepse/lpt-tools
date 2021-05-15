@@ -1,30 +1,42 @@
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 
 import {Breadcrumb, Layout, Menu} from 'antd';
+import styles from "./app.module.scss";
+import * as Courses from "./pages/courses";
+import {AuthProvider} from './lib/auth/AuthProvider';
+import AuthRequired from './lib/auth/AuthRequired';
+import {useAuth} from './lib/auth/useAuth';
+import Navigation from './components/common/Navigation';
 
 const {Header, Content, Footer} = Layout;
-import styles from "./app.module.scss";
 
 export default function App() {
-	return (
-		<Router>
-			<Layout className={styles.layout}>
-				<Header className={styles.header}>
-					<Menu mode="horizontal" className={styles.menu}>
-						<Menu.Item key="home"><Link to="/dashboard">Home</Link></Menu.Item>
-						<Menu.Item key="registrations"><Link to="/dashboard/registration">Inscription</Link></Menu.Item>
-					</Menu>
-				</Header>
-				<Content className={styles.content} style={{padding: '0 50px'}}>
-					<Breadcrumb style={{margin: '16px 0'}}>
-						<Breadcrumb.Item>Home</Breadcrumb.Item>
-					</Breadcrumb>
-					<div className={styles.siteLayoutContent}>
+	const auth = useAuth();
 
-					</div>
-				</Content>
-				<Footer style={{textAlign: 'center'}}>Les Petits Trilingues - Created by Eliepse</Footer>
-			</Layout>
-		</Router>
+	console.debug(auth.user);
+
+	return (
+		<AuthProvider>
+			<Router>
+				<AuthRequired>
+					<Layout className={styles.layout}>
+						<Header className={styles.header}>
+							<Navigation />
+						</Header>
+						<Content className={styles.content} style={{padding: '0 50px'}}>
+							<Breadcrumb style={{margin: '16px 0'}}>
+								<Breadcrumb.Item>Home</Breadcrumb.Item>
+							</Breadcrumb>
+							<div className={styles.siteLayoutContent}>
+								<Switch>
+									<Route exact path="/dashboard/courses" children={<Courses.Page/>}/>
+								</Switch>
+							</div>
+						</Content>
+						<Footer style={{textAlign: 'center'}}>Les Petits Trilingues - Created by Eliepse</Footer>
+					</Layout>
+				</AuthRequired>
+			</Router>
+		</AuthProvider>
 	);
 }

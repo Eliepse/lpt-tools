@@ -4,10 +4,15 @@
 
 .header {
 	background: white;
+	@apply flex justify-between;
 }
 
 .menu {
 	padding: 0 50px;
+}
+
+.content {
+	overflow: auto;
 }
 
 .menu,
@@ -19,8 +24,7 @@
 
 .siteLayoutContent {
 	min-height: 50vh;
-	padding: 24px;
-	background: #fff;
+	//background: #fff;
 }
 
 #components-layout-demo-top .logo {

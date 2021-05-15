@@ -19,7 +19,7 @@ mix.js('resources/js/app.js', 'public/js')
 	.sass('resources/sass/onboarding.scss', 'public/css')
 	.sass("resources/sass/app.scss", "public/css")
 	.options({
-		'postCss': [
+		postCss: [
 			require("tailwindcss"),
 		]
 	})
@@ -27,6 +27,11 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.js("resources/js/react/index.js", "public/js/react")
 	.sass("resources/sass/antd.scss", "public/css")
+	.options({
+		postCss: [
+			require("tailwindcss"),
+		]
+	})
 	.react();
 
 if (mix.inProduction()) {
