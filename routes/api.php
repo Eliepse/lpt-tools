@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\FetchCachedChineseListsController;
 use App\Http\Controllers\Api\PrepareGridCNController;
 use Illuminate\Support\Facades\Auth;
@@ -15,4 +16,6 @@ Route::post("/logout", [AuthController::class, "logout"]);
 
 Route::middleware(["auth:sanctum"])->group(function () {
 	Route::get("/me", fn() => Auth::user());
+	Route::get("/courses", [CourseController::class, "index"]);
+	Route::put("/courses/{course}", [CourseController::class, "update"]);
 });
