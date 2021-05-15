@@ -1,5 +1,5 @@
 import {createContext, useEffect, useMemo, useState} from 'react';
-import {getCsrfToken} from '../api/fetchers';
+import Api, {getCsrfToken} from '../api/broker';
 
 export const authContext = createContext({
 	user: null,
@@ -10,24 +10,24 @@ export const authContext = createContext({
 
 export function AuthProvider({children}) {
 	const [user, setUser] = useState(null);
-	const [token, setToken] = useState(getCsrfToken());
 	const [initializing, setInitializing] = useState(true);
 
 	// Check if the user is already authenticated
 	useEffect(() => {
-		if (!token) {
+		function authInitialized() {
+			setTimeout(() => setInitializing(false), 250);
+		}
+
+		// Break if there is no token
+		if (!getCsrfToken()) {
 			console.info("[Auth] Token missing");
 			authInitialized();
 			return;
 		}
 
-		function authInitialized() {
-			setTimeout(() => {
-				setInitializing(false);
-			}, 500);
-		}
-
-		checkAuth(token)
+		// If there is a token, we check if the user is connected
+		console.info("[Auth] Checking auth");
+		Api.get("/me")
 			.then((data) => {
 				console.info("[Auth] Already authenticated");
 				authInitialized();
@@ -40,40 +40,28 @@ export function AuthProvider({children}) {
 	}, []);
 
 
-	function login(email, password) {
+	function login(email, password, remember) {
 		if (user) {
 			return;
 		}
 
-		requestCsrfToken()
-			.then((token) => {
-				setToken(token);
-				requestLogin(email, password)
+		Api.requestToken()
+			.then(() => {
+
+				Api.post("/login", {email, password, remember})
 					.then((data) => {
 						console.info("[Auth] Authenticated");
 						setUser(data);
 					})
 					.catch(console.error);
+
 			})
 			.catch(console.error);
 	}
 
 	function logout() {
-		fetch("/api/logout", {
-			method: "POST",
-			headers: {
-				"X-XSRF-TOKEN": getCsrfToken(),
-				"Accept": "application/json",
-			},
-		})
-			.then((response) => {
-				if (!response.ok) {
-					console.error(response);
-					return;
-				}
-
-				setUser(null);
-			})
+		Api.post("/logout")
+			.then(() => setUser(null))
 			.catch(console.error);
 	}
 
@@ -85,79 +73,4 @@ export function AuthProvider({children}) {
 	}), [user, initializing]);
 
 	return <authContext.Provider value={auth} children={children}/>;
-}
-
-function requestCsrfToken() {
-	console.info("[Auth] Requesting token");
-	return new Promise((resolve, reject) => {
-		fetch("/sanctum/csrf-cookie", {
-			headers: {
-				"Accept": "application/json",
-			},
-		}).then(
-			(response) => {
-				if (response.ok) {
-					const cookies = Object.fromEntries(
-						document.cookie.split(";").map((val) => val.split("=")),
-					);
-					resolve(decodeURIComponent(cookies["XSRF-TOKEN"]));
-				}
-
-				reject(response);
-			}).catch(reject);
-	});
-}
-
-function checkAuth(token) {
-	console.info("[Auth] Checking auth");
-	return getUser(token);
-}
-
-function getUser() {
-	return new Promise((resolve, reject) => {
-		fetch("/api/me", {
-			method: "GET",
-			headers: {
-				"X-XSRF-TOKEN": getCsrfToken(),
-				"Accept": "application/json",
-			},
-		})
-			.then((response) => {
-				if (!response.ok) {
-					reject(response);
-					return;
-				}
-
-				if (response.status === 204) {
-					resolve();
-					return;
-				}
-
-				response.json().then(resolve).catch(reject);
-			})
-			.catch(reject);
-	});
-}
-
-function requestLogin(email, password) {
-	return new Promise((resolve, reject) => {
-		fetch("/api/login", {
-			method: "POST",
-			headers: {
-				"X-XSRF-TOKEN": getCsrfToken(),
-				"Accept": "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({email, password}),
-		})
-			.then((response) => {
-				if (!response.ok) {
-					reject(response);
-					return;
-				}
-
-				response.json().then(resolve).catch(reject);
-			})
-			.catch(reject);
-	});
 }

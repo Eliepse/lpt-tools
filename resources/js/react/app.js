@@ -5,16 +5,11 @@ import styles from "./app.module.scss";
 import * as Courses from "./pages/courses";
 import {AuthProvider} from './lib/auth/AuthProvider';
 import AuthRequired from './lib/auth/AuthRequired';
-import {useAuth} from './lib/auth/useAuth';
 import Navigation from './components/common/Navigation';
 
 const {Header, Content, Footer} = Layout;
 
 export default function App() {
-	const auth = useAuth();
-
-	console.debug(auth.user);
-
 	return (
 		<AuthProvider>
 			<Router>
