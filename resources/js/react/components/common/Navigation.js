@@ -9,8 +9,8 @@ function Navigation() {
 	const {user, logout} = useAuth();
 
 	return (
-		<>
-			<Menu mode="horizontal" className={styles.menu}>
+		<div className={styles.navigationContainer}>
+			<Menu mode="horizontal">
 				<Menu.Item key="home"><Link to="/dashboard">Home</Link></Menu.Item>
 				<Menu.Item key="registrations"><Link to={Courses.PATH}>Courses</Link></Menu.Item>
 			</Menu>
@@ -23,7 +23,7 @@ function Navigation() {
 					</Menu.SubMenu>
 				</Menu>
 			)}
-		</>
+		</div>
 	);
 }
 
