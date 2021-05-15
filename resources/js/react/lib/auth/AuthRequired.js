@@ -10,10 +10,14 @@ export default function AuthRequired({children}) {
 
 	// Redirect the client when no more authenticated
 	useEffect(() => {
+		if (!auth.isInitialized()) {
+			return;
+		}
+
 		if (!auth.isAuth()) {
 			router.push("/dashboard");
 		}
-	}, [auth.isAuth()]);
+	}, [auth]);
 
 	// Display a loader until the Auth provider is ready
 	if (!auth.isInitialized()) {
