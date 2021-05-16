@@ -4,11 +4,13 @@ import {useEffect, useState} from 'react';
 import {CheckOutlined, CloseOutlined, EditOutlined} from '@ant-design/icons';
 import Fraction from './Fraction';
 import ScheduleList from './ScheduleList';
+import apiCourse from '../../lib/api/apiCourse';
 
-const Course = ({id = null, name, category, duration, price, schedules = {}, onSave}) => {
+const Course = ({id = null, name, category, duration, price, schedules = {}}) => {
 
 	const [edit, setEdit] = useState(false);
 	const [course, setCourse] = useState(() => ({name, category, duration, price, schedules}));
+	const [loading, setLoading] = useState(false);
 
 	// Reset the override when original values changes
 	useEffect(() => {
@@ -20,7 +22,6 @@ const Course = ({id = null, name, category, duration, price, schedules = {}, onS
 	}, [name, category, duration, price, schedules, edit]);
 
 	function handleScheduleListUpdate(schedules) {
-		console.debug(schedules)
 		setCourse(st => ({...st, schedules}));
 	}
 
@@ -33,8 +34,10 @@ const Course = ({id = null, name, category, duration, price, schedules = {}, onS
 			return;
 		}
 
-		onSave({
-			id,
+		setEdit(false);
+		setLoading(true);
+
+		const data = {
 			name: course.name,
 			category: course.category,
 			duration: course.duration.value,
@@ -42,9 +45,28 @@ const Course = ({id = null, name, category, duration, price, schedules = {}, onS
 			price: course.price.value,
 			price_denominator: course.price.denominator,
 			schedules: course.schedules,
-		});
+		};
 
-		setEdit(false);
+		function onSuccess(data) {
+			setCourse({
+				id: data.id,
+				name: data.name,
+				category: data.category,
+				duration: {value: data.duration, denominator: data.duration_denominator},
+				price: {value: data.price, denominator: data.price_denominator},
+				schedules: data.schedules,
+			});
+			setLoading(false);
+		}
+
+		function onFailure(err) {
+			console.error(err);
+			setLoading(false);
+		}
+
+		if (id) {
+			apiCourse.update({id, ...data}).then(onSuccess).catch(onFailure);
+		}
 	}
 
 	const editCourseBtn = <span onClick={() => setEdit(true)} key="a"><EditOutlined/> Edit</span>;
@@ -53,6 +75,7 @@ const Course = ({id = null, name, category, duration, price, schedules = {}, onS
 
 	return (
 		<Card
+			loading={loading}
 			className="mb-6"
 			title={<Header name={course.name} category={course.category} edit={edit} onChange={handleHeaderChange}/>}
 			actions={edit ? [saveCourseBtn, cancelEditBtn] : [editCourseBtn]}
@@ -86,7 +109,6 @@ Course.propTypes = {
 	duration: PropTypes.exact({value: PropTypes.number.isRequired, denominator: PropTypes.string.isRequired}),
 	price: PropTypes.exact({value: PropTypes.number.isRequired, denominator: PropTypes.string.isRequired}),
 	schedules: PropTypes.object,
-	onSave: PropTypes.func.isRequired,
 };
 
 function Header({name, category, edit = false, onChange}) {

@@ -34,24 +34,6 @@ export const Page = () => {
 
 	const filteredSchool = currentTab === "overview" ? courses : getCourseBySchool(currentTab);
 
-	function upsertCourse(course) {
-		if (course.id) {
-			apiCourse.update({...course})
-				.then((data) => {
-					setCourses((st) => {
-						const index = st.findIndex((c) => c.id === data.id);
-						if (index === -1) {
-							st.push(data);
-						} else {
-							st[index] = data;
-						}
-						return [...st];
-					});
-				})
-				.catch(console.debug);
-		}
-	}
-
 	function getCourseBySchool(school) {
 		return courses.filter((course) => course.school === school);
 	}
@@ -86,7 +68,6 @@ export const Page = () => {
 									duration={{value: course.duration, denominator: course.duration_denominator}}
 									price={{value: course.price, denominator: course.price_denominator}}
 									schedules={course.schedules}
-									onSave={upsertCourse}
 								/>
 							</Col>
 						))}
