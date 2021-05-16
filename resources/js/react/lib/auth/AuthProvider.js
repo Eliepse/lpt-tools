@@ -1,5 +1,6 @@
 import {createContext, useEffect, useMemo, useState} from 'react';
 import Api, {getCsrfToken} from '../api/broker';
+import {Layout, Spin} from 'antd';
 
 export const authContext = createContext({
 	user: null,
@@ -71,6 +72,15 @@ export function AuthProvider({children}) {
 		login,
 		logout,
 	}), [user, initializing]);
+
+	// Display a loader until the Auth provider is ready
+	if (initializing) {
+		return (
+			<Layout className="h-screen flex justify-center items-center">
+				<Spin size="large"/>
+			</Layout>
+		);
+	}
 
 	return <authContext.Provider value={auth} children={children}/>;
 }

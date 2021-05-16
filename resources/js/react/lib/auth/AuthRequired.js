@@ -1,8 +1,6 @@
 import {useAuth} from './useAuth';
-import {Layout, Spin} from 'antd';
 import {useRouter} from '../useRouter';
 import {useEffect} from 'react';
-import LoginForm from '../../components/LoginForm';
 
 export default function AuthRequired({children}) {
 	const auth = useAuth();
@@ -14,28 +12,14 @@ export default function AuthRequired({children}) {
 			return;
 		}
 
-		if (!auth.isAuth()) {
+		if (!auth.isAuth() && router.pathname !== "/dashboard/login") {
+			router.push("/dashboard/login");
+		}
+
+		if (auth.isAuth() && router.pathname === "/dashboard/login") {
 			router.push("/dashboard");
 		}
-	}, [auth]);
-
-	// Display a loader until the Auth provider is ready
-	if (!auth.isInitialized()) {
-		return (
-			<Layout className="h-screen flex justify-center items-center">
-				<Spin size="large"/>
-			</Layout>
-		);
-	}
-
-	// If not authenticated, we display the login interface
-	if (!auth.isAuth()) {
-		return (
-			<Layout className="h-screen flex justify-center items-center">
-				<LoginForm/>
-			</Layout>
-		);
-	}
+	}, [auth.isInitialized(), auth.isAuth(), router.pathname]);
 
 	return children;
 }

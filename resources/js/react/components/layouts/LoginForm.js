@@ -1,5 +1,5 @@
 import {Button, Checkbox, Form, Input} from 'antd';
-import {useAuth} from '../lib/auth/useAuth';
+import {useAuth} from '../../lib/auth/useAuth';
 
 export default function LoginForm() {
 	const {login} = useAuth();
