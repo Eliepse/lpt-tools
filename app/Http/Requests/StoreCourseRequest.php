@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCourseRequest extends FormRequest
+class StoreCourseRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -27,15 +27,12 @@ class UpdateCourseRequest extends FormRequest
 	{
 		return [
 			"name" => ["required", "string", "between:2,32"],
-			"description" => ["string", "nullable", "between:0,250"],
-//			We do not allow moving a course to another school
-//			"school" => ["required", "string", "between:2,250"],
+			"school" => ["required"],
 			"category" => ["required", "string", "between:2,16"],
 			"duration" => ["required", "integer", "between:1,18000"],
-			"price" => ["required", "integer", "between:0,18000"],
 			"duration_denominator" => ["required", "string", Rule::in(["year", "month", "week", "day"])],
+			"price" => ["required", "integer", "between:0,18000"],
 			"price_denominator" => ["required", "string", Rule::in(["year", "month", "week", "day"])],
-			"schedules" => ["required", "array"],
 		];
 	}
 }

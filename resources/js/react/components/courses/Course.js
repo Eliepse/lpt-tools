@@ -2,14 +2,15 @@ import PropTypes from 'prop-types';
 import {Card, Divider, Input, Select} from 'antd';
 import {useEffect, useState} from 'react';
 import {CheckOutlined, CloseOutlined, EditOutlined} from '@ant-design/icons';
-import Fraction from './Fraction';
 import ScheduleList from './ScheduleList';
 import apiCourse from '../../lib/api/apiCourse';
+import Price from './Price';
+import Duration from './Duration';
 
 const Course = ({id = null, name, category, duration, price, schedules = {}}) => {
 
 	const [edit, setEdit] = useState(false);
-	const [course, setCourse] = useState(() => ({name, category, duration, price, schedules}));
+	const [course, setCourse] = useState(() => ({id, name, category, duration, price, schedules}));
 	const [loading, setLoading] = useState(false);
 
 	// Reset the override when original values changes
@@ -18,8 +19,8 @@ const Course = ({id = null, name, category, duration, price, schedules = {}}) =>
 			return;
 		}
 
-		setCourse({name, category, duration, price, schedules});
-	}, [name, category, duration, price, schedules, edit]);
+		setCourse({id, name, category, duration, price, schedules});
+	}, [id, name, category, duration, price, schedules, edit]);
 
 	function handleScheduleListUpdate(schedules) {
 		setCourse(st => ({...st, schedules}));
@@ -65,7 +66,9 @@ const Course = ({id = null, name, category, duration, price, schedules = {}}) =>
 		}
 
 		if (id) {
-			apiCourse.update({id, ...data}).then(onSuccess).catch(onFailure);
+			apiCourse.update({id: course.id, ...data}).then(onSuccess).catch(onFailure);
+		} else {
+			apiCourse.create(data).then(onSuccess).catch(onFailure);
 		}
 	}
 
@@ -80,21 +83,17 @@ const Course = ({id = null, name, category, duration, price, schedules = {}}) =>
 			title={<Header name={course.name} category={course.category} edit={edit} onChange={handleHeaderChange}/>}
 			actions={edit ? [saveCourseBtn, cancelEditBtn] : [editCourseBtn]}
 		>
-			<Fraction
+			<Duration
 				value={course.duration.value}
 				denominator={course.duration.denominator}
-				unit="min"
-				options={["year", "month", "week", "day"]}
-				onChange={(el) => setCourse(st => ({...st, duration: el}))}
 				edit={edit}
+				onChange={(el) => setCourse(st => ({...st, duration: el}))}
 			/>
-			<Fraction
+			<Price
 				value={course.price.value}
 				denominator={course.price.denominator}
-				unit="€"
-				options={["year", "month", "week", "day"]}
-				onChange={(el) => setCourse(st => ({...st, price: el}))}
 				edit={edit}
+				onChange={(el) => setCourse(st => ({...st, price: el}))}
 			/>
 			<Divider/>
 			<ScheduleList schedules={course.schedules} edit={edit} onChange={handleScheduleListUpdate}/>
@@ -104,7 +103,7 @@ const Course = ({id = null, name, category, duration, price, schedules = {}}) =>
 
 Course.propTypes = {
 	id: PropTypes.number,
-	name: PropTypes.string.isRequired,
+	name: PropTypes.string,
 	category: PropTypes.string.isRequired,
 	duration: PropTypes.exact({value: PropTypes.number.isRequired, denominator: PropTypes.string.isRequired}),
 	price: PropTypes.exact({value: PropTypes.number.isRequired, denominator: PropTypes.string.isRequired}),

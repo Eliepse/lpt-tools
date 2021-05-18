@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {Col, Divider, Menu, Row, Statistic} from 'antd';
 import Course from '../components/courses/Course';
 import apiCourse from '../lib/api/apiCourse';
+import CreateCourseModal from '../components/courses/CreateCourseModal';
 
 export const PATH = "/dashboard/courses";
 
@@ -38,6 +39,12 @@ export const Page = () => {
 		return courses.filter((course) => course.school === school);
 	}
 
+	function handleCourseCreated(course) {
+		setCourses(st => [...st, course]);
+		setSchools(st => [...st, course.school]);
+		setCurrentTab(course.school);
+	}
+
 	return (
 		<div className="">
 			<div className="flex justify-between items-center bg-white pr-4">
@@ -45,7 +52,7 @@ export const Page = () => {
 					<Menu.Item key="overview">Overview</Menu.Item>
 					{schools.map((school) => <Menu.Item key={school} className="capitalize">{school}</Menu.Item>)}
 				</Menu>
-				{/*<Button size="small" className="ml-4"><PlusOutlined/>New</Button>*/}
+				<CreateCourseModal defaultSchool="belleville" defaultCategory="chinese" schoolsOptions={schools} onCreated={handleCourseCreated}/>
 			</div>
 			<div className="bg-white p-6">
 				<Row gutter={32} className="mb-6">

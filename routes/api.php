@@ -17,5 +17,6 @@ Route::post("/logout", [AuthController::class, "logout"]);
 Route::middleware(["auth:sanctum"])->group(function () {
 	Route::get("/me", fn() => Auth::user());
 	Route::get("/courses", [CourseController::class, "index"]);
+	Route::post("/courses", [CourseController::class, "store"]);
 	Route::put("/courses/{course}", [CourseController::class, "update"]);
 });
