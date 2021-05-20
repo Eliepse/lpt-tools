@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {AutoComplete, Button, Divider, Input, Modal, Select} from 'antd';
+import {AutoComplete, Button, Divider, Form, Input, Modal, Select} from 'antd';
 import PropTypes from 'prop-types';
 import {PlusOutlined} from '@ant-design/icons';
 import Duration from './Duration';
@@ -25,7 +25,7 @@ function CreateCourseModal({defaultSchool = null, defaultCategory = null, school
 			setCourse(st => ({
 				...st,
 				name: "",
-			}))
+			}));
 		}
 	}, [visible]);
 
@@ -89,49 +89,61 @@ function CreateCourseModal({defaultSchool = null, defaultCategory = null, school
 				confirmLoading={loading}
 				onCancel={handleCancel}
 			>
-				<div className="flex">
-					<Input
-						type="text"
-						className="mr-2"
-						value={course.name}
-						placeholder="Course name"
-						onChange={(e) => setCourse(st => ({...st, name: e.target.value}))}
+				<Form.Item label="Name & category" className="block">
+					<div className="flex">
+						<Input
+							type="text"
+							className="flex-1 mr-2"
+							value={course.name}
+							placeholder="Course name"
+							onChange={(e) => setCourse(st => ({...st, name: e.target.value}))}
+						/>
+						<Select
+							type="text"
+							style={{maxWidth: "8rem"}}
+							value={course.category}
+							onChange={(value) => setCourse(st => ({...st, category: value}))}
+						>
+							<Select.Option value="chinese">chinese</Select.Option>
+							<Select.Option value="english">english</Select.Option>
+							<Select.Option value="maths">maths</Select.Option>
+							<Select.Option value="art">art</Select.Option>
+							<Select.Option value="french">french</Select.Option>
+							<Select.Option value="vacation">vacation</Select.Option>
+							<Select.Option value="support">support</Select.Option>
+						</Select>
+					</div>
+				</Form.Item>
+				<Form.Item label="School ID" className="block">
+					<AutoComplete
+						className="block"
+						placeholder="School ID (existing or new)"
+						options={getSchoolOptions()}
+						value={course.school}
+						onChange={handleSchoolChange}
 					/>
-					<Select
-						type="text"
-						value={course.category}
-						onChange={(value) => setCourse(st => ({...st, category: value}))}
-					>
-						<Select.Option value="chinese">chinese</Select.Option>
-						<Select.Option value="english">english</Select.Option>
-						<Select.Option value="maths">maths</Select.Option>
-						<Select.Option value="art">art</Select.Option>
-						<Select.Option value="french">french</Select.Option>
-						<Select.Option value="vacation">vacation</Select.Option>
-						<Select.Option value="support">support</Select.Option>
-					</Select>
-				</div>
+					<p className="text-gray-500 mt-2 mb-0">
+						You can use an existing school ID, or create a new one.
+						The real (full) name of the school is handle somewhere else.
+					</p>
+				</Form.Item>
 				<Divider/>
-				<AutoComplete
-					className="block"
-					placeholder="School key"
-					options={getSchoolOptions()}
-					value={course.school}
-					onChange={handleSchoolChange}
-				/>
-				<Divider/>
-				<Duration
-					value={course.duration.value}
-					denominator={course.duration.denominator}
-					edit
-					onChange={(el) => setCourse(st => ({...st, duration: el}))}
-				/>
-				<Price
-					value={course.price.value}
-					denominator={course.price.denominator}
-					edit
-					onChange={(el) => setCourse(st => ({...st, price: el}))}
-				/>
+				<Form.Item label="Duration" className="block">
+					<Duration
+						value={course.duration.value}
+						denominator={course.duration.denominator}
+						edit
+						onChange={(el) => setCourse(st => ({...st, duration: el}))}
+					/>
+				</Form.Item>
+				<Form.Item label="Price" className="block">
+					<Price
+						value={course.price.value}
+						denominator={course.price.denominator}
+						edit
+						onChange={(el) => setCourse(st => ({...st, price: el}))}
+					/>
+				</Form.Item>
 			</Modal>
 		</>
 	);
