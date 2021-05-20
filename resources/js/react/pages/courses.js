@@ -45,6 +45,10 @@ export const Page = () => {
 		setCurrentTab(course.school);
 	}
 
+	function handleCourseDeleted(id) {
+		setCourses(st => st.filter((course) => course.id !== id));
+	}
+
 	return (
 		<div className="">
 			<div className="flex justify-between items-center bg-white pr-4">
@@ -75,6 +79,7 @@ export const Page = () => {
 									duration={{value: course.duration, denominator: course.duration_denominator}}
 									price={{value: course.price, denominator: course.price_denominator}}
 									schedules={course.schedules}
+									onDeleted={handleCourseDeleted}
 								/>
 							</Col>
 						))}

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import {Card, Divider, Input, Select} from 'antd';
+import {Card, Divider, Input, Popconfirm, Select} from 'antd';
 import {useEffect, useState} from 'react';
-import {CheckOutlined, CloseOutlined, EditOutlined} from '@ant-design/icons';
+import {CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
 import ScheduleList from './ScheduleList';
 import apiCourse from '../../lib/api/apiCourse';
 import Price from './Price';
 import Duration from './Duration';
 
-const Course = ({id = null, name, category, duration, price, schedules = {}}) => {
+const Course = ({id = null, name, category, duration, price, schedules = {}, onDeleted}) => {
 
 	const [edit, setEdit] = useState(false);
 	const [course, setCourse] = useState(() => ({id, name, category, duration, price, schedules}));
@@ -72,16 +72,36 @@ const Course = ({id = null, name, category, duration, price, schedules = {}}) =>
 		}
 	}
 
-	const editCourseBtn = <span onClick={() => setEdit(true)} key="a"><EditOutlined/> Edit</span>;
-	const cancelEditBtn = <span onClick={() => setEdit(false)} key="b"><CloseOutlined/> Cancel</span>;
-	const saveCourseBtn = <span onClick={saveCourse} className="text-green-500" key="c"><CheckOutlined/> Save</span>;
+	function deleteCourse() {
+		apiCourse.remove({id})
+			.then(() => {
+				if (typeof onDeleted === "function") {
+					onDeleted(id);
+				}
+			})
+			.catch(console.error);
+	}
+
+	const editBtn = <span onClick={() => setEdit(true)}><EditOutlined/> Edit</span>;
+	const cancelEditBtn = <span onClick={() => setEdit(false)}><CloseOutlined/> Cancel</span>;
+	const saveBtn = <span onClick={saveCourse} className="text-green-500"><CheckOutlined/> Save</span>;
+	const deleteBtn = (
+		<Popconfirm
+			title="Are you sure to delete this course?"
+			onConfirm={deleteCourse}
+			okText="Delete"
+			cancelText="Keep"
+		>
+			<span className=""><DeleteOutlined/> Delete</span>
+		</Popconfirm>
+	);
 
 	return (
 		<Card
 			loading={loading}
 			className="mb-6"
 			title={<Header name={course.name} category={course.category} edit={edit} onChange={handleHeaderChange}/>}
-			actions={edit ? [saveCourseBtn, cancelEditBtn] : [editCourseBtn]}
+			actions={edit ? [deleteBtn, saveBtn, cancelEditBtn] : [editBtn]}
 		>
 			<Duration
 				value={course.duration.value}
@@ -108,6 +128,7 @@ Course.propTypes = {
 	duration: PropTypes.exact({value: PropTypes.number.isRequired, denominator: PropTypes.string.isRequired}),
 	price: PropTypes.exact({value: PropTypes.number.isRequired, denominator: PropTypes.string.isRequired}),
 	schedules: PropTypes.object,
+	onDeleted: PropTypes.func,
 };
 
 function Header({name, category, edit = false, onChange}) {

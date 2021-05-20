@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class CourseController extends Controller
@@ -79,6 +80,16 @@ class CourseController extends Controller
 
 		// HTTP "Created"
 		return response($course, 201);
+	}
+
+
+	public function destroy(Course $course)
+	{
+		if ($course->delete()) {
+			return new JsonResponse(status: 204);
+		}
+
+		return new JsonResponse(["message" => "Could not delete the course."], 409);
 	}
 
 

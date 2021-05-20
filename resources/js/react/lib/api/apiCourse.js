@@ -14,6 +14,10 @@ export function update(course) {
 	return Api.put(`${basePath}/${course.id}`, course);
 }
 
-const apiCourse = {all, create, update};
+export function remove(course) {
+	return Api.delete(`${basePath}/${course.id}`);
+}
+
+const apiCourse = {all, create, update, remove};
 
 export default apiCourse;
