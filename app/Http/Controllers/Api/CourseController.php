@@ -8,9 +8,8 @@ use App\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 
-class CourseController extends Controller
+class CourseController
 {
 	public function index()
 	{
