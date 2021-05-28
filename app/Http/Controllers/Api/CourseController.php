@@ -48,13 +48,12 @@ class CourseController extends Controller
 					return response("Invalid hour in schedule object", 400);
 				}
 			}
-
-			$course->schedules = $schedules;
-
-			$course->saveOrFail();
-
-			return $course;
 		}
+
+		$course->schedules = $schedules;
+		$course->saveOrFail();
+
+		return $course;
 	}
 
 
