@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\CourseRegistrationController;
 use App\Http\Controllers\Api\FetchCachedChineseListsController;
 use App\Http\Controllers\Api\PrepareGridCNController;
 use Illuminate\Support\Facades\Auth;
@@ -20,4 +21,6 @@ Route::middleware(["auth:sanctum"])->group(function () {
 	Route::post("/courses", [CourseController::class, "store"]);
 	Route::put("/courses/{course}", [CourseController::class, "update"]);
 	Route::delete("/courses/{course}", [CourseController::class, "destroy"]);
+	Route::resource("registrations", CourseRegistrationController::class)
+		->only(["index"]);
 });

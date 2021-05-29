@@ -6,6 +6,7 @@ import {AuthProvider} from './lib/auth/AuthProvider';
 import AuthRequired from './lib/auth/AuthRequired';
 import Dashboard from './components/layouts/Dashboard';
 import LoginForm from './components/layouts/LoginForm';
+import RegistrationPage from './pages/registrations';
 
 export default function App() {
 	return (
@@ -26,6 +27,11 @@ export default function App() {
 						<Route exact path="/dashboard/courses">
 							<Dashboard>
 								<Courses.Page/>
+							</Dashboard>
+						</Route>
+						<Route path={RegistrationPage.PATH}>
+							<Dashboard>
+								<RegistrationPage />
 							</Dashboard>
 						</Route>
 					</Switch>

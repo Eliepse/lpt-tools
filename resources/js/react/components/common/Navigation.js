@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import * as Courses from '../../pages/courses';
 import {useAuth} from '../../lib/auth/useAuth';
 import {UserOutlined} from '@ant-design/icons';
+import RegistrationPage from '../../pages/registrations';
 
 function Navigation() {
 	const {user, logout} = useAuth();
@@ -12,7 +13,8 @@ function Navigation() {
 		<div className={styles.navigationContainer}>
 			<Menu mode="horizontal">
 				<Menu.Item key="home"><Link to="/dashboard">Home</Link></Menu.Item>
-				<Menu.Item key="registrations"><Link to={Courses.PATH}>Courses</Link></Menu.Item>
+				<Menu.Item key="registrations"><Link to={RegistrationPage.PATH}>Registrations</Link></Menu.Item>
+				<Menu.Item key="courses"><Link to={Courses.PATH}>Courses</Link></Menu.Item>
 			</Menu>
 			{user && (
 				<Menu mode="horizontal">
