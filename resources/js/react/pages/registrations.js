@@ -17,7 +17,6 @@ const RegistrationPage = () => {
 				}
 
 				setRegistrations(data);
-				console.debug(data[0]);
 			});
 	}, []);
 
@@ -41,7 +40,7 @@ const RegistrationPage = () => {
 					<Route exact path={`${url}/courses`}>
 						<ul className="list-none p-0">
 							{registrations.map((registration) => (
-								<li className="mb-4">
+								<li className="mb-4" key={registration.id}>
 									<RegistrationCard registration={registration}/>
 								</li>
 							))}
