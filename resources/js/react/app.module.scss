@@ -1,9 +1,11 @@
 .layout {
-	height: 100vh;
+	@apply min-h-screen pt-12 bg-gray-100;
+	@apply flex flex-col;
 }
 
 .header {
-	background: white;
+	@apply fixed h-12 top-0 inset-x-0 flex items-stretch;
+	@apply bg-white z-40;
 }
 
 .menu {
@@ -11,7 +13,7 @@
 }
 
 .content {
-	overflow: auto;
+	@apply flex-auto pt-8 px-8;
 }
 
 .navigationContainer,
@@ -25,11 +27,6 @@
 	@apply flex justify-between items-center;
 }
 
-.siteLayoutContent {
-	min-height: 50vh;
-	//background: #fff;
-}
-
 #components-layout-demo-top .logo {
 	float: left;
 	width: 120px;
@@ -41,4 +38,8 @@
 .ant-row-rtl #components-layout-demo-top .logo {
 	float: right;
 	margin: 16px 0 16px 24px;
+}
+
+.footer {
+	@apply py-8 text-center flex-none;
 }
