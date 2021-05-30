@@ -7,8 +7,12 @@ import AuthRequired from './lib/auth/AuthRequired';
 import Dashboard from './components/layouts/Dashboard';
 import LoginForm from './components/layouts/LoginForm';
 import RegistrationPage from './pages/registrations';
+import dayjs from 'dayjs';
+import RelativeTime from "dayjs/plugin/relativeTime";
 
 export default function App() {
+	dayjs.extend(RelativeTime);
+
 	return (
 		<AuthProvider>
 			<Router>
