@@ -46,7 +46,7 @@ function RegistrationCard({registration}) {
 				</p>
 			</div>
 			<div className={clsx(styles.column, styles.actions)}>
-				<span className="text-gray-400 text-xs uppercase">ID: {registration.uid}</span>
+				<span className="text-gray-400 text-xs uppercase font-mono">ID: {registration.uid}</span>
 				{/*<Button>Bout de thon</Button>*/}
 			</div>
 		</div>
