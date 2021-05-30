@@ -1,10 +1,8 @@
 import {useEffect, useState} from 'react';
-import {Card, Col, Divider, Menu, Row, Statistic, Typography} from 'antd';
+import {Col, Menu, Row, Statistic} from 'antd';
 import apiRegistrations from '../lib/api/apiRegistrations';
 import {Link, Route, Switch, useRouteMatch} from 'react-router-dom';
-import dayjs from 'dayjs';
-
-const {Text} = Typography;
+import RegistrationCard from '../components/registration/RegistrationCard';
 
 const RegistrationPage = () => {
 	const {path, url} = useRouteMatch();
@@ -43,7 +41,7 @@ const RegistrationPage = () => {
 					<Route exact path={`${url}/courses`}>
 						<ul className="list-none p-0">
 							{registrations.map((registration) => (
-								<li className="mb-6">
+								<li className="mb-4">
 									<RegistrationCard registration={registration}/>
 								</li>
 							))}
@@ -56,43 +54,5 @@ const RegistrationPage = () => {
 };
 
 RegistrationPage.PATH = "/dashboard/registrations";
-
-function RegistrationCard({registration}) {
-	const {student, contact, school, category, schedule, course} = registration;
-	return (
-		<Card
-			size="small"
-			title={
-				<>
-					<p className="font-bold mb-1">{`${student.firstname} ${student.lastname}`}</p>
-					<div className="flex justify-between items-center">
-						<span className="text-gray-400 text-sm">{dayjs(registration.created_at).format("YYYY-MM-DD")}</span>
-						<span className="text-gray-400 text-xs uppercase">ID: {registration.uid}</span>
-					</div>
-				</>
-			}
-		>
-			<Text>
-				{student.fullname_cn}<br/>
-				{student.birthday}<br/>
-				{student.city_code}
-			</Text>
-			<Divider orientation="left" plain>Contacts</Divider>
-			<Text>
-				{contact.phone_1}<br/>
-				{contact.phone_2}<br/>
-				@{contact.wechat_1}
-			</Text>
-			<Divider orientation="left" plain>Course</Divider>
-			<Text>
-				[{category}] {course.name}<br/>
-				School: {school}<br/>
-				Price: {course.price} / {course.price_denominator}<br/>
-				Duration: {course.duration} / {course.duration_denominator}<br/>
-				Schedule: {schedule.days} {schedule.hour}
-			</Text>
-		</Card>
-	);
-}
 
 export default RegistrationPage;
