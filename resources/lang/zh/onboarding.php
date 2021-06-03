@@ -26,6 +26,10 @@ return [
 			"name" => "Marais",
 			"location" => "巴黎 三区",
 		],
+        "oberkampf" => [
+            "name" => "Oberkampf",
+            "location" => "巴黎 十一区",
+        ],
 		"online" => [
 			"name" => "网课",
 			"location" => "",
