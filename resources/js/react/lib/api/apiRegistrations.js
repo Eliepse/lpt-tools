@@ -6,6 +6,10 @@ export function all() {
 	return Api.get(basePath);
 }
 
-const apiCourse = {all};
+export function remove(registration) {
+	return Api.delete(`${basePath}/${registration.id}`);
+}
+
+const apiCourse = {all, remove};
 
 export default apiCourse;

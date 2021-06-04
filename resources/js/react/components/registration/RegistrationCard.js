@@ -1,16 +1,32 @@
-import {Tag, Typography} from 'antd';
+import {Button, Popconfirm, Tag} from 'antd';
 import styles from "./RegistrationCard.module.scss";
 import dayjs from 'dayjs';
-import {ClockCircleOutlined, EuroCircleOutlined, HomeOutlined, PhoneOutlined, WechatOutlined} from '@ant-design/icons';
 import clsx from 'clsx';
+import {
+	ClockCircleOutlined,
+	DeleteOutlined,
+	EuroCircleOutlined,
+	HomeOutlined,
+	PhoneOutlined,
+	WechatOutlined,
+} from '@ant-design/icons';
+import apiRegistrations from '../../lib/api/apiRegistrations';
 
-const {Text} = Typography;
-
-function RegistrationCard({registration}) {
-	const {student, contact, school, category, schedule, course} = registration;
+function RegistrationCard({registration, onDeleted}) {
+	const {id, student, contact, school, category, schedule, course} = registration;
 
 	const birthday = dayjs(student.birthday);
 	const createdAt = dayjs(registration.created_at);
+
+	function deleteRegistration() {
+		apiRegistrations.remove({id})
+			.then(() => {
+				if (typeof onDeleted === "function") {
+					onDeleted(id);
+				}
+			})
+			.catch(console.error);
+	}
 
 	return (
 		<div className={styles.card}>
@@ -46,8 +62,15 @@ function RegistrationCard({registration}) {
 				</p>
 			</div>
 			<div className={clsx(styles.column, styles.actions)}>
-				<span className="text-gray-400 text-xs uppercase font-mono">ID: {registration.uid}</span>
-				{/*<Button>Bout de thon</Button>*/}
+				<div className="text-gray-400 text-xs uppercase font-mono mb-4">ID: {registration.uid}</div>
+				<Popconfirm
+					title="Are you sure to delete this course?"
+					onConfirm={deleteRegistration}
+					okText="Delete"
+					cancelText="Keep"
+				>
+					<Button className=""><DeleteOutlined/> Delete</Button>
+				</Popconfirm>
 			</div>
 		</div>
 	);

@@ -22,5 +22,5 @@ Route::middleware(["auth:sanctum"])->group(function () {
 	Route::put("/courses/{course}", [CourseController::class, "update"]);
 	Route::delete("/courses/{course}", [CourseController::class, "destroy"]);
 	Route::resource("registrations", CourseRegistrationController::class)
-		->only(["index"]);
+		->only(["index", "destroy"]);
 });
