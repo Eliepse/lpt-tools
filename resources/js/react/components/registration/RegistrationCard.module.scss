@@ -1,0 +1,21 @@
+.card {
+	@apply flex overflow-hidden rounded;
+	@apply border border-solid border-gray-200;
+}
+
+.column {
+	@apply py-3 pl-4 pr-8;
+
+	&:first-child {
+		@apply pr-4;
+		min-width: 12rem;
+	}
+
+	&:not(:first-child) {
+		@apply border-0 border-dashed border-l border-gray-200;
+	}
+}
+
+.actions {
+	@apply text-right pl-8 pr-4;
+}

@@ -27,6 +27,8 @@ final class Course extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 	protected $casts = [
+		"price" => "integer",
+		"duration" => "integer",
 		"schedules" => "collection",
 	];
 }

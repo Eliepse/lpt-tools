@@ -14,16 +14,29 @@ const mix = require('laravel-mix');
 mix.disableNotifications();
 
 mix.js('resources/js/app.js', 'public/js')
-		.vue()
-		.sass('resources/sass/styles.scss', 'public/css')
-		.sass('resources/sass/onboarding.scss', 'public/css')
-		.sass("resources/sass/app.scss", "public/css")
-		.options({
-			'postCss': [
-				require("tailwindcss"),
-			]
-		})
-		.copyDirectory('resources/images', 'public/images');
+	.vue();
+
+mix
+	.sass('resources/sass/styles.scss', 'public/css')
+	.sass('resources/sass/onboarding.scss', 'public/css')
+	.sass("resources/sass/app.scss", "public/css")
+	.options({
+		postCss: [
+			require("tailwindcss"),
+		],
+	});
+
+mix
+	.copyDirectory('resources/images', 'public/images');
+
+mix.js("resources/js/react/index.js", "public/js/react")
+	.sass("resources/sass/antd.scss", "public/css")
+	.options({
+		postCss: [
+			require("tailwindcss"),
+		],
+	})
+	.react();
 
 if (mix.inProduction()) {
 	mix.version();
