@@ -1,10 +1,9 @@
 import {Menu} from 'antd';
 import styles from '../../app.module.scss';
-import {Link, useLocation, useRouteMatch} from 'react-router-dom';
-import * as Courses from '../../pages/courses';
+import {Link, useRouteMatch} from 'react-router-dom';
 import {useAuth} from '../../lib/auth/useAuth';
 import {UserOutlined} from '@ant-design/icons';
-import RegistrationPage from '../../pages/registrations';
+import {PAGES} from '../../app';
 
 function Navigation() {
 	const {user, logout} = useAuth();
@@ -13,9 +12,10 @@ function Navigation() {
 	return (
 		<div className={styles.navigationContainer}>
 			<Menu mode="horizontal" selectedKeys={[path]}>
-				<Menu.Item key="/dashboard"><Link to="/dashboard">Home</Link></Menu.Item>
-				<Menu.Item key={RegistrationPage.PATH}><Link to={RegistrationPage.PATH}>Registrations</Link></Menu.Item>
-				<Menu.Item key={Courses.PATH}><Link to={Courses.PATH}>Courses</Link></Menu.Item>
+				{PAGES.map(({path, name}) => (
+					<Menu.Item key={path}>
+						<Link to={path}>{name}</Link></Menu.Item>
+				))}
 			</Menu>
 			{user && (
 				<Menu mode="horizontal">
