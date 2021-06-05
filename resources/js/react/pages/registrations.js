@@ -11,6 +11,7 @@ const RegistrationPage = () => {
 
 	const schools = useMemo(() => groupBySchool(registrations), [registrations]);
 	const schoolsLinks = Object.fromEntries(Object.keys(schools).map((school) => [school, `${url}/${school}`]));
+	const pendingReviews = registrations.filter((r) => !r.reviewed_at).length;
 
 	useEffect(() => {
 		apiRegistrations.all()
@@ -61,12 +62,15 @@ const RegistrationPage = () => {
 							<Col flex="auto">
 								<Statistic title="All registrations" value={registrations.length}/>
 							</Col>
+							<Col flex="auto">
+								<Statistic title="To review" value={pendingReviews}/>
+							</Col>
 						</Row>
 					</Route>
 					{/* Schools */}
 					{Object.entries(schoolsLinks).map(([school, link]) => (
 						<Route exact path={link} key={link}>
-							<SchoolList school={school} registrations={schools[school]} onDeleted={handleDeleted} onChange={handleChange}/>
+							<SchoolList registrations={schools[school]} onDeleted={handleDeleted} onChange={handleChange}/>
 						</Route>
 					))}
 				</Switch>
