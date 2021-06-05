@@ -8,19 +8,7 @@ const RegistrationPage = () => {
 	const {path, url} = useRouteMatch();
 	const [registrations, setRegistrations] = useState([]);
 
-	const schools = useMemo(() => {
-		return registrations.reduce((acc, registration) => {
-			const school = registration.school;
-
-			if (Array.isArray(acc[school])) {
-				acc[school].push(registration);
-			} else {
-				acc[school] = [];
-			}
-
-			return acc;
-		}, {});
-	}, [registrations]);
+	const schools = useMemo(() => groupBySchool(registrations), [registrations]);
 
 	useEffect(() => {
 		apiRegistrations.all()
@@ -69,5 +57,19 @@ const RegistrationPage = () => {
 };
 
 RegistrationPage.PATH = "/dashboard/registrations";
+
+function groupBySchool(registrations) {
+	return registrations.reduce((acc, registration) => {
+		const school = registration.school;
+
+		if (Array.isArray(acc[school])) {
+			acc[school].push(registration);
+		} else {
+			acc[school] = [];
+		}
+
+		return acc;
+	}, {});
+}
 
 export default RegistrationPage;
