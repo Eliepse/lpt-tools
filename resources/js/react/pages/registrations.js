@@ -1,14 +1,16 @@
 import {useEffect, useMemo, useState} from 'react';
 import {Col, Menu, Row, Statistic} from 'antd';
 import apiRegistrations from '../lib/api/apiRegistrations';
-import {Link, Route, Switch, useRouteMatch} from 'react-router-dom';
+import {Link, Route, Switch, useLocation, useRouteMatch} from 'react-router-dom';
 import SchoolList from '../components/registration/SchoolList';
 
 const RegistrationPage = () => {
 	const {path, url} = useRouteMatch();
+	const {pathname} = useLocation();
 	const [registrations, setRegistrations] = useState([]);
 
 	const schools = useMemo(() => groupBySchool(registrations), [registrations]);
+	const schoolsLinks = Object.fromEntries(Object.keys(schools).map((school) => [school, `${url}/${school}`]));
 
 	useEffect(() => {
 		apiRegistrations.all()
@@ -28,16 +30,24 @@ const RegistrationPage = () => {
 
 	return (
 		<div className="">
+			{/*
+				--- Menu
+			*/}
 			<div className="flex justify-between items-center bg-white pr-4">
-				<Menu className="flex-auto" mode="horizontal">
-					<Menu.Item key="overview"><Link to={path}>Overview</Link></Menu.Item>
-					{Object.keys(schools).map((school) => (
-						<Menu.Item key={school}><Link to={`${url}/${school}`}>{school}</Link></Menu.Item>
-					))}
+				<Menu className="flex-auto" mode="horizontal" selectedKeys={[pathname]}>
+					{/* Index */}
+					<Menu.Item key={url}><Link to={path}>Overview</Link></Menu.Item>
+					{/* Schools */}
+					{Object.entries(schoolsLinks).map(([school, link]) => (
+						<Menu.Item key={link}><Link to={link}>{school}</Link></Menu.Item>))}
 				</Menu>
 			</div>
+			{/*
+				--- Content
+			*/}
 			<div className="bg-white p-6">
 				<Switch>
+					{/* Index */}
 					<Route exact path={path}>
 						<Row gutter={32} className="mb-6">
 							<Col flex="auto">
@@ -45,9 +55,10 @@ const RegistrationPage = () => {
 							</Col>
 						</Row>
 					</Route>
-					{Object.entries(schools).map(([school, registrations]) => (
-						<Route exact path={`${url}/${school}`}>
-							<SchoolList school={school} registrations={registrations} onDeleted={handleDeleted}/>
+					{/* Schools */}
+					{Object.entries(schoolsLinks).map(([school, link]) => (
+						<Route exact path={link} key={link}>
+							<SchoolList school={school} registrations={schools[school]} onDeleted={handleDeleted}/>
 						</Route>
 					))}
 				</Switch>
