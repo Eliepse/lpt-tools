@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Http\Requests\ReviewRegistrationRequest;
 use App\Models\CourseRegistration;
 use Illuminate\Http\JsonResponse;
 
@@ -11,7 +12,7 @@ class CourseRegistrationController
 {
 	public function index()
 	{
-		return CourseRegistration::query()->get();
+		return CourseRegistration::query()->orderBy("created_at", "desc")->get();
 	}
 
 
@@ -22,5 +23,21 @@ class CourseRegistrationController
 		}
 
 		return new JsonResponse(["message" => "Could not delete the course."], 409);
+	}
+
+
+	public function review(ReviewRegistrationRequest $request, CourseRegistration $registration)
+	{
+		if ($request->isReviewed()) {
+			$registration->review();
+		} else {
+			$registration->unreview();
+		}
+
+		if ($registration->save()) {
+			return $registration;
+		}
+
+		return new JsonResponse(["message" => "Could not change the review state."], 409);
 	}
 }

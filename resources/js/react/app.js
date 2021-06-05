@@ -13,16 +13,19 @@ export const PAGES = [
 		path: "/dashboard",
 		page: "dashboard",
 		name: "Home",
+		exact: true,
 	},
 	{
 		path: "/dashboard/registrations",
 		page: "registrations",
 		name: "Registrations",
+		exact: false,
 	},
 	{
 		path: "/dashboard/courses",
 		page: "courses",
 		name: "Courses",
+		exact: true,
 	},
 ];
 
@@ -39,8 +42,8 @@ export default function App() {
 								<LoginForm/>
 							</div>
 						</Route>
-						{PAGES.map(({path, page}) => (
-							<Route exact path={path} key={path}>
+						{PAGES.map(({path, page, exact}) => (
+							<Route exact={exact} path={path} key={path}>
 								<Dashboard>
 									<LoadablePage id={path} page={page}/>
 								</Dashboard>

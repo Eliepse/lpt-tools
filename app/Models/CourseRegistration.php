@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
  * @property array $contact
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property Carbon $reviewed_at
  */
 final class CourseRegistration extends Model
 {
@@ -40,11 +41,24 @@ final class CourseRegistration extends Model
 	];
 
 
-
 	protected static function booted()
 	{
 		CourseRegistration::saving(function (CourseRegistration $registration) {
-			$registration->uid = Str::random(12);
+			if (! $registration->uid) {
+				$registration->uid = Str::random(12);
+			}
 		});
+	}
+
+
+	public function review()
+	{
+		$this->reviewed_at = Carbon::now();
+	}
+
+
+	public function unreview()
+	{
+		$this->reviewed_at = null;
 	}
 }
