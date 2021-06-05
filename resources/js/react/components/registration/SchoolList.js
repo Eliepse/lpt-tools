@@ -1,7 +1,7 @@
 import {Col, Row, Statistic} from 'antd';
 import RegistrationCard from './RegistrationCard';
 
-const SchoolList = ({school, registrations, onDeleted}) => {
+const SchoolList = ({school, registrations, onDeleted, onChange}) => {
 	return (
 		<>
 			<Row gutter={32} className="mb-6">
@@ -12,7 +12,7 @@ const SchoolList = ({school, registrations, onDeleted}) => {
 			<ul className="list-none p-0">
 				{registrations.map((registration) => (
 					<li className="mb-4" key={registration.id}>
-						<RegistrationCard registration={registration} onDeleted={onDeleted}/>
+						<RegistrationCard registration={registration} onDeleted={onDeleted} onChange={onChange}/>
 					</li>
 				))}
 			</ul>

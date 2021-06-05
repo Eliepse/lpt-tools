@@ -28,6 +28,14 @@ const RegistrationPage = () => {
 		setRegistrations(st => st.filter((registration) => registration.id !== id));
 	}
 
+	function handleChange(registration) {
+		setRegistrations(st => {
+			const i = st.findIndex(({id}) => id === registration.id);
+			st[i] = registration;
+			return st.slice();
+		});
+	}
+
 	return (
 		<div className="">
 			{/*
@@ -58,7 +66,7 @@ const RegistrationPage = () => {
 					{/* Schools */}
 					{Object.entries(schoolsLinks).map(([school, link]) => (
 						<Route exact path={link} key={link}>
-							<SchoolList school={school} registrations={schools[school]} onDeleted={handleDeleted}/>
+							<SchoolList school={school} registrations={schools[school]} onDeleted={handleDeleted} onChange={handleChange}/>
 						</Route>
 					))}
 				</Switch>
