@@ -12,7 +12,7 @@ class CourseRegistrationController
 {
 	public function index()
 	{
-		return CourseRegistration::query()->get();
+		return CourseRegistration::query()->orderBy("created_at", "desc")->get();
 	}
 
 
