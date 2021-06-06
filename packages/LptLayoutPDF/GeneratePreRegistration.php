@@ -58,16 +58,7 @@ final class GeneratePreRegistration
 			'mode' => 'utf-8',
 			'format' => [210, 297],
 			'orientation' => 'L',
-			'fontDir' => [
-				base_path("vendor/eliepse/working-grid-pdf/resources/fonts/"),
-			],
-			'fontdata' => [
-				'sourcehansans' => [
-					'R' => 'SourceHanSansSC-Normal.ttf',
-					'B' => 'SourceHanSansSC-Bold.ttf',
-				],
-			],
-			'default_font' => 'sourcehansans',
+			'default_font' => 'sun-extra',
 		]);
 
 		$mpdf->shrink_tables_to_fit = 1;
