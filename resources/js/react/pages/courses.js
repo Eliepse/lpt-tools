@@ -105,3 +105,5 @@ function _getCourseClassesCount(course) {
 function _getTotalClasses(courses) {
 	return courses.reduce((acc, course) => acc + _getCourseClassesCount(course), 0);
 }
+
+export default Page;

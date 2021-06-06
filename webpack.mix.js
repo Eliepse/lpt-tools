@@ -16,18 +16,10 @@ mix.disableNotifications();
 mix.js('resources/js/app.js', 'public/js')
 	.vue();
 
-mix
-	.sass('resources/sass/styles.scss', 'public/css')
-	.sass('resources/sass/onboarding.scss', 'public/css')
-	.sass("resources/sass/app.scss", "public/css")
-	.options({
-		postCss: [
-			require("tailwindcss"),
-		],
-	});
+mix.sass('resources/sass/styles.scss', 'public/css')
+	.sass('resources/sass/onboarding.scss', 'public/css');
 
-mix
-	.copyDirectory('resources/images', 'public/images');
+mix.copyDirectory('resources/images', 'public/images');
 
 mix.js("resources/js/react/index.js", "public/js/react")
 	.sass("resources/sass/antd.scss", "public/css")

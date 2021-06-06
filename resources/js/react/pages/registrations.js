@@ -1,26 +1,17 @@
 import {useEffect, useMemo, useState} from 'react';
 import {Col, Menu, Row, Statistic} from 'antd';
 import apiRegistrations from '../lib/api/apiRegistrations';
-import {Link, Route, Switch, useRouteMatch} from 'react-router-dom';
+import {Link, Route, Switch, useLocation, useRouteMatch} from 'react-router-dom';
 import SchoolList from '../components/registration/SchoolList';
 
 const RegistrationPage = () => {
 	const {path, url} = useRouteMatch();
+	const {pathname} = useLocation();
 	const [registrations, setRegistrations] = useState([]);
 
-	const schools = useMemo(() => {
-		return registrations.reduce((acc, registration) => {
-			const school = registration.school;
-
-			if (Array.isArray(acc[school])) {
-				acc[school].push(registration);
-			} else {
-				acc[school] = [];
-			}
-
-			return acc;
-		}, {});
-	}, [registrations]);
+	const schools = useMemo(() => groupBySchool(registrations), [registrations]);
+	const schoolsLinks = Object.fromEntries(Object.keys(schools).map((school) => [school, `${url}/${school}`]));
+	const pendingReviews = registrations.filter((r) => !r.reviewed_at).length;
 
 	useEffect(() => {
 		apiRegistrations.all()
@@ -38,28 +29,48 @@ const RegistrationPage = () => {
 		setRegistrations(st => st.filter((registration) => registration.id !== id));
 	}
 
+	function handleChange(registration) {
+		setRegistrations(st => {
+			const i = st.findIndex(({id}) => id === registration.id);
+			st[i] = registration;
+			return st.slice();
+		});
+	}
+
 	return (
 		<div className="">
+			{/*
+				--- Menu
+			*/}
 			<div className="flex justify-between items-center bg-white pr-4">
-				<Menu className="flex-auto" mode="horizontal">
-					<Menu.Item key="overview"><Link to={path}>Overview</Link></Menu.Item>
-					{Object.keys(schools).map((school) => (
-						<Menu.Item key={school}><Link to={`${url}/${school}`}>{school}</Link></Menu.Item>
-					))}
+				<Menu className="flex-auto" mode="horizontal" selectedKeys={[pathname]}>
+					{/* Index */}
+					<Menu.Item key={url}><Link to={path}>Overview</Link></Menu.Item>
+					{/* Schools */}
+					{Object.entries(schoolsLinks).map(([school, link]) => (
+						<Menu.Item key={link}><Link to={link}>{school}</Link></Menu.Item>))}
 				</Menu>
 			</div>
+			{/*
+				--- Content
+			*/}
 			<div className="bg-white p-6">
 				<Switch>
+					{/* Index */}
 					<Route exact path={path}>
 						<Row gutter={32} className="mb-6">
 							<Col flex="auto">
 								<Statistic title="All registrations" value={registrations.length}/>
 							</Col>
+							<Col flex="auto">
+								<Statistic title="To review" value={pendingReviews}/>
+							</Col>
 						</Row>
 					</Route>
-					{Object.entries(schools).map(([school, registrations]) => (
-						<Route exact path={`${url}/${school}`}>
-							<SchoolList school={school} registrations={registrations} onDeleted={handleDeleted}/>
+					{/* Schools */}
+					{Object.entries(schoolsLinks).map(([school, link]) => (
+						<Route exact path={link} key={link}>
+							<SchoolList registrations={schools[school]} onDeleted={handleDeleted} onChange={handleChange}/>
 						</Route>
 					))}
 				</Switch>
@@ -69,5 +80,19 @@ const RegistrationPage = () => {
 };
 
 RegistrationPage.PATH = "/dashboard/registrations";
+
+function groupBySchool(registrations) {
+	return registrations.reduce((acc, registration) => {
+		const school = registration.school;
+
+		if (Array.isArray(acc[school])) {
+			acc[school].push(registration);
+		} else {
+			acc[school] = [];
+		}
+
+		return acc;
+	}, {});
+}
 
 export default RegistrationPage;

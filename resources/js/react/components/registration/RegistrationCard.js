@@ -7,12 +7,13 @@ import {
 	DeleteOutlined,
 	EuroCircleOutlined,
 	HomeOutlined,
+	LikeOutlined,
 	PhoneOutlined,
 	WechatOutlined,
 } from '@ant-design/icons';
 import apiRegistrations from '../../lib/api/apiRegistrations';
 
-function RegistrationCard({registration, onDeleted}) {
+function RegistrationCard({registration, onDeleted, onChange}) {
 	const {id, student, contact, school, category, schedule, course} = registration;
 
 	const birthday = dayjs(student.birthday);
@@ -26,6 +27,12 @@ function RegistrationCard({registration, onDeleted}) {
 				}
 			})
 			.catch(console.error);
+	}
+
+	function toggleReview() {
+		apiRegistrations.review(registration, !Boolean(registration.reviewed_at))
+			.then(onChange)
+			.catch(console.error)
 	}
 
 	return (
@@ -63,13 +70,16 @@ function RegistrationCard({registration, onDeleted}) {
 			</div>
 			<div className={clsx(styles.column, styles.actions)}>
 				<div className="text-gray-400 text-xs uppercase font-mono mb-4">ID: {registration.uid}</div>
+				<Button className="mb-4" onClick={toggleReview} type={registration.reviewed_at ? "dahsed" : "primary"}>
+					<LikeOutlined/> {registration.reviewed_at ? "Unreview" : "Review"}
+				</Button>
 				<Popconfirm
 					title="Are you sure to delete this course?"
 					onConfirm={deleteRegistration}
 					okText="Delete"
 					cancelText="Keep"
 				>
-					<Button className=""><DeleteOutlined/> Delete</Button>
+					<Button className="mb-4"><DeleteOutlined/> Delete</Button>
 				</Popconfirm>
 			</div>
 		</div>
