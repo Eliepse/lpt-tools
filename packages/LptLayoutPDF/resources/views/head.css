@@ -1,10 +1,12 @@
 .left-side {
+	font-family: sun-exta, sans-serif;
 	padding-left: 32px;
 	padding-right: 16px;
 }
 
 
 .right-side {
+	font-family: sun-exta, sans-serif;
 	padding-top: 34px;
 	padding-left: 32px;
 	padding-right: 32px;
@@ -58,6 +60,7 @@ table {
 	width: 100%;
 	margin-top: 32px;
 	margin-bottom: 32px;
+	font-family: sun-exta, sans-serif;
 }
 
 

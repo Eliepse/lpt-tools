@@ -58,7 +58,7 @@ final class GeneratePreRegistration
 			'mode' => 'utf-8',
 			'format' => [210, 297],
 			'orientation' => 'L',
-			'default_font' => 'sans-serif',
+			'default_font' => 'sun-extra',
 		]);
 
 		$mpdf->shrink_tables_to_fit = 1;
