@@ -70,6 +70,9 @@ function RegistrationCard({registration, onDeleted, onChange}) {
 			</div>
 			<div className={clsx(styles.column, styles.actions)}>
 				<div className="text-gray-400 text-xs uppercase font-mono mb-4">ID: {registration.uid}</div>
+				<Button className="mb-4" onClick={toggleReview} type={registration.reviewed_at ? "dahsed" : "primary"}>
+					<LikeOutlined/> {registration.reviewed_at ? "Unreview" : "Review"}
+				</Button>
 				<Popconfirm
 					title="Are you sure to delete this course?"
 					onConfirm={deleteRegistration}
@@ -78,9 +81,6 @@ function RegistrationCard({registration, onDeleted, onChange}) {
 				>
 					<Button className="mb-4"><DeleteOutlined/> Delete</Button>
 				</Popconfirm>
-				<Button onClick={toggleReview} type={registration.reviewed_at ? "dahsed" : "primary"}>
-					<LikeOutlined/> {registration.reviewed_at ? "Unreview" : "Review"}
-				</Button>
 			</div>
 		</div>
 	);
