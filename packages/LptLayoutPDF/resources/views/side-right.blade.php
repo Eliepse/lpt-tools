@@ -8,7 +8,7 @@
 		<strong>线上支付 :</strong><br>
 		<span style="font-family: monospace">
 			Les Petits Trilingues<br>
-			RIB：FR16 1751 5900 0008 0108 5947 747<br>
+			RIB：FR76 1751 5900 0008 0108 5947 747<br>
 			BIC: CEPAFRPP751
 		</span>
 	</p>
