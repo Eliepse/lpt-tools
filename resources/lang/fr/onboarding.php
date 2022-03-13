@@ -26,10 +26,14 @@ return [
 			"name" => "Marais",
 			"location" => "Paris 3e",
 		],
-        "oberkampf" => [
-            "name" => "Oberkampf",
-            "location" => "Paris 11e",
-        ],
+		"oberkampf" => [
+			"name" => "Oberkampf",
+			"location" => "Paris 11e",
+		],
+		"antony" => [
+			"name" => "Antony",
+			"location" => "92",
+		],
 		"online" => [
 			"name" => "À distance",
 			"location" => "",
