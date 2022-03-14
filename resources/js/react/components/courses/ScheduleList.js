@@ -59,7 +59,7 @@ function ScheduleList({schedules = {}, edit = false, onChange}) {
 						<Input type="text" className="flex-auto" ref={newScheduleInputRef} placeholder="mon, tue, sat, mon-fri, sat-sun"/>
 						<Button.Group className="flex-none">
 							<Button icon={<CloseOutlined/>} onClick={hideAddScheduleInput}/>
-							<Button icon={<CheckOutlined/>} onClick={() => addSchedule(newScheduleInputRef.current.state.value)}/>
+							<Button icon={<CheckOutlined/>} onClick={() => addSchedule(newScheduleInputRef.current.input.value)}/>
 						</Button.Group>
 					</>)}
 				</div>

@@ -50,7 +50,7 @@ const Schedule = ({title, hours = [], edit = false, onChange}) => {
 								className="w-20"
 								ref={inputRef}
 								value={inputValue}
-								placeholder="mon, tue, sat, mon-fri, sat-sun"
+								placeholder="12:30"
 								onChange={(e) => setInputValue(e.target.value)}
 								onBlur={() => setInputVisible(false)}
 								onPressEnter={addHour}
